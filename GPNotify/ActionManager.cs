@@ -11,7 +11,7 @@ namespace GPNotify
     //(c) Caraxi / Remind me  https://github.com/Caraxi/RemindMe
     class ActionManager
     {
-        public const byte PotionCDGroup = 59;
+        public const byte PotionCDGroup = 69;
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         private delegate IntPtr GetActionCooldownSlotDelegate(IntPtr actionManager, int cooldownGroup);
 

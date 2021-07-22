@@ -70,7 +70,7 @@ namespace GPNotify
                 }
                 catch(Exception e)
                 {
-                    pi.Framework.Gui.Chat.Print("[GPNotify] Error: " + e.Message + "\n" + e.StackTrace);
+                    pi.Framework.Gui.Toast.ShowError("Error: " + e.Message);
                 }
             }
         }
@@ -82,7 +82,9 @@ namespace GPNotify
             if (pi.ClientState?.LocalPlayer == null) return;
             if (pi.ClientState.LocalPlayer.ClassJob.Id != 16 && pi.ClientState.LocalPlayer.ClassJob.Id != 17) return;
             var gp = pi.ClientState.LocalPlayer.CurrentGp;
+            //pi.Framework.Gui.Chat.Print(actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownElapsed + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownTotal);
             if (!actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown) gp += cfg.PotionCapacity;
+            //pi.Framework.Gui.Chat.Print(DateTimeOffset.Now + ": " + gp);
             if(gp >= cfg.GPTreshold)
             {
                 if (needNotification) 
