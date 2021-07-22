@@ -1,0 +1,6 @@
+﻿{
+  "Name": "GPNotify",
+  "Author": "Eternita",
+  "Description": "Notifies you when your GP recovers to certain amount as gatherer, takes potion into account as well.",
+  "RepoUrl": "https://github.com/Eternita-S/GPNotify"
+}
