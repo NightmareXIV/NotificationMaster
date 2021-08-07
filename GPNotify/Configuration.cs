@@ -18,6 +18,7 @@ namespace GPNotify
         public bool AutoActivateWindow = false;
         public int PotionCapacity = 400;
         public int GPTreshold = 800;
+        public int Tolerance = 50;
 
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;

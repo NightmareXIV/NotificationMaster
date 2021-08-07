@@ -40,7 +40,10 @@ namespace GPNotify
             cfg.Initialize(pi);
             actMgr = new ActionManager(this);
             pi.Framework.OnUpdateEvent += Tick;
-            pi.CommandManager.AddHandler("/gp", new CommandInfo(OnCommand));
+            pi.CommandManager.AddHandler("/gp", new CommandInfo(OnCommand) 
+            { 
+                HelpMessage = "open config\n/gp <number> → set trigger GP amount"    
+            });
             configGui = new ConfigGui(this);
             pi.UiBuilder.OnOpenConfigUi += delegate { configGui.open = true; };
         }
@@ -80,7 +83,13 @@ namespace GPNotify
             if (Environment.TickCount < nextTick) return;
             nextTick = Environment.TickCount + 5000;
             if (pi.ClientState?.LocalPlayer == null) return;
-            if (pi.ClientState.LocalPlayer.ClassJob.Id != 16 && pi.ClientState.LocalPlayer.ClassJob.Id != 17) return;
+            if (pi.ClientState.LocalPlayer.ClassJob.Id != 16
+                && pi.ClientState.LocalPlayer.ClassJob.Id != 17
+                && pi.ClientState.LocalPlayer.ClassJob.Id != 18)
+            {
+                needNotification = false;
+                return;
+            }
             var gp = pi.ClientState.LocalPlayer.CurrentGp;
             //pi.Framework.Gui.Chat.Print(actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownElapsed + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownTotal);
             if (!actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown) gp += cfg.PotionCapacity;
@@ -130,7 +139,10 @@ namespace GPNotify
             }
             else
             {
-                needNotification = true;
+                if (gp + cfg.Tolerance < cfg.GPTreshold)
+                {
+                    needNotification = true;
+                }
             }
         }
     }
