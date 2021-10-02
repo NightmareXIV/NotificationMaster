@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GPNotify
+namespace NotificationMaster
 {
     [Serializable]
     class Configuration : IPluginConfiguration

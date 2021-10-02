@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GPNotify
+namespace NotificationMaster
 {
     //(c) Caraxi / Remind me  https://github.com/Caraxi/RemindMe
     class ActionManager
@@ -19,7 +19,7 @@ namespace GPNotify
         private IntPtr actionManagerStatic;
 
 
-        public ActionManager(GPNotify plugin)
+        public ActionManager(NotificationMaster plugin)
         {
             actionManagerStatic = plugin.pi.TargetModuleScanner
                 .GetStaticAddressFromSig("48 89 05 ?? ?? ?? ?? C3 CC C2 00 00 CC CC CC CC CC CC CC CC CC CC CC CC CC 48 8D 0D ?? ?? ?? ?? E9 ?? ?? ?? ??");

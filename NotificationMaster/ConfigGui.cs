@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GPNotify
+namespace NotificationMaster
 {
     class ConfigGui : IDisposable
     {
         internal bool open = false;
-        GPNotify p;
-        internal ConfigGui(GPNotify p)
+        NotificationMaster p;
+        internal ConfigGui(NotificationMaster p)
         {
             this.p = p;
             p.pi.UiBuilder.OnBuildUi += Draw;
@@ -26,7 +26,7 @@ namespace GPNotify
         internal void Draw()
         {
             if (!open) return;
-            if(ImGui.Begin("GPNotify configuration", ref open, ImGuiWindowFlags.AlwaysAutoResize))
+            if(ImGui.Begin("NotificationMaster configuration", ref open, ImGuiWindowFlags.AlwaysAutoResize))
             {
                 ImGui.Text("General options:");
                 ImGui.SetNextItemWidth(100f);

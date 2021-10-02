@@ -1,6 +1,5 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.Game.Internal;
-using Dalamud.Game.Internal.Gui.Toast;
 using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GPNotify
+namespace NotificationMaster
 {
-    class GPNotify : IDalamudPlugin
+    class NotificationMaster : IDalamudPlugin
     {
         internal DalamudPluginInterface pi;
         internal ActionManager actMgr;
@@ -23,7 +22,7 @@ namespace GPNotify
         internal bool needNotification = false;
         internal ConfigGui configGui;
 
-        public string Name => "GPNotify";
+        public string Name => "NotificationMaster";
 
         public void Dispose()
         {

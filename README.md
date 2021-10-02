@@ -1,4 +1,4 @@
-# GPNotify
+# NotificationMaster
 Notifies you when your GP recovers to certain amount as gatherer, takes potion into account as well.
 
 ## Install
