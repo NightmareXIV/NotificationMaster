@@ -1,4 +1,5 @@
-﻿using Dalamud.Logging;
+﻿using Dalamud.Interface.Internal.Notifications;
+using Dalamud.Logging;
 using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace NotificationMaster
         internal Configuration cfg;
         internal ConfigGui configGui;
         internal GpNotify gpNotify = null;
+        internal CutsceneEnded cutsceneEnded = null;
 
         public string Name => "NotificationMaster";
 
@@ -27,43 +29,24 @@ namespace NotificationMaster
             configGui = new ConfigGui(this);
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
 
-            if (cfg.gp_Enable) SetupGpNotify(true);
+            if (cfg.gp_Enable) GpNotify.Setup(true, this);
+            if (cfg.cutscene_Enable) CutsceneEnded.Setup(true, this);
+            if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
+            {
+                configGui.open = true;
+                Svc.PluginInterface.UiBuilder.AddNotification(
+                    "You have installed NotificationMaster plugin. By default, it has no modules enabled. \n" +
+                    "A settings window has been opened: please configure the plugin.", 
+                    "Please configure NotificationMaster", NotificationType.Info, 10000);
+            }
         }
 
         public void Dispose()
         {
-            SetupGpNotify(false);
+            GpNotify.Setup(false, this);
+            CutsceneEnded.Setup(false, this);
             cfg.Save();
             configGui.Dispose();
-        }
-
-        internal void SetupGpNotify(bool enable)
-        {
-            if (enable)
-            {
-                if(gpNotify == null)
-                {
-                    gpNotify = new GpNotify(this);
-                    PluginLog.Verbose("Enabling GP notify");
-                }
-                else
-                {
-                    PluginLog.Verbose("GP notify module already enabled");
-                }
-            }
-            else
-            {
-                if (gpNotify != null)
-                {
-                    gpNotify.Dispose();
-                    gpNotify = null;
-                    PluginLog.Verbose("Disabling GP notify");
-                }
-                else
-                {
-                    PluginLog.Verbose("GP notify module already disabled");
-                }
-            }
         }
     }
 }

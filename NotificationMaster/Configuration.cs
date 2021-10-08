@@ -21,6 +21,12 @@ namespace NotificationMaster
         public int gp_GPTreshold = 800;
         public int gp_Tolerance = 50;
 
+        public bool cutscene_Enable = false;
+        public bool cutscene_ShowToastNotification = true;
+        public bool cutscene_FlashTrayIcon = true;
+        public bool cutscene_AutoActivateWindow = false;
+        public bool cutscene_OnlyMSQ = false;
+
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;
 

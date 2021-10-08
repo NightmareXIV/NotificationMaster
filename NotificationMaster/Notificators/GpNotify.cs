@@ -2,6 +2,7 @@
 using Dalamud.Game.Command;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Internal;
+using Dalamud.Logging;
 using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Windows.Forms;
 
 namespace NotificationMaster
 {
-    unsafe class GpNotify
+    class GpNotify : IDisposable
     {
         internal int nextTick = 0;
         internal bool needNotification = false;
@@ -93,12 +94,12 @@ namespace NotificationMaster
                     {
                         if (p.cfg.gp_FlashTrayIcon)
                         {
-                            Native.ActivateWindow();
+                            Native.Impl.FlashWindow();
                         }
-                        if (p.cfg.gp_AutoActivateWindow) Native.SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
+                        if (p.cfg.gp_AutoActivateWindow) Native.Impl.Activate();
                         if (p.cfg.gp_ShowToastNotification)
                         {
-                            Native.ShowToast(gp + " GP ready!");
+                            Native.Impl.ShowToast(gp + " GP ready!");
                         }
                     }
                 }
@@ -108,6 +109,37 @@ namespace NotificationMaster
                 if (gp + p.cfg.gp_Tolerance < p.cfg.gp_GPTreshold)
                 {
                     needNotification = true;
+                }
+            }
+        }
+
+
+
+        internal static void Setup(bool enable, NotificationMaster p)
+        {
+            if (enable)
+            {
+                if (p.gpNotify == null)
+                {
+                    p.gpNotify = new GpNotify(p);
+                    PluginLog.Verbose("Enabling GP notify");
+                }
+                else
+                {
+                    PluginLog.Verbose("GP notify module already enabled");
+                }
+            }
+            else
+            {
+                if (p.gpNotify != null)
+                {
+                    p.gpNotify.Dispose();
+                    p.gpNotify = null;
+                    PluginLog.Verbose("Disabling GP notify");
+                }
+                else
+                {
+                    PluginLog.Verbose("GP notify module already disabled");
                 }
             }
         }

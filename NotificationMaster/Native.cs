@@ -99,39 +99,47 @@ namespace NotificationMaster
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        public static void ActivateWindow()
+        public class Impl
         {
-            var flashInfo = new Native.FLASHWINFO
-            {
-                cbSize = (uint)Marshal.SizeOf<Native.FLASHWINFO>(),
-                uCount = uint.MaxValue,
-                dwTimeout = 0,
-                dwFlags = Native.FlashWindow.FLASHW_ALL |
-                                            Native.FlashWindow.FLASHW_TIMERNOFG,
-                hwnd = Process.GetCurrentProcess().MainWindowHandle
-            };
-            Native.FlashWindowEx(ref flashInfo);
-        }
 
-        public static void ShowToast(string str, string title = "")
-        {
-            var n = new NotifyIcon
+            public static void FlashWindow()
             {
-                Icon = SystemIcons.Application,
-                Visible = true
-            };
-            n.ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
-            n.BalloonTipClosed += delegate
+                var flashInfo = new Native.FLASHWINFO
+                {
+                    cbSize = (uint)Marshal.SizeOf<Native.FLASHWINFO>(),
+                    uCount = uint.MaxValue,
+                    dwTimeout = 0,
+                    dwFlags = Native.FlashWindow.FLASHW_ALL |
+                                                Native.FlashWindow.FLASHW_TIMERNOFG,
+                    hwnd = Process.GetCurrentProcess().MainWindowHandle
+                };
+                Native.FlashWindowEx(ref flashInfo);
+            }
+
+            public static void ShowToast(string str, string title = "")
             {
-                n.Visible = false;
-                n.Dispose();
-            };
-            n.BalloonTipClicked += delegate
+                var n = new NotifyIcon
+                {
+                    Icon = SystemIcons.Application,
+                    Visible = true
+                };
+                n.ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
+                n.BalloonTipClosed += delegate
+                {
+                    n.Visible = false;
+                    n.Dispose();
+                };
+                n.BalloonTipClicked += delegate
+                {
+                    n.Visible = false;
+                    n.Dispose();
+                };
+            }
+
+            public static void Activate()
             {
-                ActivateWindow();
-                n.Visible = false;
-                n.Dispose();
-            };
+                SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
+            }
         }
     }
 }

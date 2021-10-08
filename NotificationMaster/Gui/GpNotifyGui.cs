@@ -13,7 +13,7 @@ namespace NotificationMaster
         {
             if(ImGui.Checkbox("Enable##gpn", ref p.cfg.gp_Enable))
             {
-                p.SetupGpNotify(p.cfg.gp_Enable);
+                GpNotify.Setup(p.cfg.gp_Enable, p);
             }
             if (p.cfg.gp_Enable)
             {
