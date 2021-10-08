@@ -11,7 +11,6 @@ namespace NotificationMaster
     //(c) Caraxi / Remind me  https://github.com/Caraxi/RemindMe
     class ActionManager
     {
-        public const byte PotionCDGroup = 69;
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         private delegate IntPtr GetActionCooldownSlotDelegate(IntPtr actionManager, int cooldownGroup);
 
@@ -21,9 +20,9 @@ namespace NotificationMaster
 
         public ActionManager(NotificationMaster plugin)
         {
-            actionManagerStatic = plugin.pi.TargetModuleScanner
+            actionManagerStatic = Svc.SigScanner
                 .GetStaticAddressFromSig("48 89 05 ?? ?? ?? ?? C3 CC C2 00 00 CC CC CC CC CC CC CC CC CC CC CC CC CC 48 8D 0D ?? ?? ?? ?? E9 ?? ?? ?? ??");
-            var getActionCooldownSlotScan = plugin.pi.TargetModuleScanner.ScanText("E8 ?? ?? ?? ?? 0F 57 FF 48 85 C0");
+            var getActionCooldownSlotScan = Svc.SigScanner.ScanText("E8 ?? ?? ?? ?? 0F 57 FF 48 85 C0");
             getActionCooldownSlot = Marshal.GetDelegateForFunctionPointer<GetActionCooldownSlotDelegate>(getActionCooldownSlotScan);
         }
         public IntPtr GetCooldownPointer(byte actionCooldownGroup)

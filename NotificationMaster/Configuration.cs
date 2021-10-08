@@ -13,12 +13,13 @@ namespace NotificationMaster
     {
         public int Version { get; set; } = 1;
 
-        public bool ShowToastNotification = true;
-        public bool FlashTrayIcon = true;
-        public bool AutoActivateWindow = false;
-        public int PotionCapacity = 400;
-        public int GPTreshold = 800;
-        public int Tolerance = 50;
+        public bool gp_Enable = false;
+        public bool gp_ShowToastNotification = true;
+        public bool gp_FlashTrayIcon = true;
+        public bool gp_AutoActivateWindow = false;
+        public int gp_PotionCapacity = 400;
+        public int gp_GPTreshold = 800;
+        public int gp_Tolerance = 50;
 
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;
