@@ -1,5 +1,5 @@
 # NotificationMaster
-Notifies you when your GP recovers to certain amount as gatherer, takes potion into account as well.
+Notifies you about various events while your game is minimized.
 
 ## Install
 Enable plugin testing in `/xlsettings` - experimental, then install plugin from the plugin list.
