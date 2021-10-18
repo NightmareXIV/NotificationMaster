@@ -27,6 +27,12 @@ namespace NotificationMaster
         public bool cutscene_AutoActivateWindow = false;
         public bool cutscene_OnlyMSQ = false;
 
+        public bool chatMessage_Enable = false;
+        public bool chatMessage_ShowToastNotification = true;
+        public bool chatMessage_FlashTrayIcon = true;
+        public bool chatMessage_AutoActivateWindow = false;
+        public List<ChatMessageElement> chatMessage_Elements = new();
+
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;
 
