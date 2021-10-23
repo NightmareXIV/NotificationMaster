@@ -44,6 +44,12 @@ namespace NotificationMaster
                 {
                     Native.Impl.ShowToast("Cutscene ended");
                 }
+                if (p.cfg.cutscene_HttpRequestsEnable)
+                {
+                    p.httpMaster.DoRequests(p.cfg.cutscene_HttpRequests,
+                        new string[][] { }
+                    );
+                }
             }
             isInCutscene = c;
         }

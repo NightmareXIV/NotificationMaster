@@ -20,18 +20,24 @@ namespace NotificationMaster
         public int gp_PotionCapacity = 400;
         public int gp_GPTreshold = 800;
         public int gp_Tolerance = 50;
+        public bool gp_HttpRequestsEnable = false;
+        public List<HttpRequestElement> gp_HttpRequests = new();
 
         public bool cutscene_Enable = false;
         public bool cutscene_ShowToastNotification = true;
         public bool cutscene_FlashTrayIcon = true;
         public bool cutscene_AutoActivateWindow = false;
         public bool cutscene_OnlyMSQ = false;
+        public bool cutscene_HttpRequestsEnable = false;
+        public List<HttpRequestElement> cutscene_HttpRequests = new();
 
         public bool chatMessage_Enable = false;
         public bool chatMessage_ShowToastNotification = true;
         public bool chatMessage_FlashTrayIcon = true;
         public bool chatMessage_AutoActivateWindow = false;
         public List<ChatMessageElement> chatMessage_Elements = new();
+        public bool chatMessage_HttpRequestsEnable = false;
+        public List<HttpRequestElement> chatMessage_HttpRequests = new();
 
         public bool cfPop_Enable = false;
         public bool cfPop_ShowToastNotification = true;

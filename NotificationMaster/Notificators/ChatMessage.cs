@@ -67,6 +67,17 @@ namespace NotificationMaster
                             {
                                 Native.Impl.ShowToast(messageFullStr, "Message" + (senderFullStr == "" ? "" : $" from {senderFullStr}"));
                             }
+                            if (p.cfg.chatMessage_HttpRequestsEnable)
+                            {
+                                p.httpMaster.DoRequests(p.cfg.chatMessage_HttpRequests,
+                                    new string[][]
+                                    {
+                                        new string[] {"$S", senderFullStr},
+                                        new string[] {"$M", messageFullStr},
+                                        new string[] {"$T", type.ToString()},
+                                    }
+                                );
+                            }
                         }
                     }
                 }

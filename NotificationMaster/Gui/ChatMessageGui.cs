@@ -29,6 +29,8 @@ namespace NotificationMaster
                 ImGui.Checkbox("Show tray notification", ref p.cfg.chatMessage_ShowToastNotification);
                 ImGui.Checkbox("Flash taskbar icon", ref p.cfg.chatMessage_FlashTrayIcon);
                 ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.chatMessage_AutoActivateWindow);
+                DrawHttpMaster(p.cfg.chatMessage_HttpRequests, ref p.cfg.chatMessage_HttpRequestsEnable,
+                    "$S - sender\n$M - message\n$T - chat type");
                 ImGui.Separator();
                 if (ImGui.CollapsingHeader("Triggers"))
                 {

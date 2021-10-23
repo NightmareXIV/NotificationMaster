@@ -101,6 +101,16 @@ namespace NotificationMaster
                         {
                             Native.Impl.ShowToast(gp + " GP ready!");
                         }
+
+                        if (p.cfg.gp_HttpRequestsEnable)
+                        {
+                            p.httpMaster.DoRequests(p.cfg.gp_HttpRequests,
+                                new string[][]
+                                {
+                                        new string[] {"$G", gp.ToString()},
+                                }
+                            );
+                        }
                     }
                 }
             }
