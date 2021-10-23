@@ -38,6 +38,8 @@ namespace NotificationMaster
         public bool cfPop_FlashTrayIcon = true;
         public bool cfPop_AutoActivateWindow = false;
         public bool cfPop_NotifyIn30 = false;
+        public bool cfPop_HttpRequestsEnable = false;
+        public List<HttpRequestElement> cfPop_HttpRequests = new();
 
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;

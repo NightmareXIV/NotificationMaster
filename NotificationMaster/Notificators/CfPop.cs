@@ -63,6 +63,16 @@ namespace NotificationMaster
             {
                 Native.Impl.ShowToast(str, soonEnd?"Duty invitation expires in 15 seconds!":"Duty pop");
             }
+            if (p.cfg.cfPop_HttpRequestsEnable)
+            {
+                p.httpMaster.DoRequests(p.cfg.cfPop_HttpRequests,
+                    new string[][]
+                    {
+                        new string[] {"$N", str},
+                        new string[] {"$T", soonEnd ? "15":"45"}
+                    }
+                );
+            }
         }
 
         internal static void Setup(bool enable, NotificationMaster p)

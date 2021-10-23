@@ -21,5 +21,14 @@ namespace NotificationMaster
         {
             return s == null ? "" : s;
         }
+
+        public static string ReplaceAll(this string s, string[][] replacementArray)
+        {
+            foreach(var e in replacementArray)
+            {
+                s = s.Replace(e[0], e[1]);
+            }
+            return s;
+        }
     }
 }

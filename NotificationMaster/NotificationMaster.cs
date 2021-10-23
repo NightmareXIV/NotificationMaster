@@ -18,6 +18,7 @@ namespace NotificationMaster
         internal CutsceneEnded cutsceneEnded = null;
         internal ChatMessage chatMessage = null;
         internal CfPop cfPop = null;
+        internal HttpMaster httpMaster;
 
         public string Name => "NotificationMaster";
 
@@ -27,6 +28,7 @@ namespace NotificationMaster
             cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             cfg.Initialize(Svc.PluginInterface);
             actMgr = new ActionManager(this);
+            httpMaster = new HttpMaster();
 
             configGui = new ConfigGui(this);
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
