@@ -1,4 +1,5 @@
-﻿using Dalamud.Interface.Internal.Notifications;
+﻿using Dalamud.Game.Command;
+using Dalamud.Interface.Internal.Notifications;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using System;
@@ -45,6 +46,13 @@ namespace NotificationMaster
                     "A settings window has been opened: please configure the plugin.", 
                     "Please configure NotificationMaster", NotificationType.Info, 10000);
             }
+            Svc.Commands.AddHandler("/pnotify", new CommandInfo(delegate
+            {
+                configGui.open = !configGui.open;
+            })
+            {
+                HelpMessage = "open/close configuration"
+            });
         }
 
         public void Dispose()
@@ -55,6 +63,7 @@ namespace NotificationMaster
             CfPop.Setup(false, this);
             cfg.Save();
             configGui.Dispose();
+            Svc.Commands.RemoveHandler("/pnotify");
         }
     }
 }
