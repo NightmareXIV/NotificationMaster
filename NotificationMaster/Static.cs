@@ -26,7 +26,7 @@ namespace NotificationMaster
         {
             foreach(var e in replacementArray)
             {
-                s = s.Replace(e[0], e[1]);
+                s = s.Replace(e[0], e[1].Replace("\"", "\\\""));
             }
             return s;
         }
