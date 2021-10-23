@@ -43,7 +43,7 @@ namespace NotificationMaster
                     foreach (var e in p.cfg.chatMessage_Elements)
                     {
                         if (
-                            (e.ChatType == 0 || e.ChatType == (ushort)type)
+                            (e.ChatTypes.Count == 0 || e.ChatTypes.Contains((ushort)type))
                             && (e.MessageStr == ""
                                 || (e.MessageStr == "" && messageFullStr == "")
                                 || (e.CompareType == 0 && messageFullStr.Contains(e.MessageStr))
@@ -109,6 +109,7 @@ namespace NotificationMaster
         [NonSerialized] internal readonly static string[] CompareTypes = { "Exact", "Case insensitive", "Regexp" };
 
         public ushort ChatType = 0;
+        public HashSet<ushort> ChatTypes = new HashSet<ushort>();
         /// <summary>
         /// 0: Exact; 1: Case insensitive; 2: Regexp
         /// </summary>

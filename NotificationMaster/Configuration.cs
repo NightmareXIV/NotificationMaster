@@ -39,6 +39,14 @@ namespace NotificationMaster
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;
+            foreach(var e in chatMessage_Elements)
+            {
+                if(e.ChatType != 0)
+                {
+                    e.ChatTypes.Add(e.ChatType);
+                }
+                e.ChatType = 0;
+            }
         }
 
         public void Save()

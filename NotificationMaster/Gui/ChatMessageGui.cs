@@ -13,6 +13,7 @@ namespace NotificationMaster
 {
     partial class ConfigGui
     {
+        int CustomTypeToAdd = 0;
         internal void DrawChatMessageGui()
         {
             var id = 0;
@@ -57,32 +58,34 @@ namespace NotificationMaster
                     {
                         var elem = p.cfg.chatMessage_Elements[i];
                         ImGui.Columns(5);
-                        var chatTypeInt = (int)elem.ChatType;
                         ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
-                        ImGui.DragInt("##f1" + i, ref chatTypeInt, float.Epsilon, 0, ushort.MaxValue, ((XivChatType)elem.ChatType).ToString());
-                        if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
+                        if (ImGui.BeginCombo("##fselect"+i, elem.ChatTypes.Count == 0? "Any" : elem.ChatTypes.Count == 1? ((XivChatType)elem.ChatTypes.First()).ToString():$"{elem.ChatTypes.Count} types"))
                         {
-                            ImGui.OpenPopup("##c1" + i);
-                        }
-                        if (ImGui.IsItemHovered())
-                        {
-                            ImGui.SetTooltip("Right click - select;\nDouble left click - enter manually.");
-                        }
-                        if (chatTypeInt >= ushort.MinValue && chatTypeInt <= ushort.MaxValue) elem.ChatType = (ushort)chatTypeInt;
-                        if(ImGui.IsPopupOpen("##c1" + i))
-                        {
-                            ImGui.SetNextWindowSize(new Vector2(200, 400));
-                        }
-                        if (ImGui.BeginPopup("##c1"+i))
-                        {
-                            foreach(var e in Enum.GetValues(typeof(XivChatType)))
+                            var customElements = new HashSet<ushort>(elem.ChatTypes);
+                            customElements.RemoveWhere(p => Enum.GetValues<XivChatType>().ToHashSet().Contains((XivChatType)p));
+                            var elemenets = Enum.GetValues<XivChatType>().Select(e => (ushort)e).ToHashSet().Union(customElements);
+                            foreach (var e in elemenets)
                             {
-                                if(ImGui.Selectable((ushort)e + "/" + e))
+                                var selected = elem.ChatTypes.Contains(e);
+                                ImGui.Checkbox(((XivChatType)e).ToString(), ref selected);
+                                if (selected)
                                 {
-                                    elem.ChatType = (ushort)e;
+                                    elem.ChatTypes.Add(e);
+                                }
+                                else
+                                {
+                                    elem.ChatTypes.Remove(e);
                                 }
                             }
-                            ImGui.EndPopup();
+                            ImGui.SetNextItemWidth(50f);
+                            ImGui.InputInt("##typecustom" + i, ref CustomTypeToAdd, 0, 0);
+                            ImGui.SameLine();
+                            if(ImGui.Button("Add custom type"))
+                            {
+                                elem.ChatTypes.Add((ushort)CustomTypeToAdd);
+                                CustomTypeToAdd = 0;
+                            }
+                            ImGui.EndCombo();
                         }
                         ImGui.NextColumn();
                         ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
@@ -150,7 +153,7 @@ namespace NotificationMaster
                                 {
                                     p.cfg.chatMessage_Elements.Add(new ChatMessageElement()
                                     {
-                                        ChatType = e.Type,
+                                        ChatTypes = new HashSet<ushort>() { e.Type },
                                         MessageStr = e.Message,
                                         SenderStr = e.Sender
                                     });
