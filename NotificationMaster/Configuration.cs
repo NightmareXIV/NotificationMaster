@@ -33,6 +33,12 @@ namespace NotificationMaster
         public bool chatMessage_AutoActivateWindow = false;
         public List<ChatMessageElement> chatMessage_Elements = new();
 
+        public bool cfPop_Enable = false;
+        public bool cfPop_ShowToastNotification = true;
+        public bool cfPop_FlashTrayIcon = true;
+        public bool cfPop_AutoActivateWindow = false;
+        public bool cfPop_NotifyIn30 = false;
+
         [NonSerialized]
         private DalamudPluginInterface pluginInterface;
 

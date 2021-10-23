@@ -17,6 +17,7 @@ namespace NotificationMaster
         internal GpNotify gpNotify = null;
         internal CutsceneEnded cutsceneEnded = null;
         internal ChatMessage chatMessage = null;
+        internal CfPop cfPop = null;
 
         public string Name => "NotificationMaster";
 
@@ -33,6 +34,7 @@ namespace NotificationMaster
             if (cfg.gp_Enable) GpNotify.Setup(true, this);
             if (cfg.cutscene_Enable) CutsceneEnded.Setup(true, this);
             if (cfg.chatMessage_Enable) ChatMessage.Setup(true, this);
+            if (cfg.cfPop_Enable) CfPop.Setup(true, this);
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;
@@ -48,6 +50,7 @@ namespace NotificationMaster
             GpNotify.Setup(false, this);
             CutsceneEnded.Setup(false, this);
             ChatMessage.Setup(false, this);
+            CfPop.Setup(false, this);
             cfg.Save();
             configGui.Dispose();
         }

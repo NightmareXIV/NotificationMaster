@@ -122,11 +122,11 @@ namespace NotificationMaster
                 if (p.gpNotify == null)
                 {
                     p.gpNotify = new GpNotify(p);
-                    PluginLog.Verbose("Enabling GP notify");
+                    PluginLog.Information("Enabling GP notify");
                 }
                 else
                 {
-                    PluginLog.Verbose("GP notify module already enabled");
+                    PluginLog.Information("GP notify module already enabled");
                 }
             }
             else
@@ -135,11 +135,11 @@ namespace NotificationMaster
                 {
                     p.gpNotify.Dispose();
                     p.gpNotify = null;
-                    PluginLog.Verbose("Disabling GP notify");
+                    PluginLog.Information("Disabling GP notify");
                 }
                 else
                 {
-                    PluginLog.Verbose("GP notify module already disabled");
+                    PluginLog.Information("GP notify module already disabled");
                 }
             }
         }

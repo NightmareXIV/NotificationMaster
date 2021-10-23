@@ -80,11 +80,11 @@ namespace NotificationMaster
                 if (p.chatMessage == null)
                 {
                     p.chatMessage = new ChatMessage(p);
-                    PluginLog.Verbose("Enabling chat message module");
+                    PluginLog.Information("Enabling chat message module");
                 }
                 else
                 {
-                    PluginLog.Verbose("chat message module already enabled");
+                    PluginLog.Information("chat message module already enabled");
                 }
             }
             else
@@ -93,11 +93,11 @@ namespace NotificationMaster
                 {
                     p.chatMessage.Dispose();
                     p.chatMessage = null;
-                    PluginLog.Verbose("Disabling chat message module");
+                    PluginLog.Information("Disabling chat message module");
                 }
                 else
                 {
-                    PluginLog.Verbose("chat message module already disabled");
+                    PluginLog.Information("chat message module already disabled");
                 }
             }
         }

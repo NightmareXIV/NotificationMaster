@@ -34,6 +34,7 @@ namespace NotificationMaster
                 DrawTab("GP notify", DrawGpNotify, p.cfg.gp_Enable);
                 DrawTab("Cutscene ending notify", DrawCutsceneConfig, p.cfg.cutscene_Enable);
                 DrawTab("Chat message notify", DrawChatMessageGui, p.cfg.chatMessage_Enable);
+                DrawTab("Duty pop notify", DrawCfPopConfig, p.cfg.cfPop_Enable);
                 ImGui.EndTabBar();
             }
             ImGui.End();

@@ -56,11 +56,11 @@ namespace NotificationMaster
                 if (p.cutsceneEnded == null)
                 {
                     p.cutsceneEnded = new CutsceneEnded(p);
-                    PluginLog.Verbose("Enabling cutscene ended module");
+                    PluginLog.Information("Enabling cutscene ended module");
                 }
                 else
                 {
-                    PluginLog.Verbose("cutscene ended module already enabled");
+                    PluginLog.Information("cutscene ended module already enabled");
                 }
             }
             else
@@ -69,11 +69,11 @@ namespace NotificationMaster
                 {
                     p.cutsceneEnded.Dispose();
                     p.cutsceneEnded = null;
-                    PluginLog.Verbose("Disabling cutscene ended module");
+                    PluginLog.Information("Disabling cutscene ended module");
                 }
                 else
                 {
-                    PluginLog.Verbose("cutscene ended module already disabled");
+                    PluginLog.Information("cutscene ended module already disabled");
                 }
             }
         }
