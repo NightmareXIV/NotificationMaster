@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using static NotificationMaster.Static;
 
 namespace NotificationMaster
 {
@@ -49,7 +50,7 @@ namespace NotificationMaster
         {
             foreach (var e in elements)
             {
-                Request(e.URI.ReplaceAll(replacements), e.Content.ReplaceAll(replacements), e.type);
+                Request(e.URI.ReplaceAll(replacements, ReplaceType.URLEncode), e.Content.ReplaceAll(replacements, e.type==2?ReplaceType.JSON:ReplaceType.Normal), e.type);
             }
         }
     }

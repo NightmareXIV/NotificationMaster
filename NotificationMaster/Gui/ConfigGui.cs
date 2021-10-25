@@ -78,7 +78,7 @@ namespace NotificationMaster
                     ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
                     ImGui.InputText("##url" + i, ref e.URI, 100000);
                     ImGui.Text("Content:");
-                    ImGui.InputTextMultiline("##MultilineContent"+i, ref e.Content, 1000000, new Vector2(ImGui.GetContentRegionAvail().X, Math.Min((e.Content.Split('\n').Length+2)*ImGui.CalcTextSize("AAAAAAAA").Y, 300f)));
+                    ImGui.InputTextMultiline("##MultilineContent"+i, ref e.Content, 1000000, new Vector2(ImGui.GetContentRegionAvail().X, Math.Min((e.Content.Split('\n').Length+1)*ImGui.CalcTextSize("AAAAAAAA").Y, 300f)));
                     ImGui.Separator();
                 }
                 try

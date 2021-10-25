@@ -44,7 +44,8 @@ namespace NotificationMaster
                 }
                 extraNotify = new TickScheduler(delegate
                 {
-                    if (!Native.ApplicationIsActivated() && Svc.Condition[ConditionFlag.WaitingForDutyFinder])
+                    if (!Native.ApplicationIsActivated() && Svc.Condition[ConditionFlag.WaitingForDutyFinder]
+                     && !Svc.Condition[ConditionFlag.WaitingForDuty])
                     {
                         DoNotify(e.Name.ToString(), true);
                     }

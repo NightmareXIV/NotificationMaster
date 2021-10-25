@@ -105,6 +105,15 @@ namespace NotificationMaster
                         }
                         ImGui.NextColumn();
                         ImGui.Columns(1);
+                        ImGui.Text("Exceptions:");
+                        ImGui.SameLine();
+                        ImGui.Checkbox("No flashing##" + i, ref elem.NoFlash);
+                        ImGui.SameLine();
+                        ImGui.Checkbox("No bring to foreground##" + i, ref elem.NoForeground);
+                        ImGui.SameLine();
+                        ImGui.Checkbox("No toast##" + i, ref elem.NoToast);
+                        ImGui.SameLine();
+                        ImGui.Checkbox("No HTTP##" + i, ref elem.NoHTTP);
                         ImGui.Separator();
                     }
                     //ImGui.EndChild();

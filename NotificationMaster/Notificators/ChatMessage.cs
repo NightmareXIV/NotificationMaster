@@ -58,16 +58,16 @@ namespace NotificationMaster
                             )
                         )
                         {
-                            if (p.cfg.chatMessage_FlashTrayIcon)
+                            if (p.cfg.chatMessage_FlashTrayIcon && !e.NoFlash)
                             {
                                 Native.Impl.FlashWindow();
                             }
-                            if (p.cfg.chatMessage_AutoActivateWindow) Native.Impl.Activate();
-                            if (p.cfg.chatMessage_ShowToastNotification)
+                            if (p.cfg.chatMessage_AutoActivateWindow && !e.NoForeground) Native.Impl.Activate();
+                            if (p.cfg.chatMessage_ShowToastNotification &&!e.NoToast)
                             {
                                 Native.Impl.ShowToast(messageFullStr, "Message" + (senderFullStr == "" ? "" : $" from {senderFullStr}"));
                             }
-                            if (p.cfg.chatMessage_HttpRequestsEnable)
+                            if (p.cfg.chatMessage_HttpRequestsEnable && !e.NoHTTP)
                             {
                                 p.httpMaster.DoRequests(p.cfg.chatMessage_HttpRequests,
                                     new string[][]
@@ -127,5 +127,9 @@ namespace NotificationMaster
         public int CompareType = 0;
         public string SenderStr = "";
         public string MessageStr = "";
+        public bool NoFlash = false;
+        public bool NoForeground = false;
+        public bool NoToast = false;
+        public bool NoHTTP = false;
     }
 }
