@@ -31,7 +31,7 @@ namespace NotificationMaster
 
         private void Pop(object sender, ContentFinderCondition e)
         {
-            //Svc.Chat.Print("Cf pop");
+            PluginLog.Debug("Cf pop " + e.Name.ToString());
             if (!Native.ApplicationIsActivated())
             {
                 DoNotify(e.Name.ToString());
@@ -55,6 +55,7 @@ namespace NotificationMaster
 
         void DoNotify(string str, bool soonEnd = false)
         {
+            if (str == "") str = "Duty roulette";
             if (p.cfg.cfPop_FlashTrayIcon)
             {
                 Native.Impl.FlashWindow();
