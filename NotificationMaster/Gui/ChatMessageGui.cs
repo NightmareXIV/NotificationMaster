@@ -165,8 +165,8 @@ namespace NotificationMaster
                                     p.cfg.chatMessage_Elements.Add(new ChatMessageElement()
                                     {
                                         ChatTypes = new HashSet<ushort>() { e.Type },
-                                        MessageStr = e.Message,
-                                        SenderStr = e.Sender
+                                        MessageStr = e.Message.Split('\n')[0],
+                                        SenderStr = e.Sender.Split('\n')[0]
                                     });
                                 }
                                 ImGui.SetCursorPos(cursor2);

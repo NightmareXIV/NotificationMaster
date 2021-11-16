@@ -45,15 +45,15 @@ namespace NotificationMaster
                         if (
                             (e.ChatTypes.Count == 0 || e.ChatTypes.Contains((ushort)type))
                             && (e.MessageStr == ""
-                                || (e.MessageStr == "" && messageFullStr == "")
-                                || (e.CompareType == 0 && messageFullStr.Contains(e.MessageStr))
-                                || (e.CompareType == 1 && messageFullStr.Contains(e.MessageStr, StringComparison.InvariantCultureIgnoreCase))
+                                //|| (e.MessageStr == "" && messageFullStr == "")
+                                || (e.CompareType == 0 && messageFullStr.Contains(e.MessageStr, StringComparison.Ordinal))
+                                || (e.CompareType == 1 && messageFullStr.Contains(e.MessageStr, StringComparison.OrdinalIgnoreCase))
                                 || (e.CompareType == 2 && Regex.IsMatch(messageFullStr, e.MessageStr))
                             )
                             && (e.SenderStr == ""
-                                || (e.SenderStr == "" && senderFullStr == "")
-                                || (e.CompareType == 0 && senderFullStr.Contains(e.SenderStr))
-                                || (e.CompareType == 1 && senderFullStr.Contains(e.SenderStr, StringComparison.InvariantCultureIgnoreCase))
+                                //|| (e.SenderStr == "" && senderFullStr == "")
+                                || (e.CompareType == 0 && senderFullStr.Contains(e.SenderStr, StringComparison.Ordinal))
+                                || (e.CompareType == 1 && senderFullStr.Contains(e.SenderStr, StringComparison.OrdinalIgnoreCase))
                                 || (e.CompareType == 2 && Regex.IsMatch(senderFullStr, e.SenderStr))
                             )
                         )
