@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace NotificationMaster
@@ -92,6 +93,17 @@ namespace NotificationMaster
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
 
+        [DllImport("User32.DLL")]
+        private static extern int AttachThreadInput(int CurrentForegroundThread, int MakeThisThreadForegrouond, bool boolAttach);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll", SetLastError=true)]
+static extern bool BringWindowToTop(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
@@ -138,6 +150,40 @@ namespace NotificationMaster
 
             public static void Activate()
             {
+
+                const int GWL_STYLE = (-16);
+                const int WS_MINIMIZE = 0x20000000;
+                const int SW_SHOW = 0x05;
+                const int SW_RESTORE = 0x09;
+
+                                IntPtr focusOnWindowHandle = Process.GetCurrentProcess().MainWindowHandle;
+
+                int style = GetWindowLong(focusOnWindowHandle, GWL_STYLE);
+
+                // Minimize and restore to be able to make it active.
+                if ((style & WS_MINIMIZE) == WS_MINIMIZE)
+                {
+                    ShowWindow(focusOnWindowHandle, SW_RESTORE);
+                }
+
+                 int currentlyFocusedWindowProcessId;
+                 GetWindowThreadProcessId(GetForegroundWindow(), out currentlyFocusedWindowProcessId);
+
+                int appThread = Thread.CurrentThread.ManagedThreadId;
+
+                if (currentlyFocusedWindowProcessId != appThread)
+                {
+                    AttachThreadInput(currentlyFocusedWindowProcessId, appThread, true);
+                    BringWindowToTop(focusOnWindowHandle);
+                    ShowWindow(focusOnWindowHandle, SW_SHOW);
+                    AttachThreadInput(currentlyFocusedWindowProcessId, appThread, false);
+                }
+
+                else
+                {
+                    BringWindowToTop(focusOnWindowHandle);
+                    ShowWindow(focusOnWindowHandle, SW_SHOW);
+                }
                 SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
             }
         }
