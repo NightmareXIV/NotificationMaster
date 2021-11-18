@@ -57,6 +57,7 @@ namespace NotificationMaster
 
         public void Dispose()
         {
+            TrayIconManager.DestroyIcon();
             GpNotify.Setup(false, this);
             CutsceneEnded.Setup(false, this);
             ChatMessage.Setup(false, this);
