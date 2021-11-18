@@ -100,16 +100,6 @@ namespace NotificationMaster
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
 
-        [DllImport("User32.DLL")]
-        private static extern int AttachThreadInput(int CurrentForegroundThread, int MakeThisThreadForegrouond, bool boolAttach);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        [DllImport("user32.dll", SetLastError=true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool BringWindowToTop(IntPtr hWnd);
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
@@ -183,28 +173,6 @@ namespace NotificationMaster
                         PluginLog.Information("Failed to bring FFXIV to front.");
                     }
                 }
-
-                /*int style = GetWindowLong(focusOnWindowHandle, GWL_STYLE);
-
-                // Minimize and restore to be able to make it active.
-                if ((style & WS_MINIMIZE) == WS_MINIMIZE)
-                {
-                    ShowWindow(focusOnWindowHandle, SW_RESTORE);
-                }
-
-                PluginLog.Debug($"GetWindowThreadProcessId result: {GetWindowThreadProcessId(GetForegroundWindow(), out int currentlyFocusedWindowProcessId)}");
-                PluginLog.Debug($"currentlyFocusedWindowProcessId: {currentlyFocusedWindowProcessId}");
-
-                int appThread = Thread.CurrentThread.ManagedThreadId;
-
-                if (currentlyFocusedWindowProcessId != appThread)
-                {
-                    PluginLog.Debug($"AttachThreadInput1 result: {AttachThreadInput(currentlyFocusedWindowProcessId, appThread, true)}");
-                    //BringWindowToTop(focusOnWindowHandle);
-                    //ShowWindow(focusOnWindowHandle, SW_SHOW);
-                    PluginLog.Debug($"SetForegroundWindow: {SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle)}");
-                    PluginLog.Debug($"AttachThreadInput2 result: {AttachThreadInput(currentlyFocusedWindowProcessId, appThread, false)}");
-                }*/
             }
         }
     }

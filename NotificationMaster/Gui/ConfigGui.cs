@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game.Gui.Toast;
+using Dalamud.Interface.Colors;
 using Dalamud.Interface.Internal.Notifications;
 using Dalamud.Logging;
 using ImGuiNET;
@@ -118,6 +119,14 @@ namespace NotificationMaster
             else
             {
                 if (colored) ImGui.PopStyleColor();
+            }
+        }
+        
+        void ForegroundWarning(bool display)
+        {
+            if (display)
+            {
+                ImGui.TextColored(ImGuiColors.DalamudRed, "Unfortunately bringing FFXIV to foreground isn't very reliable function.\nIf it fails to work for you - not much can be done.");
             }
         }
     }
