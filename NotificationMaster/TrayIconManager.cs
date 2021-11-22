@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dalamud.Logging;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -27,6 +28,7 @@ namespace NotificationMaster
         static public NotifyIcon GetIcon()
         {
             if (Icon == null) CreateIcon();
+            PluginLog.Debug($"Icon is visible: {Icon.Visible}");
             return Icon;
         }
 

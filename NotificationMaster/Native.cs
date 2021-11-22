@@ -116,21 +116,31 @@ namespace NotificationMaster
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool IsIconic(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+
         public class Impl
         {
 
             public static void FlashWindow()
             {
-                var flashInfo = new Native.FLASHWINFO
+                if (TryFindGameWindow(out var hwnd))
                 {
-                    cbSize = (uint)Marshal.SizeOf<Native.FLASHWINFO>(),
-                    uCount = uint.MaxValue,
-                    dwTimeout = 0,
-                    dwFlags = Native.FlashWindow.FLASHW_ALL |
-                                                Native.FlashWindow.FLASHW_TIMERNOFG,
-                    hwnd = Process.GetCurrentProcess().MainWindowHandle
-                };
-                Native.FlashWindowEx(ref flashInfo);
+                    var flashInfo = new Native.FLASHWINFO
+                    {
+                        cbSize = (uint)Marshal.SizeOf<Native.FLASHWINFO>(),
+                        uCount = uint.MaxValue,
+                        dwTimeout = 0,
+                        dwFlags = Native.FlashWindow.FLASHW_ALL |
+                                                    Native.FlashWindow.FLASHW_TIMERNOFG,
+                        hwnd = hwnd
+                    };
+                    FlashWindowEx(ref flashInfo);
+                }
+                else
+                {
+                    PluginLog.Information("Failed to find FFXIV, as funny as it may sound.");
+                }
             }
 
             public static void ShowToast(string str, string title = "")
@@ -138,31 +148,22 @@ namespace NotificationMaster
                 TrayIconManager.GetIcon().ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
             }
 
+
             public static void Activate()
             {
                 PluginLog.Information("Bringing FFXIV foreground.");
-                IntPtr focusOnWindowHandle = Process.GetCurrentProcess().MainWindowHandle;
-                if (IsIconic(focusOnWindowHandle))
-                {
-                    PluginLog.Information("Window is minimized.");
-                    ShowWindow(focusOnWindowHandle, SW_RESTORE);
-                    if (ApplicationIsActivated())
+                if (TryFindGameWindow(out var focusOnWindowHandle)){
+                    if (IsIconic(focusOnWindowHandle))
                     {
-                        PluginLog.Information("Success: FFXIV brought to front.");
-                        return;
+                        PluginLog.Information("Window is minimized.");
+                        ShowWindow(focusOnWindowHandle, SW_RESTORE);
+                        if (ApplicationIsActivated())
+                        {
+                            PluginLog.Information("Success: FFXIV brought to front.");
+                            return;
+                        }
                     }
-                }
-                PluginLog.Information($"SetForegroundWindow: {SetForegroundWindow(focusOnWindowHandle)}");
-                if (ApplicationIsActivated())
-                {
-                    PluginLog.Information("Success: FFXIV brought to front.");
-                    return;
-                }
-                else
-                {
-                    PluginLog.Information("Failed to bring FFXIV to front. Trying minimize + restore...");
-                    ShowWindow(focusOnWindowHandle, SW_MINIMIZE);
-                    ShowWindow(focusOnWindowHandle, SW_RESTORE);
+                    PluginLog.Information($"SetForegroundWindow: {SetForegroundWindow(focusOnWindowHandle)}");
                     if (ApplicationIsActivated())
                     {
                         PluginLog.Information("Success: FFXIV brought to front.");
@@ -170,9 +171,37 @@ namespace NotificationMaster
                     }
                     else
                     {
-                        PluginLog.Information("Failed to bring FFXIV to front.");
+                        PluginLog.Information("Failed to bring FFXIV to front. Trying minimize + restore...");
+                        ShowWindow(focusOnWindowHandle, SW_MINIMIZE);
+                        ShowWindow(focusOnWindowHandle, SW_RESTORE);
+                        if (ApplicationIsActivated())
+                        {
+                            PluginLog.Information("Success: FFXIV brought to front.");
+                            return;
+                        }
+                        else
+                        {
+                            PluginLog.Information("Failed to bring FFXIV to front.");
+                        }
                     }
                 }
+                else
+                {
+                    PluginLog.Information("Failed to find FFXIV, as funny as it may sound.");
+                }
+            }
+
+            public static bool TryFindGameWindow(out IntPtr hwnd)
+            {
+                hwnd = IntPtr.Zero;
+                while (true)
+                {
+                    hwnd = FindWindowEx(IntPtr.Zero, hwnd, "FFXIVGAME", null);
+                    if (hwnd == IntPtr.Zero) break;
+                    GetWindowThreadProcessId(hwnd, out var pid);
+                    if (pid == Process.GetCurrentProcess().Id) break;
+                }
+                return hwnd != IntPtr.Zero;
             }
         }
     }
