@@ -143,11 +143,6 @@ namespace NotificationMaster
                 }
             }
 
-            public static void ShowToast(string str, string title = "")
-            {
-                TrayIconManager.GetIcon().ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
-            }
-
 
             public static void Activate()
             {

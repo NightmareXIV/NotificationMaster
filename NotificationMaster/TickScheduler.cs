@@ -13,6 +13,7 @@ namespace NotificationMaster
         long executeAt;
         Action function;
         Framework framework;
+        bool disposed = false;
 
         public TickScheduler(Action function, Framework framework, long delayMS = 0)
         {
@@ -24,7 +25,11 @@ namespace NotificationMaster
 
         public void Dispose()
         {
-            framework.Update -= Execute;
+            if (!disposed)
+            {
+                framework.Update -= Execute;
+            }
+            disposed = true;
         }
 
         void Execute(object _)

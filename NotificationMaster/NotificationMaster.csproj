@@ -37,7 +37,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="DalamudLinter" Version="1.0.3" />
-		<PackageReference Include="DalamudPackager" Version="2.1.2" />
+		<PackageReference Include="DalamudPackager" Version="2.1.5" />
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 			<Private>False</Private>

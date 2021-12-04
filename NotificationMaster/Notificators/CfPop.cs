@@ -63,7 +63,7 @@ namespace NotificationMaster
             if (p.cfg.cfPop_AutoActivateWindow) Native.Impl.Activate();
             if (p.cfg.cfPop_ShowToastNotification)
             {
-                Native.Impl.ShowToast(str, soonEnd?"Duty invitation expires in 15 seconds!":"Duty pop");
+                TrayIconManager.ShowToast(str, soonEnd?"Duty invitation expires in 15 seconds!":"Duty pop");
             }
             if (p.cfg.cfPop_HttpRequestsEnable)
             {

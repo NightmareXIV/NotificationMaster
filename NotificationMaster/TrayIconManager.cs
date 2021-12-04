@@ -13,6 +13,7 @@ namespace NotificationMaster
     internal class TrayIconManager
     {
         private static NotifyIcon Icon = null;
+        private static TickScheduler HideIconTask = null;
 
         static void CreateIcon()
         {
@@ -25,21 +26,34 @@ namespace NotificationMaster
             };
         }
 
-        static public NotifyIcon GetIcon()
-        {
-            if (Icon == null) CreateIcon();
-            PluginLog.Debug($"Icon is visible: {Icon.Visible}");
-            return Icon;
-        }
-
         static public void DestroyIcon()
         {
-            if(Icon != null)
+            if (HideIconTask != null)
+            {
+                HideIconTask.Dispose();
+                HideIconTask = null;
+            }
+            if (Icon != null)
             {
                 Icon.Visible = false;
                 Icon.Dispose();
                 Icon = null;
             }
+        }
+
+        public static void ShowToast(string str, string title = "")
+        {
+            if (HideIconTask != null)
+            {
+                HideIconTask.Dispose();
+            }
+            if (Icon == null || !Icon.Visible) CreateIcon();
+            HideIconTask = new TickScheduler(delegate
+            {
+                DestroyIcon();
+            }, Svc.Framework, 60000);
+            PluginLog.Debug($"Icon is visible: {Icon.Visible}");
+            Icon.ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace NotificationMaster
                             if (p.cfg.chatMessage_AutoActivateWindow && !e.NoForeground) Native.Impl.Activate();
                             if (p.cfg.chatMessage_ShowToastNotification &&!e.NoToast)
                             {
-                                Native.Impl.ShowToast(messageFullStr, "Message" + (senderFullStr == "" ? "" : $" from {senderFullStr}"));
+                                TrayIconManager.ShowToast(messageFullStr, "Message" + (senderFullStr == "" ? "" : $" from {senderFullStr}"));
                             }
                             if (p.cfg.chatMessage_HttpRequestsEnable && !e.NoHTTP)
                             {

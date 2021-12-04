@@ -100,7 +100,7 @@ namespace NotificationMaster
                         if (p.cfg.gp_AutoActivateWindow) Native.Impl.Activate();
                         if (p.cfg.gp_ShowToastNotification)
                         {
-                            Native.Impl.ShowToast(gp + " GP ready!");
+                            TrayIconManager.ShowToast(gp + " GP ready!");
                         }
 
                         if (p.cfg.gp_HttpRequestsEnable)

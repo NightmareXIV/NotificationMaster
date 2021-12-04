@@ -42,7 +42,7 @@ namespace NotificationMaster
                 if (p.cfg.cutscene_AutoActivateWindow) Native.Impl.Activate();
                 if (p.cfg.cutscene_ShowToastNotification)
                 {
-                    Native.Impl.ShowToast("Cutscene ended");
+                    TrayIconManager.ShowToast("Cutscene ended");
                 }
                 if (p.cfg.cutscene_HttpRequestsEnable)
                 {
