@@ -11,6 +11,8 @@ namespace NotificationMaster
     [Serializable]
     class Configuration : IPluginConfiguration
     {
+        [NonSerialized]
+        private DalamudPluginInterface pluginInterface;
         public int Version { get; set; } = 1;
 
         public bool gp_Enable = false;
@@ -47,8 +49,13 @@ namespace NotificationMaster
         public bool cfPop_HttpRequestsEnable = false;
         public List<HttpRequestElement> cfPop_HttpRequests = new();
 
-        [NonSerialized]
-        private DalamudPluginInterface pluginInterface;
+        public bool loginError_Enable = false;
+        public bool loginError_AlwaysExecute = true;
+        public bool loginError_FlashTrayIcon = true;
+        public bool loginError_AutoActivateWindow = true;
+        public bool loginError_ShowToastNotification = true;
+        public bool loginError_HttpRequestsEnable;
+        public List<HttpRequestElement> loginError_HttpRequests = new();
 
         public void Initialize(DalamudPluginInterface pluginInterface)
         {

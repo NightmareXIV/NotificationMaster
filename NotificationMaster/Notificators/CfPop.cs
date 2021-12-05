@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NotificationMaster
 {
-    class CfPop
+    class CfPop : IDisposable
     {
         NotificationMaster p;
         TickScheduler extraNotify = null;

@@ -46,6 +46,11 @@ namespace NotificationMaster
             }
         }
 
+        internal void DoRequests(object loginError_HttpRequests, string[][] vs)
+        {
+            throw new NotImplementedException();
+        }
+
         internal void DoRequests(List<HttpRequestElement> elements, string[][] replacements)
         {
             foreach (var e in elements)

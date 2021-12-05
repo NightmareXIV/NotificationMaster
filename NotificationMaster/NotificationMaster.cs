@@ -19,6 +19,7 @@ namespace NotificationMaster
         internal CutsceneEnded cutsceneEnded = null;
         internal ChatMessage chatMessage = null;
         internal CfPop cfPop = null;
+        internal LoginError loginError = null;
         internal HttpMaster httpMaster;
 
         public string Name => "NotificationMaster";
@@ -38,6 +39,7 @@ namespace NotificationMaster
             if (cfg.cutscene_Enable) CutsceneEnded.Setup(true, this);
             if (cfg.chatMessage_Enable) ChatMessage.Setup(true, this);
             if (cfg.cfPop_Enable) CfPop.Setup(true, this);
+            if (cfg.loginError_Enable) LoginError.Setup(true, this);
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;
@@ -62,6 +64,7 @@ namespace NotificationMaster
             CutsceneEnded.Setup(false, this);
             ChatMessage.Setup(false, this);
             CfPop.Setup(false, this);
+            LoginError.Setup(false, this);
             cfg.Save();
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");
