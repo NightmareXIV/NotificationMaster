@@ -28,7 +28,7 @@ namespace NotificationMaster
         {
             if (!Svc.ClientState.IsLoggedIn)
             {
-                var addonPtr = Svc.GameGui.GetAddonByName("????", 1);
+                var addonPtr = Svc.GameGui.GetAddonByName("Dialogue", 1);
                 if (addonPtr != IntPtr.Zero && ((AtkUnitBase*)addonPtr)->IsVisible)
                 {
                     if (!seenErrorWindow)
@@ -43,7 +43,7 @@ namespace NotificationMaster
                             if (p.cfg.loginError_AutoActivateWindow) Native.Impl.Activate();
                             if (p.cfg.loginError_ShowToastNotification)
                             {
-                                TrayIconManager.ShowToast("", "Login error occurred!");
+                                TrayIconManager.ShowToast("Server connection error occurred!", "");
                             }
                             if (p.cfg.loginError_HttpRequestsEnable)
                             {

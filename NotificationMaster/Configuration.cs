@@ -52,7 +52,7 @@ namespace NotificationMaster
         public bool loginError_Enable = false;
         public bool loginError_AlwaysExecute = true;
         public bool loginError_FlashTrayIcon = true;
-        public bool loginError_AutoActivateWindow = true;
+        public bool loginError_AutoActivateWindow = false;
         public bool loginError_ShowToastNotification = true;
         public bool loginError_HttpRequestsEnable;
         public List<HttpRequestElement> loginError_HttpRequests = new();

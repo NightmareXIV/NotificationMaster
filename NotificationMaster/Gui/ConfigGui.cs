@@ -39,7 +39,7 @@ namespace NotificationMaster
                     DrawTab("Cutscene ending notify", DrawCutsceneConfig, p.cfg.cutscene_Enable);
                     DrawTab("Chat message notify", DrawChatMessageGui, p.cfg.chatMessage_Enable);
                     DrawTab("Duty pop notify", DrawCfPopConfig, p.cfg.cfPop_Enable);
-                    DrawTab("Login error notify", DrawLoginErrorConfig, p.cfg.loginError_Enable);
+                    DrawTab("Server connection error notify", DrawLoginErrorConfig, p.cfg.loginError_Enable);
                     ImGui.EndTabBar();
                 }
                 ImGui.End();
