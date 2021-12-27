@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Dalamud.Interface;
+using Dalamud.Interface.Colors;
+using ImGuiNET;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -107,6 +111,48 @@ namespace NotificationMaster
                 }
             }
             return sb.ToString();
+        }
+
+        public static void ImGuiToggleIconButton(ref bool setting, FontAwesomeIcon icon, string tooltip = null)
+        {
+            var colored = setting;
+            if (colored)
+            {
+                ImGui.PushStyleColor(ImGuiCol.Button, 0x6600b500);
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0x6600b500);
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0x6600b500);
+            }
+            if(ImGuiIconButton(icon, tooltip))
+            {
+                setting = !setting;
+            }
+            if (colored) ImGui.PopStyleColor(3);
+        }
+
+        public static bool ImGuiIconButton(FontAwesomeIcon icon, string tooltip)
+        {
+            ImGui.PushFont(UiBuilder.IconFont);
+            var result = ImGui.Button($"{icon.ToIconString()}##{icon.ToIconString()}-{tooltip}");
+            ImGui.PopFont();
+
+
+            if (tooltip != null)
+                ImGuiTextTooltip(tooltip);
+
+
+            return result;
+        }
+
+        public static void ImGuiTextTooltip(string text)
+        {
+            if (ImGui.IsItemHovered())
+            {
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+                ImGui.BeginTooltip();
+                ImGui.TextUnformatted(text);
+                ImGui.EndTooltip();
+                ImGui.PopStyleVar();
+            }
         }
     }
 }

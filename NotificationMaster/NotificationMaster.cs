@@ -20,6 +20,7 @@ namespace NotificationMaster
         internal ChatMessage chatMessage = null;
         internal CfPop cfPop = null;
         internal LoginError loginError = null;
+        internal ApproachingMapFlag mapFlag = null;
         internal HttpMaster httpMaster;
 
         public string Name => "NotificationMaster";
@@ -40,6 +41,7 @@ namespace NotificationMaster
             if (cfg.chatMessage_Enable) ChatMessage.Setup(true, this);
             if (cfg.cfPop_Enable) CfPop.Setup(true, this);
             if (cfg.loginError_Enable) LoginError.Setup(true, this);
+            if (cfg.mapFlag_Enable) ApproachingMapFlag.Setup(true, this);
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;
@@ -65,6 +67,7 @@ namespace NotificationMaster
             ChatMessage.Setup(false, this);
             CfPop.Setup(false, this);
             LoginError.Setup(false, this);
+            ApproachingMapFlag.Setup(false, this);
             cfg.Save();
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");

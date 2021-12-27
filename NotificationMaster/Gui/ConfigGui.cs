@@ -40,6 +40,7 @@ namespace NotificationMaster
                     DrawTab("Chat message notify", DrawChatMessageGui, p.cfg.chatMessage_Enable);
                     DrawTab("Duty pop notify", DrawCfPopConfig, p.cfg.cfPop_Enable);
                     DrawTab("Server connection error notify", DrawLoginErrorConfig, p.cfg.loginError_Enable);
+                    DrawTab("Approaching map flag notify", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
                     ImGui.EndTabBar();
                 }
                 ImGui.End();

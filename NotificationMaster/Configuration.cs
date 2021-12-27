@@ -57,6 +57,16 @@ namespace NotificationMaster
         public bool loginError_HttpRequestsEnable;
         public List<HttpRequestElement> loginError_HttpRequests = new();
 
+        public bool mapFlag_Enable = false;
+        public bool mapFlag_FlashTrayIcon = true;
+        public bool mapFlag_AutoActivateWindow = false;
+        public bool mapFlag_ShowToastNotification = true;
+        public bool mapFlag_HttpRequestsEnable;
+        public int mapFlag_TriggerDistance = 50;
+        public bool mapFlag_TriggerOnCross = true;
+
+        public List<HttpRequestElement> mapFlag_HttpRequests = new();
+
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;

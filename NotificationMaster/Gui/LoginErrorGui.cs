@@ -18,7 +18,7 @@ namespace NotificationMaster
             }
             if (p.cfg.loginError_Enable)
             {
-                ImGui.TextColored(ImGuiColors.DalamudOrange, "Please note that this function is in testing. ");
+                //ImGui.TextColored(ImGuiColors.DalamudOrange, "Please note that this function is in testing. ");
                 ImGui.Text($"When server connection error occurs, do the following{(p.cfg.loginError_AlwaysExecute?"":" if FFXIV is running in background")}:");
                 ImGui.Checkbox("Show tray notification", ref p.cfg.loginError_ShowToastNotification);
                 ImGui.Checkbox("Flash taskbar icon", ref p.cfg.loginError_FlashTrayIcon);
