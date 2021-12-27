@@ -35,12 +35,12 @@ namespace NotificationMaster
                 if (ImGui.Begin("NotificationMaster configuration", ref open))
                 {
                     ImGui.BeginTabBar("##NMtabs");
-                    DrawTab("GP notify", DrawGpNotify, p.cfg.gp_Enable);
-                    DrawTab("Cutscene ending notify", DrawCutsceneConfig, p.cfg.cutscene_Enable);
-                    DrawTab("Chat message notify", DrawChatMessageGui, p.cfg.chatMessage_Enable);
-                    DrawTab("Duty pop notify", DrawCfPopConfig, p.cfg.cfPop_Enable);
-                    DrawTab("Server connection error notify", DrawLoginErrorConfig, p.cfg.loginError_Enable);
-                    DrawTab("Approaching map flag notify", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
+                    DrawTab("GP replenish", DrawGpNotify, p.cfg.gp_Enable);
+                    DrawTab("Cutscene ending", DrawCutsceneConfig, p.cfg.cutscene_Enable);
+                    DrawTab("Chat message", DrawChatMessageGui, p.cfg.chatMessage_Enable);
+                    DrawTab("Duty pop", DrawCfPopConfig, p.cfg.cfPop_Enable);
+                    DrawTab("Connection error", DrawLoginErrorConfig, p.cfg.loginError_Enable);
+                    DrawTab("Approaching map flag", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
                     ImGui.EndTabBar();
                 }
                 ImGui.End();
