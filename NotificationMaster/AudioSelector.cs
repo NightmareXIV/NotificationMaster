@@ -12,11 +12,11 @@ using System.Windows.Forms;
 
 namespace NotificationMaster
 {
-    internal class FileSelector
+    internal class AudioSelector
     {
         SemaphoreSlim SelectorSemaphore;
         
-        internal FileSelector()
+        internal AudioSelector()
         {
             SelectorSemaphore = new(1, 1);
         }
@@ -45,7 +45,7 @@ namespace NotificationMaster
 
                         ofn.structSize = Marshal.SizeOf(ofn);
 
-                        ofn.filter = $"Common audio formats\0{Data.CommonAudioFormats}" +
+                        ofn.filter = $"Media foundation formats\0{Data.MFAudioFormats}" +
                         $"\0All files\0*\0";
 
                         ofn.file = new String(new char[1024]);

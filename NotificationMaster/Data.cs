@@ -8,6 +8,6 @@ namespace NotificationMaster
 {
     internal static class Data
     {
-        internal const string CommonAudioFormats = "*.3gp;*.aa;*.aac;*.aax;*.act;*.aiff;*.alac;*.amr;*.ape;*.au;*.awb;*.dss;*.dvf;*.flac;*.gsm;*.iklax;*.ivs;*.m4a;*.m4b;*.m4p;*.mmf;*.mp3;*.mpc;*.msv;*.nmf;*.ogg;*.oga;*.mogg;*.opus;*.ra;*.rm;*.raw;*.rf64;*.sln;*.tta;*.voc;*.vox;*.wav;*.wma;*.wv;*.webm;*.8svx;*.cda";
+        internal const string MFAudioFormats = "*.3g2;*.3gp;*.3gp2;*.3gpp;*.asf;*.wma;*.wmv;*.aac;*.adts;*.avi;*.mp3;*.m4a;*.m4v;*.mov;*.mp4;*.sami;*.smi;*.wav;*.aiff";
     }
 }

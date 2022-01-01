@@ -1,4 +1,5 @@
-﻿using Dalamud.Logging;
+﻿using Dalamud.Interface.Internal.Notifications;
+using Dalamud.Logging;
 using NAudio.Wave;
 using System;
 using System.Collections.Concurrent;
@@ -42,22 +43,34 @@ namespace NotificationMaster
                         }
                         StopAudio = false;
                         PluginLog.Information($"Beginning playing {audio.path}");
-                        using (var audioFile = new AudioFileReader(audio.path))
-                        using (var outputDevice = new WaveOutEvent())
+                        try
                         {
-                            audioFile.Volume = audio.volume;
-                            outputDevice.Init(audioFile);
-                            outputDevice.Play();
-                            while (Playlist.Count == 0
-                            && !StopAudio
-                            && !p.IsDisposed
-                            && outputDevice.PlaybackState == PlaybackState.Playing
-                            && !(audio.stopOnFocus && p.ThreadUpdActivated.IsApplicationActivated))
+                            using (var audioFile = new AudioFileReader(audio.path))
+                            using (var outputDevice = new WaveOutEvent())
                             {
-                                //PluginLog.Information($"{plugin.ThreadUpdActivated.IsApplicationActivated}");
-                                Thread.Sleep(100);
+                                audioFile.Volume = audio.volume;
+                                outputDevice.Init(audioFile);
+                                outputDevice.Play();
+                                while (Playlist.Count == 0
+                                && !StopAudio
+                                && !p.IsDisposed
+                                && outputDevice.PlaybackState == PlaybackState.Playing
+                                && !(audio.stopOnFocus && p.ThreadUpdActivated.IsApplicationActivated))
+                                {
+                                    //PluginLog.Information($"{plugin.ThreadUpdActivated.IsApplicationActivated}");
+                                    Thread.Sleep(100);
+                                }
+                                outputDevice.Stop();
                             }
-                            outputDevice.Stop();
+                        }
+                        catch(Exception e)
+                        {
+                            PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+                            new TickScheduler(delegate
+                            {
+                                Svc.PluginInterface.UiBuilder.AddNotification(
+                                    $"Error during playing audio file:\n{e.Message}", "NotificationMaster", NotificationType.Error, 10000);
+                            }, Svc.Framework);
                         }
                         PluginLog.Information($"Stopping playing {audio.path}");
                     }

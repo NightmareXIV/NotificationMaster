@@ -24,7 +24,7 @@ namespace NotificationMaster
         internal ApproachingMapFlag mapFlag = null;
         internal HttpMaster httpMaster;
         internal ThreadUpdateActivatedState ThreadUpdActivated;
-        internal FileSelector fileSelector = new();
+        internal AudioSelector fileSelector = new();
         internal AudioPlayer audioPlayer;
 
         public string Name => "NotificationMaster";
