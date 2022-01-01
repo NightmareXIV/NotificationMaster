@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace NotificationMaster
 {
     //(c) Caraxi / Remind me  https://github.com/Caraxi/RemindMe
-    class ActionManager
+    unsafe class ActionManager
     {
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         private delegate IntPtr GetActionCooldownSlotDelegate(IntPtr actionManager, int cooldownGroup);

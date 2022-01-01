@@ -32,7 +32,7 @@ namespace NotificationMaster
             if (Svc.ClientState == null) return;
             var c = Svc.Condition[ConditionFlag.OccupiedInCutSceneEvent]
                 || Svc.Condition[ConditionFlag.WatchingCutscene78];
-            if (isInCutscene && !c && !Native.ApplicationIsActivated() &&
+            if (isInCutscene && !c && !p.ThreadUpdActivated.IsApplicationActivated &&
                 (!p.cfg.cutscene_OnlyMSQ || Svc.ClientState.TerritoryType == CastrumZoneId || Svc.ClientState.TerritoryType == PraetoriumZoneId))
             {
                 if (p.cfg.cutscene_FlashTrayIcon)

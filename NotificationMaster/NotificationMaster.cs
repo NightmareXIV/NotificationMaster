@@ -22,6 +22,8 @@ namespace NotificationMaster
         internal LoginError loginError = null;
         internal ApproachingMapFlag mapFlag = null;
         internal HttpMaster httpMaster;
+        internal ThreadUpdateActivatedState ThreadUpdActivated;
+        internal FileSelector fileSelector = new();
 
         public string Name => "NotificationMaster";
 
@@ -30,10 +32,11 @@ namespace NotificationMaster
             pluginInterface.Create<Svc>();
             cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             cfg.Initialize(Svc.PluginInterface);
-            actMgr = new ActionManager(this);
-            httpMaster = new HttpMaster();
+            actMgr = new(this);
+            httpMaster = new();
+            ThreadUpdActivated = new();
 
-            configGui = new ConfigGui(this);
+            configGui = new(this);
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
 
             if (cfg.gp_Enable) GpNotify.Setup(true, this);
@@ -68,6 +71,7 @@ namespace NotificationMaster
             CfPop.Setup(false, this);
             LoginError.Setup(false, this);
             ApproachingMapFlag.Setup(false, this);
+            ThreadUpdActivated.Dispose();
             cfg.Save();
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");

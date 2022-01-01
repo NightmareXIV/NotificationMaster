@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game;
+using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Logging;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using ImGuiNET;
@@ -51,9 +52,9 @@ namespace NotificationMaster
         bool DirectionY;
         private void ApproachingMapFlagWatcher(Framework framework)
         {
-            if (Native.ApplicationIsActivated() ||
-                Svc.ClientState.LocalPlayer == null ||
-                *isFlagSet == 0 || *flagTerritory != Svc.ClientState.TerritoryType)
+            if (p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null || 
+                Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
+                * isFlagSet == 0 || *flagTerritory != Svc.ClientState.TerritoryType)
             {
                 IsEnabled = false;
                 HasTriggered = false;
@@ -126,7 +127,7 @@ namespace NotificationMaster
         {
             DirectionX = *flagX > Svc.ClientState.LocalPlayer.Position.X;
             DirectionY = *flagY > Svc.ClientState.LocalPlayer.Position.Z;
-            Svc.Chat.Print($"Directions: {DirectionX}, {DirectionY}");
+            //Svc.Chat.Print($"Directions: {DirectionX}, {DirectionY}");
         }
 
         internal static void Setup(bool enable, NotificationMaster p)

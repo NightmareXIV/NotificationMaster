@@ -36,7 +36,7 @@ namespace NotificationMaster
             }
             //else
             {
-                if (!Native.ApplicationIsActivated())
+                if (!p.ThreadUpdActivated.IsApplicationActivated)
                 {
                     var senderFullStr = sender.ToString();
                     var messageFullStr = message.ToString();

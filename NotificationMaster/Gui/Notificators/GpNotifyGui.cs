@@ -33,6 +33,7 @@ namespace NotificationMaster
                 ImGui.Checkbox("Flash taskbar icon", ref p.cfg.gp_FlashTrayIcon);
                 ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.gp_AutoActivateWindow);
                 ForegroundWarning(p.cfg.gp_AutoActivateWindow);
+                DrawSoundSettings(ref p.cfg.gp_SoundSettings);
                 DrawHttpMaster(p.cfg.gp_HttpRequests, ref p.cfg.gp_HttpRequestsEnable,
                     "$G - available GP");
             }

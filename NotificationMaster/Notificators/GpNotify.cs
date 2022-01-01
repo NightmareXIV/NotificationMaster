@@ -91,7 +91,7 @@ namespace NotificationMaster
                 if (needNotification) 
                 {
                     needNotification = false;
-                    if (!Native.ApplicationIsActivated())
+                    if (!p.ThreadUpdActivated.IsApplicationActivated)
                     {
                         if (p.cfg.gp_FlashTrayIcon)
                         {

@@ -34,7 +34,7 @@ namespace NotificationMaster
                     if (!seenErrorWindow)
                     {
                         seenErrorWindow = true;
-                        if (p.cfg.loginError_AlwaysExecute || !Native.ApplicationIsActivated())
+                        if (p.cfg.loginError_AlwaysExecute || !p.ThreadUpdActivated.IsApplicationActivated)
                         {
                             if (p.cfg.loginError_FlashTrayIcon)
                             {

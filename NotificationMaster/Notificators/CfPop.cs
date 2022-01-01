@@ -32,7 +32,7 @@ namespace NotificationMaster
         private void Pop(object sender, ContentFinderCondition e)
         {
             PluginLog.Debug("Cf pop " + e.Name.ToString());
-            if (!Native.ApplicationIsActivated())
+            if (!p.ThreadUpdActivated.IsApplicationActivated)
             {
                 DoNotify(e.Name.ToString());
             }
@@ -44,7 +44,7 @@ namespace NotificationMaster
                 }
                 extraNotify = new TickScheduler(delegate
                 {
-                    if (!Native.ApplicationIsActivated() && Svc.Condition[ConditionFlag.WaitingForDutyFinder]
+                    if (!p.ThreadUpdActivated.IsApplicationActivated && Svc.Condition[ConditionFlag.WaitingForDutyFinder]
                      && !Svc.Condition[ConditionFlag.WaitingForDuty])
                     {
                         DoNotify(e.Name.ToString(), true);

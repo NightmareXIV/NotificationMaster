@@ -24,6 +24,7 @@ namespace NotificationMaster
         public int gp_Tolerance = 50;
         public bool gp_HttpRequestsEnable = false;
         public List<HttpRequestElement> gp_HttpRequests = new();
+        public SoundSettings gp_SoundSettings = new();
 
         public bool cutscene_Enable = false;
         public bool cutscene_ShowToastNotification = true;
@@ -32,6 +33,7 @@ namespace NotificationMaster
         public bool cutscene_OnlyMSQ = false;
         public bool cutscene_HttpRequestsEnable = false;
         public List<HttpRequestElement> cutscene_HttpRequests = new();
+        public SoundSettings cutscene_SoundSettings = new();
 
         public bool chatMessage_Enable = false;
         public bool chatMessage_ShowToastNotification = true;
@@ -40,6 +42,7 @@ namespace NotificationMaster
         public List<ChatMessageElement> chatMessage_Elements = new();
         public bool chatMessage_HttpRequestsEnable = false;
         public List<HttpRequestElement> chatMessage_HttpRequests = new();
+        public SoundSettings chat_SoundSettings = new();
 
         public bool cfPop_Enable = false;
         public bool cfPop_ShowToastNotification = true;
@@ -48,6 +51,7 @@ namespace NotificationMaster
         public bool cfPop_NotifyIn30 = false;
         public bool cfPop_HttpRequestsEnable = false;
         public List<HttpRequestElement> cfPop_HttpRequests = new();
+        public SoundSettings cfPop_SoundSettings = new();
 
         public bool loginError_Enable = false;
         public bool loginError_AlwaysExecute = true;
@@ -56,16 +60,17 @@ namespace NotificationMaster
         public bool loginError_ShowToastNotification = true;
         public bool loginError_HttpRequestsEnable;
         public List<HttpRequestElement> loginError_HttpRequests = new();
+        public SoundSettings loginError_SoundSettings = new();
 
         public bool mapFlag_Enable = false;
         public bool mapFlag_FlashTrayIcon = true;
         public bool mapFlag_AutoActivateWindow = false;
         public bool mapFlag_ShowToastNotification = true;
         public bool mapFlag_HttpRequestsEnable;
-        public int mapFlag_TriggerDistance = 50;
+        public int mapFlag_TriggerDistance = 200;
         public bool mapFlag_TriggerOnCross = true;
-
         public List<HttpRequestElement> mapFlag_HttpRequests = new();
+        public SoundSettings mapFlag_SoundSettings = new();
 
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
