@@ -60,7 +60,10 @@ namespace NotificationMaster
                         PluginLog.Information("Preparing to call winapi");
                         if (LibWrap.GetOpenFileName(ofn))
                         {
-                            settings.SoundPath = ofn.file;
+                            new TickScheduler(delegate
+                            {
+                                settings.SoundPath = ofn.file;
+                            }, Svc.Framework);
                         }
                         PluginLog.Information("Dialog closed");
                     }
