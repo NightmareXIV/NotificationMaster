@@ -12,6 +12,7 @@ namespace NotificationMaster
 {
     class NotificationMaster : IDalamudPlugin
     {
+        internal bool IsDisposed = false;
         internal ActionManager actMgr;
         internal Configuration cfg;
         internal ConfigGui configGui;
@@ -24,6 +25,7 @@ namespace NotificationMaster
         internal HttpMaster httpMaster;
         internal ThreadUpdateActivatedState ThreadUpdActivated;
         internal FileSelector fileSelector = new();
+        internal AudioPlayer audioPlayer;
 
         public string Name => "NotificationMaster";
 
@@ -35,6 +37,7 @@ namespace NotificationMaster
             actMgr = new(this);
             httpMaster = new();
             ThreadUpdActivated = new();
+            audioPlayer = new(this);
 
             configGui = new(this);
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
@@ -72,9 +75,11 @@ namespace NotificationMaster
             LoginError.Setup(false, this);
             ApproachingMapFlag.Setup(false, this);
             ThreadUpdActivated.Dispose();
+            audioPlayer.Dispose();
             cfg.Save();
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");
+            IsDisposed = true;
         }
     }
 }

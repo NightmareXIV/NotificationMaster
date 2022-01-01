@@ -19,11 +19,26 @@ namespace NotificationMaster
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - 100);
                 ImGui.InputText("##PathToFile", ref settings.SoundPath, 1000);
                 ImGui.SameLine();
-                ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
                 if (ImGui.Button("Browse..."))
                 {
                     p.fileSelector.SelectFile(settings);
                 }
+                if (ImGui.Button("Test"))
+                {
+                    p.audioPlayer.Play(settings.SoundPath, false, settings.Volume);
+                }
+                ImGui.SameLine();
+                if (ImGui.Button("Stop"))
+                {
+                    p.audioPlayer.Stop();
+                }
+                ImGui.SameLine();
+                ImGui.Checkbox("Stop playing once game is focused", ref settings.StopSoundOnceFocused);
+                ImGui.SameLine();
+                ImGui.Text("|  Volume: ");
+                ImGui.SameLine();
+                ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
+                ImGui.SliderFloat("##volume", ref settings.Volume, 0f, 1f);
             }
         }
     }

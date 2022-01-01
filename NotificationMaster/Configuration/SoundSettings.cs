@@ -12,5 +12,6 @@ namespace NotificationMaster
         public bool PlaySound = false;
         public bool StopSoundOnceFocused = true;
         public string SoundPath = "";
+        public float Volume = 1.0f;
     }
 }

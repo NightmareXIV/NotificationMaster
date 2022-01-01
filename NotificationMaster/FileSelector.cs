@@ -57,7 +57,7 @@ namespace NotificationMaster
                         ofn.initialDir = TryGetFolderFromPath(settings.SoundPath);
                         ofn.title = "Select a sound file";
 
-                        PluginLog.Information("Preparing to show dialog");
+                        PluginLog.Information("Preparing to call winapi");
                         if (LibWrap.GetOpenFileName(ofn))
                         {
                             settings.SoundPath = ofn.file;

@@ -10,8 +10,8 @@ namespace NotificationMaster
 {
     internal class ThreadUpdateActivatedState : IDisposable
     {
-        bool running = false;
-        internal bool IsApplicationActivated = false;
+        volatile bool running = true;
+        internal volatile bool IsApplicationActivated = false;
         internal ThreadUpdateActivatedState()
         {
             new Thread((ThreadStart)delegate 
@@ -30,7 +30,7 @@ namespace NotificationMaster
                     Thread.Sleep(100);
                 }
                 PluginLog.Information("ThreadUpdateActivatedState finished");
-            });
+            }).Start();
         }
 
         public void Dispose()
