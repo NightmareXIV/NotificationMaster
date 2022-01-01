@@ -121,6 +121,10 @@ namespace NotificationMaster
                     }
                 );
             }
+            if (p.cfg.mapFlag_SoundSettings.PlaySound)
+            {
+                p.audioPlayer.Play(p.cfg.mapFlag_SoundSettings);
+            }
         }
 
         void UpdateDirections()

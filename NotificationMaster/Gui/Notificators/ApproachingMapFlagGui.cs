@@ -68,6 +68,7 @@ namespace NotificationMaster
                 }
                 ImGui.Checkbox("Also trigger on crossing X/Y flag axis before reaching set distance", ref p.cfg.mapFlag_TriggerOnCross);
                 ForegroundWarning(p.cfg.mapFlag_AutoActivateWindow);
+                DrawSoundSettings(ref p.cfg.mapFlag_SoundSettings);
                 DrawHttpMaster(p.cfg.mapFlag_HttpRequests, ref p.cfg.mapFlag_HttpRequestsEnable,
                     "None available");
             }

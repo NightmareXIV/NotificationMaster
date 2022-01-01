@@ -78,6 +78,10 @@ namespace NotificationMaster
                                     }
                                 );
                             }
+                            if (p.cfg.chatMessage_SoundSettings.PlaySound)
+                            {
+                                p.audioPlayer.Play(p.cfg.chatMessage_SoundSettings);
+                            }
                         }
                     }
                 }

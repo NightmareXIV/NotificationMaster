@@ -112,6 +112,10 @@ namespace NotificationMaster
                                 }
                             );
                         }
+                        if (p.cfg.gp_SoundSettings.PlaySound)
+                        {
+                            p.audioPlayer.Play(p.cfg.gp_SoundSettings);
+                        }
                     }
                 }
             }

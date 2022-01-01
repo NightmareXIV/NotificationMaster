@@ -42,7 +42,7 @@ namespace NotificationMaster
         public List<ChatMessageElement> chatMessage_Elements = new();
         public bool chatMessage_HttpRequestsEnable = false;
         public List<HttpRequestElement> chatMessage_HttpRequests = new();
-        public SoundSettings chat_SoundSettings = new();
+        public SoundSettings chatMessage_SoundSettings = new();
 
         public bool cfPop_Enable = false;
         public bool cfPop_ShowToastNotification = true;

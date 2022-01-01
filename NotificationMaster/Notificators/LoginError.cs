@@ -53,6 +53,10 @@ namespace NotificationMaster
                                     }
                                 );
                             }
+                            if (p.cfg.loginError_SoundSettings.PlaySound)
+                            {
+                                p.audioPlayer.Play(p.cfg.loginError_SoundSettings);
+                            }
                         }
                     }
                 }

@@ -24,6 +24,7 @@ namespace NotificationMaster
                 ImGui.Checkbox("Flash taskbar icon", ref p.cfg.loginError_FlashTrayIcon);
                 ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.loginError_AutoActivateWindow);
                 ForegroundWarning(p.cfg.loginError_AutoActivateWindow);
+                DrawSoundSettings(ref p.cfg.loginError_SoundSettings);
                 ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.loginError_AlwaysExecute);
                 DrawHttpMaster(p.cfg.loginError_HttpRequests, ref p.cfg.loginError_HttpRequestsEnable,
                     "None");

@@ -75,6 +75,10 @@ namespace NotificationMaster
                     }
                 );
             }
+            if (p.cfg.cfPop_SoundSettings.PlaySound)
+            {
+                p.audioPlayer.Play(p.cfg.cfPop_SoundSettings);
+            }
         }
 
         internal static void Setup(bool enable, NotificationMaster p)

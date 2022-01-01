@@ -50,6 +50,10 @@ namespace NotificationMaster
                         new string[][] { }
                     );
                 }
+                if (p.cfg.cutscene_SoundSettings.PlaySound)
+                {
+                    p.audioPlayer.Play(p.cfg.cutscene_SoundSettings);
+                }
             }
             isInCutscene = c;
         }
