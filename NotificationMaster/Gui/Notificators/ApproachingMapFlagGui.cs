@@ -67,6 +67,8 @@ namespace NotificationMaster
                     ImGui.Text("Set flag on your map to see your current distance to it");
                 }
                 ImGui.Checkbox("Also trigger on crossing X/Y flag axis before reaching set distance", ref p.cfg.mapFlag_TriggerOnCross);
+                ImGui.SetNextItemWidth(100f);
+                ImGui.DragInt("Axis cross tolerance", ref p.cfg.mapFlag_CrossDelta);
                 ForegroundWarning(p.cfg.mapFlag_AutoActivateWindow);
                 DrawSoundSettings(ref p.cfg.mapFlag_SoundSettings);
                 DrawHttpMaster(p.cfg.mapFlag_HttpRequests, ref p.cfg.mapFlag_HttpRequestsEnable,

@@ -83,6 +83,6 @@ namespace NotificationMaster
         //BOOL GetOpenFileName(LPOPENFILENAME lpofn);
 
         [DllImport("Comdlg32.dll", CharSet = CharSet.Auto)]
-        public static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
+        internal static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
     }
 }

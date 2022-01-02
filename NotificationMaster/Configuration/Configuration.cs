@@ -69,6 +69,7 @@ namespace NotificationMaster
         public bool mapFlag_HttpRequestsEnable;
         public int mapFlag_TriggerDistance = 200;
         public bool mapFlag_TriggerOnCross = true;
+        public int mapFlag_CrossDelta = 100;
         public List<HttpRequestElement> mapFlag_HttpRequests = new();
         public SoundSettings mapFlag_SoundSettings = new();
 

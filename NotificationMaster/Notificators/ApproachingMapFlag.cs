@@ -80,21 +80,23 @@ namespace NotificationMaster
                 {
                     HasTriggered = false;
                 }
-                if ((!DirectionX && *flagX > Svc.ClientState.LocalPlayer.Position.X) || (DirectionX && *flagX < Svc.ClientState.LocalPlayer.Position.X))
+                if ((!DirectionX && *flagX > Svc.ClientState.LocalPlayer.Position.X + p.cfg.mapFlag_CrossDelta) 
+                    || (DirectionX && *flagX < Svc.ClientState.LocalPlayer.Position.X - p.cfg.mapFlag_CrossDelta))
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
                         DoNotify("You have crossed your destination border (X)!");
-                        //Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed X line!");
+                        Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed X line!");
                     }
                     UpdateDirections();
                 }
-                if ((!DirectionY && *flagY > Svc.ClientState.LocalPlayer.Position.Z) || (DirectionY && *flagY < Svc.ClientState.LocalPlayer.Position.Z))
+                if ((!DirectionY && *flagY > Svc.ClientState.LocalPlayer.Position.Z + p.cfg.mapFlag_CrossDelta) 
+                    || (DirectionY && *flagY < Svc.ClientState.LocalPlayer.Position.Z - p.cfg.mapFlag_CrossDelta))
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
                         DoNotify("You have crossed your destination border (Y)!");
-                        //Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed Y line!");
+                        Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed Y line!");
                     }
                     UpdateDirections();
                 }
