@@ -73,6 +73,19 @@ namespace NotificationMaster
         public List<HttpRequestElement> mapFlag_HttpRequests = new();
         public SoundSettings mapFlag_SoundSettings = new();
 
+        public bool mobPulled_Enable = false;
+        public bool mobPulled_FlashTrayIcon = true;
+        public bool mobPulled_AutoActivateWindow = false;
+        public bool mobPulled_ShowToastNotification = true;
+        public bool mobPulled_HttpRequestsEnable;
+        public List<HttpRequestElement> mobPulled_HttpRequests = new();
+        public SoundSettings mobPulled_SoundSettings = new();
+        public HashSet<string> mobPulled_Names = new();
+        public HashSet<uint> mobPulled_Territories = new();
+        public bool mobPulled_AlwaysExecute = true;
+        public bool mobPulled_ChatMessage = true;
+        public bool mobPulled_Toast = true;
+
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;

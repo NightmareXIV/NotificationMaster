@@ -16,12 +16,15 @@ namespace NotificationMaster
         internal ActionManager actMgr;
         internal Configuration cfg;
         internal ConfigGui configGui;
+
         internal GpNotify gpNotify = null;
         internal CutsceneEnded cutsceneEnded = null;
         internal ChatMessage chatMessage = null;
         internal CfPop cfPop = null;
         internal LoginError loginError = null;
         internal ApproachingMapFlag mapFlag = null;
+        internal MobPulled mobPulled = null;
+
         internal HttpMaster httpMaster;
         internal ThreadUpdateActivatedState ThreadUpdActivated;
         internal AudioSelector fileSelector = new();
@@ -48,6 +51,7 @@ namespace NotificationMaster
             if (cfg.cfPop_Enable) CfPop.Setup(true, this);
             if (cfg.loginError_Enable) LoginError.Setup(true, this);
             if (cfg.mapFlag_Enable) ApproachingMapFlag.Setup(true, this);
+            if (cfg.mobPulled_Enable) MobPulled.Setup(true, this);
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;
@@ -74,6 +78,7 @@ namespace NotificationMaster
             CfPop.Setup(false, this);
             LoginError.Setup(false, this);
             ApproachingMapFlag.Setup(false, this);
+            MobPulled.Setup(false, this);
             ThreadUpdActivated.Dispose();
             audioPlayer.Dispose();
             cfg.Save();
