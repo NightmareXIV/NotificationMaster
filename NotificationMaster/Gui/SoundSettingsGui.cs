@@ -25,7 +25,7 @@ namespace NotificationMaster
                 }
                 if (ImGui.Button("Test"))
                 {
-                    p.audioPlayer.Play(settings.SoundPath, false, settings.Volume);
+                    p.audioPlayer.Play(settings.SoundPath, false, settings.Volume, settings.Repeat);
                 }
                 ImGui.SameLine();
                 if (ImGui.Button("Stop"))
@@ -33,7 +33,15 @@ namespace NotificationMaster
                     p.audioPlayer.Stop();
                 }
                 ImGui.SameLine();
-                ImGui.Checkbox("Stop playing once game is focused", ref settings.StopSoundOnceFocused);
+                if(ImGui.Checkbox("Stop playing once game is focused", ref settings.StopSoundOnceFocused))
+                {
+                    if (!settings.StopSoundOnceFocused) settings.Repeat = false;
+                }
+                ImGui.SameLine();
+                if (ImGui.Checkbox("Repeat", ref settings.Repeat))
+                {
+                    if (settings.Repeat) settings.StopSoundOnceFocused = true;
+                }
                 ImGui.SameLine();
                 ImGui.Text("|  Volume: ");
                 ImGui.SameLine();

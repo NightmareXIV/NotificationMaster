@@ -126,6 +126,7 @@ namespace NotificationMaster
             {
                 if (TryFindGameWindow(out var hwnd))
                 {
+                    PluginLog.Debug($"FlashWindow begins with hwid={hwnd:X16}");
                     var flashInfo = new Native.FLASHWINFO
                     {
                         cbSize = (uint)Marshal.SizeOf<Native.FLASHWINFO>(),
@@ -139,7 +140,7 @@ namespace NotificationMaster
                 }
                 else
                 {
-                    PluginLog.Information("Failed to find FFXIV, as funny as it may sound.");
+                    PluginLog.Error("Failed to find FFXIV window, somehow.");
                 }
             }
 

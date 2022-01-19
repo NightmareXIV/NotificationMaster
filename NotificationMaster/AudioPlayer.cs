@@ -13,7 +13,7 @@ namespace NotificationMaster
 {
     internal class AudioPlayer : IDisposable
     {
-        BlockingCollection<(string path, bool stopOnFocus, float volume)> Playlist;
+        BlockingCollection<(string path, bool stopOnFocus, float volume, bool repeat)> Playlist;
         bool StopAudio = false;
         bool threadStarted = false;
         NotificationMaster p;
@@ -42,7 +42,7 @@ namespace NotificationMaster
                             continue;
                         }
                         StopAudio = false;
-                        PluginLog.Information($"Beginning playing {audio.path}");
+                        PluginLog.Debug($"Beginning playing {audio.path}");
                         try
                         {
                             using (var audioFile = new AudioFileReader(audio.path))
@@ -54,12 +54,27 @@ namespace NotificationMaster
                                 while (Playlist.Count == 0
                                 && !StopAudio
                                 && !p.IsDisposed
-                                && outputDevice.PlaybackState == PlaybackState.Playing
                                 && !(audio.stopOnFocus && p.ThreadUpdActivated.IsApplicationActivated))
                                 {
-                                    //PluginLog.Information($"{plugin.ThreadUpdActivated.IsApplicationActivated}");
-                                    Thread.Sleep(100);
+                                    if (outputDevice.PlaybackState == PlaybackState.Playing)
+                                    {
+                                        Thread.Sleep(100);
+                                    }
+                                    else
+                                    {
+                                        if (audio.repeat)
+                                        {
+                                            audioFile.Position = 0;
+                                            outputDevice.Play();
+                                            Thread.Sleep(100);
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
                                 }
+                                PluginLog.Debug($"Stopping device {audio.path}");
                                 outputDevice.Stop();
                             }
                         }
@@ -72,7 +87,7 @@ namespace NotificationMaster
                                     $"Error during playing audio file:\n{e.Message}", "NotificationMaster", NotificationType.Error, 10000);
                             }, Svc.Framework);
                         }
-                        PluginLog.Information($"Stopping playing {audio.path}");
+                        PluginLog.Debug($"Stopping playing {audio.path}");
                     }
                 }
                 catch(InvalidOperationException e)
@@ -87,15 +102,15 @@ namespace NotificationMaster
             }).Start();
         }
 
-        public void Play(string path, bool stopOnFocus, float volume)
+        public void Play(string path, bool stopOnFocus, float volume, bool repeat)
         {
             if (!threadStarted) BeginThread();
-            if(!Playlist.TryAdd((path, stopOnFocus, volume)))
+            if(!Playlist.TryAdd((path, stopOnFocus, volume, repeat)))
             {
                 var timeBegin = Environment.TickCount64;
                 Task.Run(delegate
                 {
-                    Playlist.Add((path, stopOnFocus, volume));
+                    Playlist.Add((path, stopOnFocus, volume, repeat));
                     PluginLog.Warning($"Took extra {Environment.TickCount64 - timeBegin}ms to add audio into playlist");
                 });
             }
@@ -103,7 +118,7 @@ namespace NotificationMaster
 
         public void Play(SoundSettings s)
         {
-            Play(s.SoundPath, s.StopSoundOnceFocused, s.Volume);
+            Play(s.SoundPath, s.StopSoundOnceFocused, s.Volume, s.Repeat);
         }
 
         public void Stop()

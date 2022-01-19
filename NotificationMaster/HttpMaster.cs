@@ -28,6 +28,7 @@ namespace NotificationMaster
         {
             try
             {
+                PluginLog.Debug("Preparing http request");
                 var request = new HttpRequestMessage()
                 {
                     Method = type == 0 ? HttpMethod.Get : HttpMethod.Post,
@@ -37,6 +38,7 @@ namespace NotificationMaster
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue(type == 2?"application/json":"application/x-www-form-urlencoded");
                 //PluginLog.Information("Requesting " + request.RequestUri + "\n" +
                 //    request.Content.ReadAsStringAsync().Result);
+                PluginLog.Debug("Preparing to send http request");
                 client.SendAsync(request);
             }
             catch(Exception e)

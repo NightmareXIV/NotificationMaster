@@ -21,7 +21,22 @@ namespace NotificationMaster
                 {
                     try
                     {
-                        IsApplicationActivated = Native.ApplicationIsActivated();
+                        if (Native.ApplicationIsActivated())
+                        {
+                            if (!IsApplicationActivated)
+                            {
+                                IsApplicationActivated = true;
+                                PluginLog.Debug("ThreadUpdateActivatedState: application just got activated");
+                            }
+                        }
+                        else
+                        {
+                            if (IsApplicationActivated)
+                            {
+                                IsApplicationActivated = false;
+                                PluginLog.Debug("ThreadUpdateActivatedState: application just got deactivated");
+                            }
+                        }
                     }
                     catch(Exception e)
                     {

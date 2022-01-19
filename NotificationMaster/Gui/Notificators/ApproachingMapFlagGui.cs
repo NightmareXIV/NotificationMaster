@@ -55,6 +55,7 @@ namespace NotificationMaster
                 ImGui.Checkbox("Show tray notification", ref p.cfg.mapFlag_ShowToastNotification);
                 ImGui.Checkbox("Flash taskbar icon", ref p.cfg.mapFlag_FlashTrayIcon);
                 ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.mapFlag_AutoActivateWindow);
+                ForegroundWarning(p.cfg.mapFlag_AutoActivateWindow);
                 ImGui.SetNextItemWidth(100f);
                 ImGui.DragInt("Distance to marker", ref p.cfg.mapFlag_TriggerDistance);
                 ImGui.Text("Note: this is in-game coordinates distance, not map coordinates distance.");
@@ -69,7 +70,6 @@ namespace NotificationMaster
                 ImGui.Checkbox("Also trigger on crossing X/Y flag axis before reaching set distance", ref p.cfg.mapFlag_TriggerOnCross);
                 ImGui.SetNextItemWidth(100f);
                 ImGui.DragInt("Axis cross tolerance", ref p.cfg.mapFlag_CrossDelta);
-                ForegroundWarning(p.cfg.mapFlag_AutoActivateWindow);
                 DrawSoundSettings(ref p.cfg.mapFlag_SoundSettings);
                 DrawHttpMaster(p.cfg.mapFlag_HttpRequests, ref p.cfg.mapFlag_HttpRequestsEnable,
                     "None available");

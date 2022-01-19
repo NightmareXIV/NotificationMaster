@@ -43,13 +43,20 @@ namespace NotificationMaster
 
         public static void ShowToast(string str, string title = "")
         {
+            PluginLog.Debug($"Preparing to show toast notification: title={title}, str={str}");
             if (HideIconTask != null)
             {
+                PluginLog.Debug("Disposing old HideIconTask");
                 HideIconTask.Dispose();
             }
-            if (Icon == null || !Icon.Visible) CreateIcon();
+            if (Icon == null || !Icon.Visible)
+            {
+                PluginLog.Debug("Creating new icon");
+                CreateIcon();
+            }
             HideIconTask = new TickScheduler(delegate
             {
+                PluginLog.Debug("HideIconTask: calling DestroyIcon");
                 DestroyIcon();
             }, Svc.Framework, 60000);
             PluginLog.Debug($"Icon is visible: {Icon.Visible}");
