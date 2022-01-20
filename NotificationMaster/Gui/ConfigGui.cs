@@ -48,6 +48,7 @@ namespace NotificationMaster
                         DrawTab("Duty pop", DrawCfPopConfig, p.cfg.cfPop_Enable);
                         DrawTab("Connection error", DrawLoginErrorConfig, p.cfg.loginError_Enable);
                         DrawTab("Approaching map flag", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
+                        DrawTab("Mob pulled", DrawMobPulledConfig, p.cfg.mobPulled_Enable);
                         ImGui.EndTabBar();
                     }
                 }

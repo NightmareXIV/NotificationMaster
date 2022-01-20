@@ -3,6 +3,7 @@ using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Logging;
+using Lumina.Excel.GeneratedSheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +17,36 @@ namespace NotificationMaster
         NotificationMaster p;
         HashSet<uint> ignoreMobIds = new();
         HashSet<int> watchedMobNamesHashes = new();
+        internal Dictionary<uint, (string name, bool isWorld)> territories;
         public void Dispose()
         {
-
+            Svc.ClientState.TerritoryChanged -= TerritoryChanged;
+            Svc.Framework.Update -= MobPulledWatcher;
         }
 
         public MobPulled(NotificationMaster plugin)
         {
             this.p = plugin;
+            territories = new();
+            foreach (var terr in Svc.Data.GetExcelSheet<TerritoryType>())
+            {
+                territories.Add(terr.RowId, (terr.PlaceName.Value.Name, terr.Mount));
+                PluginLog.Debug($"Territories added: {territories.Count}, world zones={territories.Where(p => p.Value.isWorld).Count()}");
+            }
+            if(p.cfg.mobPulled_Territories.Count == 0)
+            {
+                PluginLog.Information("Config mob pulled territories count was 0, populating it with world zones");
+                foreach(var e in territories)
+                {
+                    if (e.Value.isWorld) p.cfg.mobPulled_Territories.Add(e.Key);
+                }
+            }
+            RebuildMobNames();
             TerritoryChanged(null, Svc.ClientState.TerritoryType);
             Svc.ClientState.TerritoryChanged += TerritoryChanged;
         }
 
-        void RebuildMobNames()
+        internal void RebuildMobNames()
         {
             foreach (var s in p.cfg.mobPulled_Names)
             {
@@ -37,20 +55,25 @@ namespace NotificationMaster
             PluginLog.Debug($"Mob names hash table rebuilt, config entries={string.Join(",", p.cfg.mobPulled_Names)}; hashes={string.Join(",", watchedMobNamesHashes)}");
         }
 
-        void ClearIgnoredMobs()
+        internal void ClearIgnoredMobs()
         {
             ignoreMobIds.Clear();
             PluginLog.Debug("Cleared ignored mobs ids cache");
         }
 
-        void TerritoryChanged(object _, ushort newTerritory)
+        internal void TerritoryChanged(object _, ushort newTerritory)
         {
             Svc.Framework.Update -= MobPulledWatcher;
             PluginLog.Debug("MobPulledWatcher unregistered.");
+            ClearIgnoredMobs();
             if (p.cfg.mobPulled_Territories.Contains(newTerritory))
             {
                 Svc.Framework.Update += MobPulledWatcher;
                 PluginLog.Debug($"MobPulledWatcher registered, territory type={newTerritory}");
+            }
+            else
+            {
+                PluginLog.Debug($"MobPulledWatcher was not registered for this territory, territory type={newTerritory}");
             }
         }
 
@@ -90,6 +113,7 @@ namespace NotificationMaster
                                         p.httpMaster.DoRequests(p.cfg.mobPulled_HttpRequests,
                                             new string[][]
                                             {
+                                                new string[] {"$M", bnpc.Name.ToString()},
                                             }
                                         );
                                     }
