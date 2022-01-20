@@ -31,9 +31,9 @@ namespace NotificationMaster
             foreach (var terr in Svc.Data.GetExcelSheet<TerritoryType>())
             {
                 territories.Add(terr.RowId, (terr.PlaceName.Value.Name, terr.Mount));
-                PluginLog.Debug($"Territories added: {territories.Count}, world zones={territories.Where(p => p.Value.isWorld).Count()}");
             }
-            if(p.cfg.mobPulled_Territories.Count == 0)
+            PluginLog.Debug($"Territories added: {territories.Count}, world zones={territories.Where(p => p.Value.isWorld).Count()}");
+            if (p.cfg.mobPulled_Territories.Count == 0)
             {
                 PluginLog.Information("Config mob pulled territories count was 0, populating it with world zones");
                 foreach(var e in territories)
@@ -48,6 +48,7 @@ namespace NotificationMaster
 
         internal void RebuildMobNames()
         {
+            watchedMobNamesHashes.Clear();
             foreach (var s in p.cfg.mobPulled_Names)
             {
                 watchedMobNamesHashes.Add(s.GetHashCode());
@@ -85,7 +86,9 @@ namespace NotificationMaster
                 {
                     if (o is BattleNpc bnpc && !ignoreMobIds.Contains(o.ObjectId))
                     {
-                        var bnpcNameHash = bnpc.Name.GetHashCode();
+                        var bnpcName = bnpc.Name.ToString();
+                        if (bnpcName.Length == 0) continue;
+                        var bnpcNameHash = bnpcName.GetHashCode();
                         if (!watchedMobNamesHashes.Contains(bnpcNameHash))
                         {
                             ignoreMobIds.Add(o.ObjectId);

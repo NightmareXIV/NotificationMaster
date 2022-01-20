@@ -46,22 +46,28 @@ namespace NotificationMaster
                 DrawSoundSettings(ref p.cfg.mobPulled_SoundSettings);
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudOrange);
                 ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.mobPulled_AlwaysExecute);
-                ImGui.PopStyleVar();
+                ImGui.PopStyleColor();
                 DrawHttpMaster(p.cfg.mobPulled_HttpRequests, ref p.cfg.mobPulled_HttpRequestsEnable,
                     "$M - mob name");
-                if(ImGui.CollapsingHeader($"List of watched mobs (currently contains {p.cfg.mobPulled_Names.Count})"))
+                if(ImGui.CollapsingHeader($"List of watched mobs (currently contains {p.cfg.mobPulled_Names.Count})###MPListmobs"))
                 {
                     ImGui.Checkbox("Allow deleting entries", ref mobAllowDeleting);
-                    ImGui.SameLine();
-                    if(p.cfg.mobPulled_Names.Count > 0 && ImGui.Button("Export mob names to clipboard"))
-                    {
-                        ImGui.SetClipboardText(string.Join("\n", p.cfg.mobPulled_Names));
+                    if (p.cfg.mobPulled_Names.Count > 0) {
+                        ImGui.SameLine();
+                        if (ImGui.Button("Export mob names to clipboard"))
+                        {
+                            ImGui.SetClipboardText(string.Join("\n", p.cfg.mobPulled_Names));
+                        }
                     }
                     foreach(var s in p.cfg.mobPulled_Names)
                     {
-                        if (mobAllowDeleting && ImGui.SmallButton($"Delete##{s.GetHashCode()}"))
+                        if (mobAllowDeleting)
                         {
-                            mobToDelete = s;
+                            if (ImGui.SmallButton($"Delete##{s.GetHashCode()}"))
+                            {
+                                mobToDelete = s;
+                            }
+                            ImGui.SameLine();
                         }
                         ImGui.Text(s);
                     }
@@ -84,8 +90,9 @@ namespace NotificationMaster
                     }
                 }
 
-                if(ImGui.CollapsingHeader($"List of territories where module will be enabled, currently has {p.cfg.mobPulled_Territories} entries:"))
+                if(ImGui.CollapsingHeader($"List of territories where module will be enabled, currently has {p.cfg.mobPulled_Territories.Count} entries###MPListOfTerr"))
                 {
+                    ImGui.SetNextItemWidth(200f);
                     ImGui.InputTextWithHint("##terrSearch", "Filter...", ref terrSearchOptions.filter, 100);
                     ImGui.SameLine();
                     ImGui.Checkbox("Only world zones", ref terrSearchOptions.onlyWorld);
@@ -111,7 +118,7 @@ namespace NotificationMaster
             if (terrSearchOptions.onlySelected && !p.cfg.mobPulled_Territories.Contains(territoryType)) return;
             if (v.isWorld) ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
             var chk = p.cfg.mobPulled_Territories.Contains(territoryType);
-            if(ImGui.Checkbox(cname, ref chk))
+            if(ImGui.Checkbox(cname+"##"+tCounter, ref chk))
             {
                 if (chk)
                 {
