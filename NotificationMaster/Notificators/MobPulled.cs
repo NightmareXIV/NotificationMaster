@@ -24,6 +24,8 @@ namespace NotificationMaster
         public MobPulled(NotificationMaster plugin)
         {
             this.p = plugin;
+            TerritoryChanged(null, Svc.ClientState.TerritoryType);
+            Svc.ClientState.TerritoryChanged += TerritoryChanged;
         }
 
         void RebuildMobNames()
@@ -41,7 +43,7 @@ namespace NotificationMaster
             PluginLog.Debug("Cleared ignored mobs ids cache");
         }
 
-        void TerritoryChanged(uint newTerritory)
+        void TerritoryChanged(object _, ushort newTerritory)
         {
             Svc.Framework.Update -= MobPulledWatcher;
             PluginLog.Debug("MobPulledWatcher unregistered.");

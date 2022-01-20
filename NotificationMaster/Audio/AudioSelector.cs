@@ -58,7 +58,7 @@ namespace NotificationMaster
                         ofn.title = "Select a sound file";
 
                         PluginLog.Information("Preparing to call winapi");
-                        if (LibWrap.GetOpenFileName(ofn))
+                        if (Native.GetOpenFileName(ofn))
                         {
                             new TickScheduler(delegate
                             {

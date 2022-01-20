@@ -94,11 +94,16 @@ namespace NotificationMaster
             return activeProcId == procId;
         }
 
+        //BOOL GetOpenFileName(LPOPENFILENAME lpofn);
+
+        [DllImport("Comdlg32.dll", CharSet = CharSet.Auto)]
+        internal static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        private static extern IntPtr GetForegroundWindow();
+        static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
+        static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -106,11 +111,11 @@ namespace NotificationMaster
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+        internal static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

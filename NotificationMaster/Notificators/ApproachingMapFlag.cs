@@ -71,8 +71,8 @@ namespace NotificationMaster
                 {
                     if (IsEnabled && !HasTriggered)
                     {
+                        PluginLog.Debug($"{ImGui.GetFrameCount()} Distance reached, notification fired");
                         DoNotify("You have reached your destination!");
-                        //Svc.Chat.Print($"{ImGui.GetFrameCount()} Approached distance!");
                     }
                     HasTriggered = true;
                 }
@@ -85,8 +85,8 @@ namespace NotificationMaster
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
+                        PluginLog.Debug($"{ImGui.GetFrameCount()} Crossed X line, notification fired");
                         DoNotify("You have crossed your destination border (X)!");
-                        Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed X line!");
                     }
                     UpdateDirections();
                 }
@@ -95,8 +95,8 @@ namespace NotificationMaster
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
+                        PluginLog.Debug($"{ImGui.GetFrameCount()} Crossed Y line, notification fired");
                         DoNotify("You have crossed your destination border (Y)!");
-                        Svc.Chat.Print($"{ImGui.GetFrameCount()} Crossed Y line!");
                     }
                     UpdateDirections();
                 }

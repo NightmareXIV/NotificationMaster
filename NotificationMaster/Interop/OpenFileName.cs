@@ -77,12 +77,4 @@ namespace NotificationMaster
         public int reservedInt = 0;
         public int flagsEx = 0;
     }
-
-    public class LibWrap
-    {
-        //BOOL GetOpenFileName(LPOPENFILENAME lpofn);
-
-        [DllImport("Comdlg32.dll", CharSet = CharSet.Auto)]
-        internal static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
-    }
 }
