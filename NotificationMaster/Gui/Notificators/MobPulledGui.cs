@@ -32,8 +32,7 @@ namespace NotificationMaster
                     p.mobPulled.RebuildMobNames();
                     p.mobPulled.ClearIgnoredMobs();
                 }
-                ImGui.TextColored(ImGuiColors.DalamudRed, "Warning! This function is EXPERIMENTAL!\n" +
-                    "Additionally, for the time being, it is required that you CAN SEE the mob for plugin to detect it's pull.\n" +
+                ImGui.TextColored(ImGuiColors.DalamudOrange, "Please note that is required that you CAN SEE the mob for plugin to detect it's pull.\n" +
                     "If your area is extremely congested, A ranks may disappear.\n" +
                     "S/SS should always be visible, however. Solution to this problem will come at a later date.");
                 ImGui.Text($"When mob from list in specified zones is pulled, do the following{(p.cfg.mobPulled_AlwaysExecute ? "" : " if FFXIV is running in background")}:");

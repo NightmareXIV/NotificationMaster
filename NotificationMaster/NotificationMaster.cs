@@ -30,6 +30,8 @@ namespace NotificationMaster
         internal AudioSelector fileSelector = new();
         internal AudioPlayer audioPlayer;
 
+        internal long PauseUntil = 0;
+
         public string Name => "NotificationMaster";
 
         public NotificationMaster(DalamudPluginInterface pluginInterface)
@@ -60,13 +62,53 @@ namespace NotificationMaster
                     "A settings window has been opened: please configure the plugin.", 
                     "Please configure NotificationMaster", NotificationType.Info, 10000);
             }
-            Svc.Commands.AddHandler("/pnotify", new CommandInfo(delegate
+            Svc.Commands.AddHandler("/pnotify", new CommandInfo(OnCommand)
+            {
+                HelpMessage = "open/close configuration\n" +
+                "/pnotify shutup|s [time in minutes] - pause plugin for specified amount of minutes or until restart if time is not specified\n" +
+                "/pnotify resume|r - resume plugin operation"
+            });
+        }
+
+        private void OnCommand(string command, string arguments)
+        {
+            if(arguments == "")
             {
                 configGui.open = !configGui.open;
-            })
+            }
+            else
             {
-                HelpMessage = "open/close configuration"
-            });
+                var args = arguments.Split(' ');
+                if(args[0].Equals("shutup", StringComparison.OrdinalIgnoreCase) || args[0].Equals("s", StringComparison.OrdinalIgnoreCase))
+                {
+                    if(args.Length == 1)
+                    {
+                        PauseUntil = long.MaxValue;
+                        Static.Notify("Plugin paused until restart", NotificationType.Success);
+                    }
+                    else
+                    {
+                        if(uint.TryParse(args[1], out var minutes))
+                        {
+                            PauseUntil = Environment.TickCount64 + minutes * 60 * 1000;
+                            Static.Notify($"Plugin paused for {minutes} minutes", NotificationType.Success);
+                        }
+                        else
+                        {
+                            Static.Notify("Please enter amount of time in minutes");
+                        }
+                    }
+                }
+                else if(args[0].Equals("resume", StringComparison.OrdinalIgnoreCase) || args[0].Equals("r", StringComparison.OrdinalIgnoreCase))
+                {
+                    PauseUntil = 0;
+                    Static.Notify("Plugin operation resumed", NotificationType.Success);
+                }
+                else
+                {
+                    Static.Notify("Invanid command", NotificationType.Error);
+                }
+            }
         }
 
         public void Dispose()

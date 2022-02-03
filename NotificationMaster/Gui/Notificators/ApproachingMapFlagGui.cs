@@ -13,9 +13,9 @@ namespace NotificationMaster
     {
         internal void DrawMapFlagConfig()
         {
-            ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudRed);
+            /*ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudRed);
             ImGui.TextWrapped("Warning: this feature is EXPERIMENTAL!");
-            ImGui.PopStyleColor();
+            ImGui.PopStyleColor();*/
             var curPosEnable = ImGui.GetCursorPos();
             if (ImGui.Checkbox("Enable", ref p.cfg.mapFlag_Enable))
             {

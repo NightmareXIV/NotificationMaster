@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game.Gui.Toast;
+using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Internal.Notifications;
 using Dalamud.Logging;
@@ -29,6 +30,26 @@ namespace NotificationMaster
 
         internal void Draw()
         {
+            if(p.PauseUntil > Environment.TickCount64)
+            {
+                ImGuiHelpers.ForceNextWindowMainViewport();
+                var sb = new StringBuilder("NotificationMaster is paused");
+                if(p.PauseUntil != long.MaxValue)
+                {
+                    var ts = TimeSpan.FromMilliseconds(p.PauseUntil - Environment.TickCount64);
+                    sb.Append($" for {(ts.Days * 60 + ts.Hours):D2}:{ts.Minutes:D2}:{ts.Seconds}:D2");
+                }
+                var text = sb.ToString();
+                var dims = ImGui.CalcTextSize(text);
+                ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Vector2(ImGuiHelpers.MainViewport.Size.X / 2 - dims.X / 2, 20f));
+                ImGui.Begin("NotificationMasterPauseWarning", ImGuiWindowFlags.NoNav
+                | ImGuiWindowFlags.NoFocusOnAppearing
+                | ImGuiWindowFlags.NoTitleBar
+                | ImGuiWindowFlags.NoBackground
+                | ImGuiWindowFlags.AlwaysAutoResize);
+                ImGui.TextColored(ImGuiColors.DalamudOrange, text);
+                ImGui.End();
+            }
             if (open)
             {
                 

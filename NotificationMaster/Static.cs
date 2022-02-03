@@ -1,5 +1,6 @@
 ﻿using Dalamud.Interface;
 using Dalamud.Interface.Colors;
+using Dalamud.Interface.Internal.Notifications;
 using ImGuiNET;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,11 @@ namespace NotificationMaster
 {
     static class Static
     {
+
+        public static void Notify(string s, NotificationType notificationType = NotificationType.Info)
+        {
+            Svc.PluginInterface.UiBuilder.AddNotification(s, "NoitificationMaster", notificationType);
+        }
         public static void AddShifting<T>(this T[] array, T element)
         {
             for(var i = array.Length - 2; i >= 0; i--)
