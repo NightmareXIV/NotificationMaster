@@ -80,6 +80,7 @@ namespace NotificationMaster
 
         void MobPulledWatcher(Framework framework)
         {
+            if (p.PauseUntil > Environment.TickCount64) return;
             if (Svc.ClientState.LocalPlayer != null)
             {
                 foreach (var o in Svc.Objects)

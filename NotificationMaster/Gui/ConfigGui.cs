@@ -37,7 +37,7 @@ namespace NotificationMaster
                 if(p.PauseUntil != long.MaxValue)
                 {
                     var ts = TimeSpan.FromMilliseconds(p.PauseUntil - Environment.TickCount64);
-                    sb.Append($" for {(ts.Days * 60 + ts.Hours):D2}:{ts.Minutes:D2}:{ts.Seconds}:D2");
+                    sb.Append($" for {(ts.Days * 60 + ts.Hours):D2}:{ts.Minutes:D2}:{ts.Seconds:D2}");
                 }
                 var text = sb.ToString();
                 var dims = ImGui.CalcTextSize(text);

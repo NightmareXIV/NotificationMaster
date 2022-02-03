@@ -36,6 +36,7 @@ namespace NotificationMaster
             }
             //else
             {
+                if (p.PauseUntil > Environment.TickCount64) return;
                 if (!p.ThreadUpdActivated.IsApplicationActivated)
                 {
                     var senderFullStr = sender.ToString();

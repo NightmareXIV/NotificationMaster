@@ -26,6 +26,7 @@ namespace NotificationMaster
 
         private void LoginErrorWatcher(Framework framework)
         {
+            if (p.PauseUntil > Environment.TickCount64) return;
             if (!Svc.ClientState.IsLoggedIn)
             {
                 var addonPtr = Svc.GameGui.GetAddonByName("Dialogue", 1);

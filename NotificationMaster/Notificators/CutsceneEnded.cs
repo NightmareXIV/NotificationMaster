@@ -30,6 +30,7 @@ namespace NotificationMaster
         private void HandleFrameworkUpdate(Framework framework)
         {
             if (Svc.ClientState == null) return;
+            if (p.PauseUntil > Environment.TickCount64) return;
             var c = Svc.Condition[ConditionFlag.OccupiedInCutSceneEvent]
                 || Svc.Condition[ConditionFlag.WatchingCutscene78];
             if (isInCutscene && !c && !p.ThreadUpdActivated.IsApplicationActivated &&

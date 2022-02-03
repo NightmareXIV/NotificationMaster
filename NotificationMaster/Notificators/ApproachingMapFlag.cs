@@ -52,7 +52,7 @@ namespace NotificationMaster
         bool DirectionY;
         private void ApproachingMapFlagWatcher(Framework framework)
         {
-            if (p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null || 
+            if (p.PauseUntil > Environment.TickCount64 || p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null || 
                 Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
                 * isFlagSet == 0 || *flagTerritory != Svc.ClientState.TerritoryType)
             {

@@ -75,9 +75,10 @@ namespace NotificationMaster
             if (Environment.TickCount < nextTick) return;
             nextTick = Environment.TickCount + 5000;
             if (Svc.ClientState?.LocalPlayer == null) return;
-            if (Svc.ClientState.LocalPlayer.ClassJob.Id != 16
+            if ((Svc.ClientState.LocalPlayer.ClassJob.Id != 16
                 && Svc.ClientState.LocalPlayer.ClassJob.Id != 17
                 && Svc.ClientState.LocalPlayer.ClassJob.Id != 18)
+                || p.PauseUntil > Environment.TickCount64)
             {
                 needNotification = false;
                 return;

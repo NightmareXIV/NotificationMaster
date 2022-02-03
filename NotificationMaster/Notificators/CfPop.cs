@@ -32,6 +32,7 @@ namespace NotificationMaster
         private void Pop(object sender, ContentFinderCondition e)
         {
             PluginLog.Debug("Cf pop " + e.Name.ToString());
+            if (p.PauseUntil > Environment.TickCount64) return;
             if (!p.ThreadUpdActivated.IsApplicationActivated)
             {
                 DoNotify(e.Name.ToString());
