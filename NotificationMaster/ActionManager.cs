@@ -1,4 +1,4 @@
-﻿using Dalamud.Plugin;
+﻿/*using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,3 +47,4 @@ namespace NotificationMaster
         [FieldOffset(0xC)] public float CooldownTotal;
     }
 }
+*/

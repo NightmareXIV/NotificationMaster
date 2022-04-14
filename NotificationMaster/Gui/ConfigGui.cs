@@ -41,12 +41,13 @@ namespace NotificationMaster
                 }
                 var text = sb.ToString();
                 var dims = ImGui.CalcTextSize(text);
-                ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Vector2(ImGuiHelpers.MainViewport.Size.X / 2 - dims.X / 2, 20f));
+                ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Vector2(ImGuiHelpers.MainViewport.Size.X / 2 - dims.X / 2, 10f));
                 ImGui.Begin("NotificationMasterPauseWarning", ImGuiWindowFlags.NoNav
                 | ImGuiWindowFlags.NoFocusOnAppearing
                 | ImGuiWindowFlags.NoTitleBar
                 | ImGuiWindowFlags.NoBackground
-                | ImGuiWindowFlags.AlwaysAutoResize);
+                | ImGuiWindowFlags.AlwaysAutoResize
+                | ImGuiWindowFlags.NoInputs);
                 ImGui.TextColored(ImGuiColors.DalamudOrange, text);
                 ImGui.End();
             }

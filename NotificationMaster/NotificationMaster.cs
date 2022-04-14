@@ -13,7 +13,6 @@ namespace NotificationMaster
     class NotificationMaster : IDalamudPlugin
     {
         internal bool IsDisposed = false;
-        internal ActionManager actMgr;
         internal Configuration cfg;
         internal ConfigGui configGui;
 
@@ -39,7 +38,6 @@ namespace NotificationMaster
             pluginInterface.Create<Svc>();
             cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             cfg.Initialize(Svc.PluginInterface);
-            actMgr = new(this);
             httpMaster = new();
             ThreadUpdActivated = new();
             audioPlayer = new(this);

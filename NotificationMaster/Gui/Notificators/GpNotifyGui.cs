@@ -1,22 +1,34 @@
-﻿using ImGuiNET;
+﻿using Dalamud.Game.ClientState.Objects.Enums;
+using Dalamud.Interface.Colors;
+using ImGuiNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NotificationMaster
 {
-    partial class ConfigGui
+    unsafe partial class ConfigGui
     {
         internal void DrawGpNotify()
         {
-            if(ImGui.Checkbox("Enable##gpn", ref p.cfg.gp_Enable))
+            var curPosEnable = ImGui.GetCursorPos();
+            if (ImGui.Checkbox("Enable##gpn", ref p.cfg.gp_Enable))
             {
                 GpNotify.Setup(p.cfg.gp_Enable, p);
             }
             if (p.cfg.gp_Enable)
             {
+                var curPosCont = ImGui.GetCursorPos();
+                ImGui.SetCursorPos(new Vector2(500f, curPosEnable.Y));
+                ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
+                ImGui.Text("Debug info: ");
+                ImGui.SetCursorPosX(500f);
+                ImGui.Text($"Nodes around: {Svc.Objects.Count(x => x.ObjectKind == ObjectKind.GatheringPoint)}");
+                ImGui.PopStyleColor();
+                ImGui.SetCursorPos(curPosCont);
                 ImGui.SetNextItemWidth(100f);
                 ImGui.DragInt("Notify upon reaching this amount of GP", ref p.cfg.gp_GPTreshold, 1f, 0, 10000);
                 ImGui.Text("Use command /gp <number> to quickly change this amount");
@@ -24,6 +36,7 @@ namespace NotificationMaster
                 ImGui.DragInt("Potion capacity", ref p.cfg.gp_PotionCapacity, 1f, 0, 1000);
                 ImGui.SetNextItemWidth(100f);
                 ImGui.DragInt("Tolerance", ref p.cfg.gp_Tolerance, 1f, 0, 100);
+                ImGui.Checkbox("Suppress notification if no potential gathering places are around", ref p.cfg.gp_SuppressIfNoNodes);
                 if (ImGui.IsItemHovered())
                 {
                     ImGui.SetTooltip("If your GP is lower than targeted by not more than this amount, notification will not be sent upon regaining it.");

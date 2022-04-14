@@ -1,4 +1,5 @@
 ﻿using Dalamud.Game;
+using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.Command;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Internal;
@@ -17,7 +18,7 @@ using System.Windows.Forms;
 
 namespace NotificationMaster
 {
-    class GpNotify : IDisposable
+    unsafe class GpNotify : IDisposable
     {
         internal int nextTick = 0;
         internal bool needNotification = false;
@@ -85,14 +86,15 @@ namespace NotificationMaster
             }
             var gp = Svc.ClientState.LocalPlayer.CurrentGp;
             //pi.Framework.Gui.Chat.Print(actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownElapsed + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownTotal);
-            if (!p.actMgr.GetCooldown(PotionCDGroup).IsCooldown) gp += (uint)p.cfg.gp_PotionCapacity;
+            if (FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetRecastGroupDetail(PotionCDGroup)->IsActive == 0) gp += (uint)p.cfg.gp_PotionCapacity;
             //pi.Framework.Gui.Chat.Print(DateTimeOffset.Now + ": " + gp);
             if(gp >= p.cfg.gp_GPTreshold)
             {
                 if (needNotification) 
                 {
                     needNotification = false;
-                    if (!p.ThreadUpdActivated.IsApplicationActivated)
+                    if (!p.ThreadUpdActivated.IsApplicationActivated
+                        && (!p.cfg.gp_SuppressIfNoNodes || Svc.Objects.Any(x => x.ObjectKind == ObjectKind.GatheringPoint)))
                     {
                         if (p.cfg.gp_FlashTrayIcon)
                         {

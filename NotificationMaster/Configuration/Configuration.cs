@@ -22,6 +22,7 @@ namespace NotificationMaster
         public int gp_PotionCapacity = 400;
         public int gp_GPTreshold = 800;
         public int gp_Tolerance = 50;
+        public bool gp_SuppressIfNoNodes = false;
         public bool gp_HttpRequestsEnable = false;
         public List<HttpRequestElement> gp_HttpRequests = new();
         public SoundSettings gp_SoundSettings = new();
