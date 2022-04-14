@@ -27,6 +27,8 @@ namespace NotificationMaster
                 ImGui.Text("Debug info: ");
                 ImGui.SetCursorPosX(500f);
                 ImGui.Text($"Nodes around: {Svc.Objects.Count(x => x.ObjectKind == ObjectKind.GatheringPoint)}");
+                ImGui.SetCursorPosX(500f);
+                ImGui.Text($"Potion cooldown: {FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetRecastGroupDetail(GpNotify.PotionCDGroup)->IsActive}");
                 ImGui.PopStyleColor();
                 ImGui.SetCursorPos(curPosCont);
                 ImGui.SetNextItemWidth(100f);

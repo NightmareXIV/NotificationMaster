@@ -23,7 +23,7 @@ namespace NotificationMaster
         internal int nextTick = 0;
         internal bool needNotification = false;
         private NotificationMaster p;
-        public const byte PotionCDGroup = 69;
+        public const byte PotionCDGroup = 68;
 
         public void Dispose()
         {
