@@ -13,7 +13,7 @@ namespace NotificationMaster
 {
     class CutsceneEnded : IDisposable
     {
-        bool isInCutscene = false;
+        bool isInCutscene = false; 
         private NotificationMaster p;
 
         public void Dispose()
