@@ -2,6 +2,7 @@
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Logging;
 using Dalamud.Plugin;
+using ECommons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,7 @@ namespace NotificationMaster
     {
         bool isInCutscene = false;
         private NotificationMaster p;
-        const int CastrumZoneId = 217;
-        const int PraetoriumZoneId = 224;
+
         public void Dispose()
         {
             Svc.Framework.Update -= HandleFrameworkUpdate;
@@ -34,7 +34,7 @@ namespace NotificationMaster
             var c = Svc.Condition[ConditionFlag.OccupiedInCutSceneEvent]
                 || Svc.Condition[ConditionFlag.WatchingCutscene78];
             if (isInCutscene && !c && !p.ThreadUpdActivated.IsApplicationActivated &&
-                (!p.cfg.cutscene_OnlyMSQ || Svc.ClientState.TerritoryType == CastrumZoneId || Svc.ClientState.TerritoryType == PraetoriumZoneId))
+                (!p.cfg.cutscene_OnlyMSQ || Svc.ClientState.TerritoryType.EqualsAny<ushort>(1043, 1044, 1048)))
             {
                 if (p.cfg.cutscene_FlashTrayIcon)
                 {

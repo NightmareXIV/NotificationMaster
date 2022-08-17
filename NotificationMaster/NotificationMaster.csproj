@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>Eternita</Authors>
-		<Version>2.1.0.5</Version>
+		<Version>2.1.0.6</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -16,6 +16,7 @@
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<NoWarn>CS1591</NoWarn>
 		<UseWindowsForms>true</UseWindowsForms>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Documentation">
@@ -36,8 +37,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudLinter" Version="1.0.3" />
-		<PackageReference Include="DalamudPackager" Version="2.1.6" />
+		<PackageReference Include="DalamudPackager" Version="2.1.7" />
 		<PackageReference Include="NAudio" Version="2.0.1" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<Reference Include="Newtonsoft.Json">

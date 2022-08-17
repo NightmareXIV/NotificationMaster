@@ -2,6 +2,7 @@
   "Name": "NotificationMaster",
   "Author": "Eternita",
   "Description": "Notifies you about various events while your game is minimized.",
+  "Punchline": "Currently supports notifications: chat messages, approaching map flag, duty found, ending of cutscenes, gp restoration, error during logging in, mob has been pulled.",
   "RepoUrl": "https://github.com/Eternita-S/NotificationMaster",
   "Tags": [
     "notification"

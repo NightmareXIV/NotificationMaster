@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.Text;
 using Dalamud.Logging;
+using ECommons.ImGuiMethods;
 using ImGuiNET;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace NotificationMaster
                     ImGui.Columns(5);
                     ImGui.SetColumnWidth(0, 150f);
                     ImGui.SetColumnWidth(1, 150f);
-                    ImGui.SetColumnWidth(2, ImGui.GetWindowContentRegionWidth() - 150 - 150 - 100 - 40);
+                    ImGui.SetColumnWidth(2, ImGuiEx.GetWindowContentRegionWidth() - 150 - 150 - 100 - 40);
                     ImGui.SetColumnWidth(3, 100f);
                     ImGui.SetColumnWidth(4, 40f);
                     ImGui.Text("Type");
