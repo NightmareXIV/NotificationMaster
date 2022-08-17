@@ -39,6 +39,7 @@
 		<PackageReference Include="DalamudLinter" Version="1.0.3" />
 		<PackageReference Include="DalamudPackager" Version="2.1.6" />
 		<PackageReference Include="NAudio" Version="2.0.1" />
+		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 			<Private>False</Private>
