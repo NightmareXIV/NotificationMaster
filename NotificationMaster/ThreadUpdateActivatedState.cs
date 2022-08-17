@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace NotificationMaster
 {
-    internal class ThreadUpdateActivatedState : IDisposable
+    public class ThreadUpdateActivatedState : IDisposable
     {
         volatile bool running = true;
-        internal volatile bool IsApplicationActivated = false;
+        public volatile bool IsApplicationActivated = false;
         internal ThreadUpdateActivatedState()
         {
             new Thread((ThreadStart)delegate 

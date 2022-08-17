@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NotificationMaster
 {
-    class NotificationMaster : IDalamudPlugin
+    public class NotificationMaster : IDalamudPlugin
     {
         internal bool IsDisposed = false;
         internal Configuration cfg;
@@ -25,7 +25,7 @@ namespace NotificationMaster
         internal MobPulled mobPulled = null;
 
         internal HttpMaster httpMaster;
-        internal ThreadUpdateActivatedState ThreadUpdActivated;
+        public ThreadUpdateActivatedState ThreadUpdActivated;
         internal AudioSelector fileSelector = new();
         internal AudioPlayer audioPlayer;
 
