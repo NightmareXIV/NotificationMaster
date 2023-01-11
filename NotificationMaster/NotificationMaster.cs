@@ -3,6 +3,7 @@ using Dalamud.Game.Command;
 using Dalamud.Interface.Internal.Notifications;
 using Dalamud.Logging;
 using Dalamud.Plugin;
+using ECommons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace NotificationMaster
 
         public NotificationMaster(DalamudPluginInterface pluginInterface)
         {
-            ECommons.ECommons.Init(pluginInterface);
+            ECommonsMain.Init(pluginInterface, this);
             cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             cfg.Initialize(Svc.PluginInterface);
             httpMaster = new();
@@ -126,7 +127,7 @@ namespace NotificationMaster
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");
             IsDisposed = true;
-            ECommons.ECommons.Dispose();
+            ECommonsMain.Dispose();
         }
     }
 }

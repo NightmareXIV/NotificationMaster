@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Authors>Eternita</Authors>
-		<Version>2.1.0.7</Version>
+		<Authors>NightmareXIV</Authors>
+		<Version>2.1.0.8</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net7.0-windows</TargetFramework>
 		<Platforms>x64</Platforms>
 		<LangVersion>latest</LangVersion>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -37,7 +37,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.8" />
+		<PackageReference Include="DalamudPackager" Version="2.1.10" />
 		<PackageReference Include="NAudio" Version="2.0.1" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<Reference Include="Newtonsoft.Json">
