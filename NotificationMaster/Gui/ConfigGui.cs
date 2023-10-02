@@ -3,6 +3,8 @@ using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Internal.Notifications;
 using Dalamud.Interface.Utility;
+using ECommons;
+using ECommons.ImGuiMethods;
 using ECommons.Logging;
 using ImGuiNET;
 using System;
@@ -22,6 +24,7 @@ namespace NotificationMaster
         {
             this.p = p;
             Svc.PluginInterface.UiBuilder.Draw += Draw;
+            KoFiButton.IsOfficialPlugin = true;
         }
 
         public void Dispose()
@@ -64,6 +67,7 @@ namespace NotificationMaster
                     }
                     else
                     {
+                        KoFiButton.DrawRight();
                         ImGui.BeginTabBar("##NMtabs");
                         DrawTab("GP replenish", DrawGpNotify, p.cfg.gp_Enable);
                         DrawTab("Cutscene ending", DrawCutsceneConfig, p.cfg.cutscene_Enable);
@@ -72,6 +76,7 @@ namespace NotificationMaster
                         DrawTab("Connection error", DrawLoginErrorConfig, p.cfg.loginError_Enable);
                         DrawTab("Approaching map flag", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
                         DrawTab("Mob pulled", DrawMobPulledConfig, p.cfg.mobPulled_Enable);
+                        KoFiButton.RightTransparentTab();
                         ImGui.EndTabBar();
                     }
                 }
