@@ -29,13 +29,13 @@ namespace NotificationMaster
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudGrey);
                 ImGui.Text("Debug info: ");
                 ImGui.SetCursorPosX(500f);
-                ImGui.Text($"Flag state: {*p.mapFlag.isFlagSet}");
+                ImGui.Text($"Flag state: {p.mapFlag.isFlagSet}");
                 ImGui.SetCursorPosX(500f);
-                ImGui.Text($"Flag territory: {*p.mapFlag.flagTerritory}");
+                ImGui.Text($"Flag territory: {p.mapFlag.flagTerritory}");
                 ImGui.SetCursorPosX(500f);
-                ImGui.Text($"Flag X: {*p.mapFlag.flagX}");
+                ImGui.Text($"Flag X: {p.mapFlag.flagX}");
                 ImGui.SetCursorPosX(500f);
-                ImGui.Text($"Flag Y: {*p.mapFlag.flagY}");
+                ImGui.Text($"Flag Y: {p.mapFlag.flagY}");
                 if(Svc.ClientState.LocalPlayer != null)
                 {
                     ImGui.SetCursorPosX(500f);
@@ -45,7 +45,7 @@ namespace NotificationMaster
                     ImGui.SetCursorPosX(500f);
                     ImGui.Text($"Territory: {Svc.ClientState.TerritoryType}");
                     ImGui.SetCursorPosX(500f);
-                    distance = Vector2.Distance(new Vector2(*p.mapFlag.flagX, *p.mapFlag.flagY), 
+                    distance = Vector2.Distance(new Vector2(p.mapFlag.flagX, p.mapFlag.flagY), 
                         new Vector2(Svc.ClientState.LocalPlayer.Position.X, Svc.ClientState.LocalPlayer.Position.Z));
                     ImGui.Text($"Distance: {distance}");
                 }
@@ -59,7 +59,7 @@ namespace NotificationMaster
                 ImGui.SetNextItemWidth(100f);
                 ImGui.DragInt("Distance to marker", ref p.cfg.mapFlag_TriggerDistance);
                 ImGui.Text("Note: this is in-game coordinates distance, not map coordinates distance.");
-                if (*p.mapFlag.isFlagSet != 0 && Svc.ClientState.TerritoryType == *p.mapFlag.flagTerritory)
+                if (p.mapFlag.isFlagSet != 0 && Svc.ClientState.TerritoryType == p.mapFlag.flagTerritory)
                 {
                     ImGui.Text($"You are currently {distance:0} yalms away from currently set marker.");
                 }

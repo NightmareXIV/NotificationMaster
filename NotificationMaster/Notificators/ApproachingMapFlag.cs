@@ -15,10 +15,10 @@ namespace NotificationMaster
     internal unsafe class ApproachingMapFlag
     {
         NotificationMaster p;
-        internal float* flagX;
-        internal float* flagY;
-        internal int* flagTerritory;
-        internal byte* isFlagSet;
+        internal float flagX => AgentMap.Instance()->FlagMapMarker.XFloat;
+        internal float flagY => AgentMap.Instance()->FlagMapMarker.YFloat;
+        internal uint flagTerritory => AgentMap.Instance()->FlagMapMarker.TerritoryId;
+        internal byte isFlagSet => AgentMap.Instance()->IsFlagMarkerSet;
 
         public void Dispose()
         {
@@ -30,13 +30,6 @@ namespace NotificationMaster
             this.p = plugin;
             try
             {
-                var agentMap = (IntPtr)FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()
-                    ->GetUiModule()->GetAgentModule()->GetAgentByInternalId(AgentId.Map);
-                PluginLog.Information($"AgentMap: {agentMap:X16}");
-                isFlagSet = (byte*)(agentMap + 22959);
-                flagTerritory = (int*)(agentMap + 14320);
-                flagX = (float*)(agentMap + 14328);
-                flagY = (float*)(agentMap + 14332);
                 Svc.Framework.Update += ApproachingMapFlagWatcher;
             }
             catch(Exception e)
@@ -54,7 +47,7 @@ namespace NotificationMaster
         {
             if (p.PauseUntil > Environment.TickCount64 || p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null || 
                 Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
-                * isFlagSet == 0 || *flagTerritory != Svc.ClientState.TerritoryType)
+                 isFlagSet == 0 || flagTerritory != Svc.ClientState.TerritoryType)
             {
                 IsEnabled = false;
                 HasTriggered = false;
@@ -65,7 +58,7 @@ namespace NotificationMaster
                 {
                     UpdateDirections();
                 }
-                if(Vector2.Distance(new Vector2(*flagX, *flagY), 
+                if(Vector2.Distance(new Vector2(flagX, flagY), 
                     new Vector2(Svc.ClientState.LocalPlayer.Position.X, 
                     Svc.ClientState.LocalPlayer.Position.Z)) <= p.cfg.mapFlag_TriggerDistance)
                 {
@@ -80,8 +73,8 @@ namespace NotificationMaster
                 {
                     HasTriggered = false;
                 }
-                if ((!DirectionX && *flagX > Svc.ClientState.LocalPlayer.Position.X + p.cfg.mapFlag_CrossDelta) 
-                    || (DirectionX && *flagX < Svc.ClientState.LocalPlayer.Position.X - p.cfg.mapFlag_CrossDelta))
+                if ((!DirectionX && flagX > Svc.ClientState.LocalPlayer.Position.X + p.cfg.mapFlag_CrossDelta) 
+                    || (DirectionX && flagX < Svc.ClientState.LocalPlayer.Position.X - p.cfg.mapFlag_CrossDelta))
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
@@ -90,8 +83,8 @@ namespace NotificationMaster
                     }
                     UpdateDirections();
                 }
-                if ((!DirectionY && *flagY > Svc.ClientState.LocalPlayer.Position.Z + p.cfg.mapFlag_CrossDelta) 
-                    || (DirectionY && *flagY < Svc.ClientState.LocalPlayer.Position.Z - p.cfg.mapFlag_CrossDelta))
+                if ((!DirectionY && flagY > Svc.ClientState.LocalPlayer.Position.Z + p.cfg.mapFlag_CrossDelta) 
+                    || (DirectionY && flagY < Svc.ClientState.LocalPlayer.Position.Z - p.cfg.mapFlag_CrossDelta))
                 {
                     if (IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                     {
@@ -131,8 +124,8 @@ namespace NotificationMaster
 
         void UpdateDirections()
         {
-            DirectionX = *flagX > Svc.ClientState.LocalPlayer.Position.X;
-            DirectionY = *flagY > Svc.ClientState.LocalPlayer.Position.Z;
+            DirectionX = flagX > Svc.ClientState.LocalPlayer.Position.X;
+            DirectionY = flagY > Svc.ClientState.LocalPlayer.Position.Z;
             //Svc.Chat.Print($"Directions: {DirectionX}, {DirectionY}");
         }
 
