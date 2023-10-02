@@ -38,7 +38,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.10" />
+		<PackageReference Include="DalamudPackager" Version="2.1.12" />
 		<PackageReference Include="NAudio" Version="2.1.0" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<Reference Include="Newtonsoft.Json">

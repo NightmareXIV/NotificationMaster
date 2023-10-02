@@ -1,5 +1,5 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Logging;
+using ECommons.Logging;
 using Lumina.Excel.GeneratedSheets;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace NotificationMaster
             Svc.ClientState.CfPop += Pop;
         }
 
-        private void Pop(object sender, ContentFinderCondition e)
+        private void Pop(ContentFinderCondition e)
         {
             PluginLog.Debug("Cf pop " + e.Name.ToString());
             if (p.PauseUntil > Environment.TickCount64) return;

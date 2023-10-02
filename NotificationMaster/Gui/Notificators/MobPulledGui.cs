@@ -127,7 +127,7 @@ namespace NotificationMaster
                 {
                     p.cfg.mobPulled_Territories.Remove(territoryType);
                 }
-                if(Svc.ClientState.IsLoggedIn) p.mobPulled.TerritoryChanged(null, Svc.ClientState.TerritoryType);
+                if(Svc.ClientState.IsLoggedIn) p.mobPulled.TerritoryChanged(Svc.ClientState.TerritoryType);
             }
             if (v.isWorld) ImGui.PopStyleColor();
         }

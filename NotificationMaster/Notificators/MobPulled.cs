@@ -2,7 +2,7 @@
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Text.SeStringHandling;
-using Dalamud.Logging;
+using ECommons.Logging;
 using Lumina.Excel.GeneratedSheets;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace NotificationMaster
                 }
             }
             RebuildMobNames();
-            TerritoryChanged(null, Svc.ClientState.TerritoryType);
+            TerritoryChanged(Svc.ClientState.TerritoryType);
             Svc.ClientState.TerritoryChanged += TerritoryChanged;
         }
 
@@ -62,7 +62,7 @@ namespace NotificationMaster
             PluginLog.Debug("Cleared ignored mobs ids cache");
         }
 
-        internal void TerritoryChanged(object _, ushort newTerritory)
+        internal void TerritoryChanged(ushort newTerritory)
         {
             Svc.Framework.Update -= MobPulledWatcher;
             PluginLog.Debug("MobPulledWatcher unregistered.");
@@ -78,7 +78,7 @@ namespace NotificationMaster
             }
         }
 
-        void MobPulledWatcher(Framework framework)
+        void MobPulledWatcher(object framework)
         {
             if (p.PauseUntil > Environment.TickCount64) return;
             if (Svc.ClientState.LocalPlayer != null)

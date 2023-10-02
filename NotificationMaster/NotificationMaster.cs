@@ -1,7 +1,7 @@
 ﻿global using ECommons.DalamudServices;
 using Dalamud.Game.Command;
 using Dalamud.Interface.Internal.Notifications;
-using Dalamud.Logging;
+using ECommons.Logging;
 using Dalamud.Plugin;
 using ECommons;
 using System;

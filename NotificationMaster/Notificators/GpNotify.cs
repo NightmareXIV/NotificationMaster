@@ -4,7 +4,7 @@ using Dalamud.Game.Command;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Internal;
 using Dalamud.Interface.Internal.Notifications;
-using Dalamud.Logging;
+using ECommons.Logging;
 using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
@@ -71,7 +71,7 @@ namespace NotificationMaster
             }
         }
 
-        void Tick(Framework framework)
+        void Tick(object _)
         {
             if (Environment.TickCount < nextTick) return;
             nextTick = Environment.TickCount + 5000;

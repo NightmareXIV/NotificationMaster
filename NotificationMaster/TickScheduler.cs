@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game;
-using Dalamud.Logging;
+using ECommons.Logging;
+using Dalamud.Plugin.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace NotificationMaster
     {
         long executeAt;
         Action function;
-        Framework framework;
+        IFramework framework;
         bool disposed = false;
 
-        public TickScheduler(Action function, Framework framework, long delayMS = 0)
+        public TickScheduler(Action function, IFramework framework, long delayMS = 0)
         {
             this.executeAt = Environment.TickCount64 + delayMS;
             this.function = function;

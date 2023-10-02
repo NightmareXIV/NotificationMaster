@@ -1,6 +1,6 @@
 ﻿using Dalamud.Game;
 using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Logging;
+using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using ImGuiNET;
 using System;
@@ -43,7 +43,7 @@ namespace NotificationMaster
         bool HasTriggered = false;
         bool DirectionX;
         bool DirectionY;
-        private void ApproachingMapFlagWatcher(Framework framework)
+        private void ApproachingMapFlagWatcher(object _)
         {
             if (p.PauseUntil > Environment.TickCount64 || p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null || 
                 Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||

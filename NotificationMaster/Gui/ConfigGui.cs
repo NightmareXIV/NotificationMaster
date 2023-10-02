@@ -2,7 +2,8 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Internal.Notifications;
-using Dalamud.Logging;
+using Dalamud.Interface.Utility;
+using ECommons.Logging;
 using ImGuiNET;
 using System;
 using System.Collections.Generic;

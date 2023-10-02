@@ -1,7 +1,7 @@
 ﻿using Dalamud.Game.Network;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
-using Dalamud.Logging;
+using ECommons.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

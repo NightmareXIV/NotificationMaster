@@ -1,5 +1,5 @@
 ﻿using Dalamud.Game;
-using Dalamud.Logging;
+using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace NotificationMaster
             Svc.Framework.Update += LoginErrorWatcher;
         }
 
-        private void LoginErrorWatcher(Framework framework)
+        private void LoginErrorWatcher(object framework)
         {
             if (p.PauseUntil > Environment.TickCount64) return;
             if (!Svc.ClientState.IsLoggedIn)

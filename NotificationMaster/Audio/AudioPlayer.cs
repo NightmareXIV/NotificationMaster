@@ -1,5 +1,5 @@
 ﻿using Dalamud.Interface.Internal.Notifications;
-using Dalamud.Logging;
+using ECommons.Logging;
 using NAudio.Wave;
 using System;
 using System.Collections.Concurrent;

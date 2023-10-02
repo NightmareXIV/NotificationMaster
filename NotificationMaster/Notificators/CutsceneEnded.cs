@@ -1,6 +1,6 @@
 ﻿using Dalamud.Game;
 using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Logging;
+using ECommons.Logging;
 using Dalamud.Plugin;
 using ECommons;
 using System;
@@ -27,7 +27,7 @@ namespace NotificationMaster
             Svc.Framework.Update += HandleFrameworkUpdate;
         }
 
-        private void HandleFrameworkUpdate(Framework framework)
+        private void HandleFrameworkUpdate(object _)
         {
             if (Svc.ClientState == null) return;
             if (p.PauseUntil > Environment.TickCount64) return;
