@@ -45,7 +45,7 @@ namespace NotificationMaster
 
                         ofn.structSize = Marshal.SizeOf(ofn);
 
-                        ofn.filter = $"Media foundation formats\0{Data.MFAudioFormats}" +
+                        ofn.filter = $"Media foundation formats\0{NotificationMasterAPI.Data.MFAudioFormats}" +
                         $"\0All files\0*\0";
 
                         ofn.file = new String(new char[1024]);

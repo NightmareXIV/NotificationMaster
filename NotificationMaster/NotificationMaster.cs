@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
+using NotificationMasterAPI;
 
 namespace NotificationMaster
 {
@@ -32,11 +34,16 @@ namespace NotificationMaster
         internal AudioPlayer audioPlayer;
 
         internal long PauseUntil = 0;
+        internal static NotificationMaster P;
+
+        internal IPC IPC;
+        internal NotificationMasterApi NotificationMasterApi;
 
         public string Name => "NotificationMaster";
 
         public NotificationMaster(DalamudPluginInterface pluginInterface)
         {
+            P = this;
             ECommonsMain.Init(pluginInterface, this);
             cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
             cfg.Initialize(Svc.PluginInterface);
@@ -68,6 +75,8 @@ namespace NotificationMaster
                 "/pnotify shutup|s [time in minutes] - pause plugin for specified amount of minutes or until restart if time is not specified\n" +
                 "/pnotify resume|r - resume plugin operation"
             });
+            IPC = new();
+            NotificationMasterApi = new(Svc.PluginInterface);
         }
 
         private void OnCommand(string command, string arguments)
@@ -126,8 +135,10 @@ namespace NotificationMaster
             cfg.Save();
             configGui.Dispose();
             Svc.Commands.RemoveHandler("/pnotify");
+            GenericHelpers.Safe(() => IPC.Dispose());
             IsDisposed = true;
             ECommonsMain.Dispose();
+            P = null;
         }
     }
 }

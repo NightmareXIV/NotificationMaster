@@ -99,6 +99,9 @@
       },
       "ecommons": {
         "type": "Project"
+      },
+      "notificationmasterapi": {
+        "type": "Project"
       }
     }
   }
