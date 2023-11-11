@@ -16,7 +16,7 @@ namespace NotificationMaster
         {
             new Thread((ThreadStart)delegate 
             {
-                PluginLog.Information("ThreadUpdateActivatedState started");
+                PluginLog.Debug("ThreadUpdateActivatedState started");
                 while (running)
                 {
                     try
@@ -26,7 +26,7 @@ namespace NotificationMaster
                             if (!IsApplicationActivated)
                             {
                                 IsApplicationActivated = true;
-                                PluginLog.Debug("ThreadUpdateActivatedState: application just got activated");
+                                PluginLog.Verbose("ThreadUpdateActivatedState: application just got activated");
                             }
                         }
                         else
@@ -34,7 +34,7 @@ namespace NotificationMaster
                             if (IsApplicationActivated)
                             {
                                 IsApplicationActivated = false;
-                                PluginLog.Debug("ThreadUpdateActivatedState: application just got deactivated");
+                                PluginLog.Verbose("ThreadUpdateActivatedState: application just got deactivated");
                             }
                         }
                     }
@@ -44,7 +44,7 @@ namespace NotificationMaster
                     }
                     Thread.Sleep(100);
                 }
-                PluginLog.Information("ThreadUpdateActivatedState finished");
+                PluginLog.Debug("ThreadUpdateActivatedState finished");
             }).Start();
         }
 
