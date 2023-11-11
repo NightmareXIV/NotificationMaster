@@ -1,6 +1,6 @@
 [submodule "ECommons"]
 	path = ECommons
-	url = https://github.com/Eternita-S/ECommons.git
+	url = https://github.com/NightmareXIV/ECommons.git
 [submodule "NotificationMasterAPI"]
 	path = NotificationMasterAPI
 	url = https://github.com/NightmareXIV/NotificationMasterAPI
