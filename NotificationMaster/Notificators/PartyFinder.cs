@@ -62,7 +62,7 @@ namespace NotificationMaster.Notificators
                 return;
             }
 
-            if (oldCount != -1 && memberCount > 1 && oldCount != memberCount)
+            if (oldCount != -1 && memberCount > 0 && oldCount != memberCount)
             {
                 if (oldCount > memberCount)
                 {
