@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 using NotificationMasterAPI;
+using NotificationMaster.Notificators;
 
 namespace NotificationMaster
 {
@@ -27,6 +28,7 @@ namespace NotificationMaster
         internal LoginError loginError = null;
         internal ApproachingMapFlag mapFlag = null;
         internal MobPulled mobPulled = null;
+        internal PartyFinder partyFinder = null;
 
         internal HttpMaster httpMaster;
         public ThreadUpdateActivatedState ThreadUpdActivated;
@@ -61,6 +63,8 @@ namespace NotificationMaster
             if (cfg.loginError_Enable) LoginError.Setup(true, this);
             if (cfg.mapFlag_Enable) ApproachingMapFlag.Setup(true, this);
             if (cfg.mobPulled_Enable) MobPulled.Setup(true, this);
+            if (cfg.partyFinder_Enable) PartyFinder.Setup(true, this);
+
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;

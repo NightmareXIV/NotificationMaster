@@ -76,6 +76,7 @@ namespace NotificationMaster
                         DrawTab("Connection error", DrawLoginErrorConfig, p.cfg.loginError_Enable);
                         DrawTab("Approaching map flag", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
                         DrawTab("Mob pulled", DrawMobPulledConfig, p.cfg.mobPulled_Enable);
+                        DrawTab("PartyFinder", DrawPartyFinderConfig, p.cfg.partyFinder_Enable);
                         KoFiButton.RightTransparentTab();
                         ImGui.EndTabBar();
                     }
