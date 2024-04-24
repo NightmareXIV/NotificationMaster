@@ -87,6 +87,14 @@ namespace NotificationMaster
         public bool mobPulled_ChatMessage = true;
         public bool mobPulled_Toast = true;
 
+        public bool partyFinder_Enable = false;
+        public bool partyFinder_OnlyWhenFilled = false;
+        public bool partyFinder_Delisted = false;
+        public bool partyFinder_ShowToastNotification = true;
+        public bool partyFinder_FlashTrayIcon = true;
+        public bool partyFinder_AutoActivateWindow = false;
+        public SoundSettings partyFinder_SoundSettings = new();
+
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;
