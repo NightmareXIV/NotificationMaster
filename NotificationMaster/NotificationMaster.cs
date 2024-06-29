@@ -1,6 +1,5 @@
 ﻿global using ECommons.DalamudServices;
 using Dalamud.Game.Command;
-using Dalamud.Interface.Internal.Notifications;
 using ECommons.Logging;
 using Dalamud.Plugin;
 using ECommons;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 using NotificationMasterAPI;
 using NotificationMaster.Notificators;
+using ECommons.ImGuiMethods;
 
 namespace NotificationMaster
 {
@@ -43,7 +43,7 @@ namespace NotificationMaster
 
         public string Name => "NotificationMaster";
 
-        public NotificationMaster(DalamudPluginInterface pluginInterface)
+        public NotificationMaster(IDalamudPluginInterface pluginInterface)
         {
             P = this;
             ECommonsMain.Init(pluginInterface, this);
@@ -68,10 +68,9 @@ namespace NotificationMaster
             if (Svc.PluginInterface.Reason == PluginLoadReason.Installer)
             {
                 configGui.open = true;
-                Svc.PluginInterface.UiBuilder.AddNotification(
+                Notify.Warning(
                     "You have installed NotificationMaster plugin. By default, it has no modules enabled. \n" +
-                    "A settings window has been opened: please configure the plugin.", 
-                    "Please configure NotificationMaster", NotificationType.Info, 10000);
+                    "A settings window has been opened: please configure the plugin.");
             }
             Svc.Commands.AddHandler("/pnotify", new CommandInfo(OnCommand)
             {
@@ -97,29 +96,29 @@ namespace NotificationMaster
                     if(args.Length == 1)
                     {
                         PauseUntil = long.MaxValue;
-                        Static.Notify("Plugin paused until restart", NotificationType.Success);
+                        Notify.Success("Plugin paused until restart");
                     }
                     else
                     {
                         if(uint.TryParse(args[1], out var minutes))
                         {
                             PauseUntil = Environment.TickCount64 + minutes * 60 * 1000;
-                            Static.Notify($"Plugin paused for {minutes} minutes", NotificationType.Success);
+                            Notify.Success($"Plugin paused for {minutes} minutes");
                         }
                         else
                         {
-                            Static.Notify("Please enter amount of time in minutes");
+                            Notify.Error("Please enter amount of time in minutes");
                         }
                     }
                 }
                 else if(args[0].Equals("resume", StringComparison.OrdinalIgnoreCase) || args[0].Equals("r", StringComparison.OrdinalIgnoreCase))
                 {
                     PauseUntil = 0;
-                    Static.Notify("Plugin operation resumed", NotificationType.Success);
+                    Notify.Success("Plugin operation resumed");
                 }
                 else
                 {
-                    Static.Notify("Invanid command", NotificationType.Error);
+                    Notify.Error("Invanid command");
                 }
             }
         }

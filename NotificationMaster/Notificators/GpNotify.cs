@@ -3,7 +3,6 @@ using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.Command;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Internal;
-using Dalamud.Interface.Internal.Notifications;
 using ECommons.Logging;
 using Dalamud.Plugin;
 using System;
@@ -15,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ECommons.ImGuiMethods;
 
 namespace NotificationMaster
 {
@@ -54,19 +54,18 @@ namespace NotificationMaster
                     var newgp = int.Parse(arguments.Trim());
                     if(newgp < 0)
                     {
-                        Svc.PluginInterface.UiBuilder.AddNotification("GP can't be negative", "NotificationMaster", NotificationType.Error);
+                        Notify.Error("GP can't be negative");
                     }
                     else
                     {
                         p.cfg.gp_GPTreshold = newgp;
                         p.cfg.Save();
-                        Svc.PluginInterface.UiBuilder.AddNotification("Trigger GP amount set to " + p.cfg.gp_GPTreshold,
-                            "NotificationMaster", NotificationType.Success);
+                        Notify.Success("Trigger GP amount set to " + p.cfg.gp_GPTreshold);
                     }
                 }
                 catch(Exception e)
                 {
-                    Svc.PluginInterface.UiBuilder.AddNotification("Error: " + e.Message, "NotificationMaster", NotificationType.Error);
+                    Notify.Error("Error: " + e.Message);
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace NotificationMaster
     class Configuration : IPluginConfiguration
     {
         [NonSerialized]
-        private DalamudPluginInterface pluginInterface;
+        private IDalamudPluginInterface pluginInterface;
         public int Version { get; set; } = 1;
 
         public bool gp_Enable = false;
@@ -95,7 +95,7 @@ namespace NotificationMaster
         public bool partyFinder_AutoActivateWindow = false;
         public SoundSettings partyFinder_SoundSettings = new();
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        public void Initialize(IDalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;
             foreach(var e in chatMessage_Elements)

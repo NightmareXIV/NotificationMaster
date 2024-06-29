@@ -1,4 +1,4 @@
-﻿using Dalamud.Interface.Internal.Notifications;
+﻿using ECommons.ImGuiMethods;
 using ECommons.Logging;
 using System;
 using System.Collections.Generic;
@@ -72,7 +72,7 @@ namespace NotificationMaster
                         PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
                         new TickScheduler(delegate
                         {
-                            Svc.PluginInterface.UiBuilder.AddNotification($"Error: {e.Message}", "NotificationMaster", NotificationType.Error);
+                            Notify.Error($"Error: {e.Message}");
                         }, Svc.Framework);
                     }
                     SelectorSemaphore.Release();
@@ -81,7 +81,7 @@ namespace NotificationMaster
             }
             else
             {
-                Svc.PluginInterface.UiBuilder.AddNotification("Failed to open file dialog", "NotificationMaster", NotificationType.Error);
+                Notify.Error("Failed to open file dialog");
             }
         }
 

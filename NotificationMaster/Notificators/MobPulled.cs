@@ -16,7 +16,7 @@ namespace NotificationMaster
     {
         NotificationMaster p;
         HashSet<uint> ignoreMobIds = new();
-        HashSet<int> watchedMobNamesHashes = new();
+        HashSet<string> watchedMobNamesHashes = new();
         internal Dictionary<uint, (string name, bool isWorld)> territories;
         public void Dispose()
         {
@@ -51,7 +51,7 @@ namespace NotificationMaster
             watchedMobNamesHashes.Clear();
             foreach (var s in p.cfg.mobPulled_Names)
             {
-                watchedMobNamesHashes.Add(s.GetHashCode());
+                watchedMobNamesHashes.Add(s);
             }
             PluginLog.Debug($"Mob names hash table rebuilt, config entries={string.Join(",", p.cfg.mobPulled_Names)}; hashes={string.Join(",", watchedMobNamesHashes)}");
         }
@@ -85,21 +85,20 @@ namespace NotificationMaster
             {
                 foreach (var o in Svc.Objects)
                 {
-                    if (o is BattleNpc bnpc && !ignoreMobIds.Contains(o.ObjectId))
+                    if (o is IBattleNpc bnpc && !ignoreMobIds.Contains(o.EntityId))
                     {
                         var bnpcName = bnpc.Name.ToString();
                         if (bnpcName.Length == 0) continue;
-                        var bnpcNameHash = bnpcName.GetHashCode();
-                        if (!watchedMobNamesHashes.Contains(bnpcNameHash))
+                        if (!watchedMobNamesHashes.Contains(bnpcName))
                         {
-                            ignoreMobIds.Add(o.ObjectId);
+                            ignoreMobIds.Add(o.EntityId);
                         }
                         else
                         {
                             if (bnpc.MaxHp != bnpc.CurrentHp)
                             {
-                                PluginLog.Debug($"Detected pulled mob: {bnpc.Name} with id={o.ObjectId} and hash={bnpcNameHash}");
-                                ignoreMobIds.Add(o.ObjectId);
+                                PluginLog.Debug($"Detected pulled mob: {bnpc.Name} with id={o.EntityId}");
+                                ignoreMobIds.Add(o.EntityId);
                                 if (p.cfg.mobPulled_AlwaysExecute || !p.ThreadUpdActivated.IsApplicationActivated)
                                 {
                                     PluginLog.Debug($"Notifying; app activated = {p.ThreadUpdActivated.IsApplicationActivated}");

@@ -1,4 +1,4 @@
-﻿using Dalamud.Interface.Internal.Notifications;
+﻿using ECommons.ImGuiMethods;
 using ECommons.Logging;
 using NAudio.Wave;
 using System;
@@ -83,8 +83,8 @@ namespace NotificationMaster
                             PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
                             new TickScheduler(delegate
                             {
-                                Svc.PluginInterface.UiBuilder.AddNotification(
-                                    $"Error during playing audio file:\n{e.Message}", "NotificationMaster", NotificationType.Error, 10000);
+                                Notify.Error(
+                                    $"Error during playing audio file:\n{e.Message}");
                             }, Svc.Framework);
                         }
                         PluginLog.Debug($"Stopping playing {audio.path}");

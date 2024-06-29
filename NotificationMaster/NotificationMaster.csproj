@@ -2,13 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>NightmareXIV</Authors>
-		<Version>2.1.1.1</Version>
+		<Version>2.1.1.2</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<Platforms>x64</Platforms>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>preview</LangVersion>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -38,8 +38,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.12" />
-		<PackageReference Include="NAudio" Version="2.1.0" />
+		<PackageReference Include="DalamudPackager" Version="2.1.13" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<ProjectReference Include="..\NotificationMasterAPI\NotificationMasterAPI\NotificationMasterAPI.csproj" />
 		<Reference Include="Newtonsoft.Json">

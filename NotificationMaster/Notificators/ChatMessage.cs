@@ -28,7 +28,7 @@ namespace NotificationMaster
             Svc.Chat.ChatMessage += Chat_ChatMessage;
         }
 
-        private void Chat_ChatMessage(XivChatType type, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
+        private void Chat_ChatMessage(XivChatType type, int timestamp, ref SeString sender, ref SeString message, ref bool isHandled)
         {
             if (p.configGui.open)
             {
