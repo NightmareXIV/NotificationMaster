@@ -1,5 +1,6 @@
 ﻿using Dalamud.Configuration;
 using Dalamud.Plugin;
+using ECommons.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace NotificationMaster
 {
     [Serializable]
-    class Configuration : IPluginConfiguration
+    class Configuration : IEzConfig
     {
         [NonSerialized]
         private IDalamudPluginInterface pluginInterface;
@@ -110,7 +111,7 @@ namespace NotificationMaster
 
         public void Save()
         {
-            pluginInterface.SavePluginConfig(this);
+            EzConfig.Save();
         }
     }
 }

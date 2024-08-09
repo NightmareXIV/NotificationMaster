@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32721.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationMaster", "NotificationMaster\NotificationMaster.csproj", "{27E0D6AC-610F-4E65-8336-651803FDBB3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationMaster.NXIV", "NotificationMaster\NotificationMaster.NXIV.csproj", "{27E0D6AC-610F-4E65-8336-651803FDBB3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommons", "ECommons\ECommons\ECommons.csproj", "{51D9CC7C-2E31-4D68-9E75-FC68216AA39B}"
 EndProject

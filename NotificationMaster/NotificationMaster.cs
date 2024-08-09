@@ -12,6 +12,7 @@ using Microsoft.Win32.SafeHandles;
 using NotificationMasterAPI;
 using NotificationMaster.Notificators;
 using ECommons.ImGuiMethods;
+using ECommons.Configuration;
 
 namespace NotificationMaster
 {
@@ -47,7 +48,9 @@ namespace NotificationMaster
         {
             P = this;
             ECommonsMain.Init(pluginInterface, this);
-            cfg = Svc.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+            EzConfig.PluginConfigDirectoryOverride = "NotificationMaster";
+            EzConfig.Migrate<Configuration>();
+            cfg = EzConfig.Init<Configuration>();
             cfg.Initialize(Svc.PluginInterface);
             httpMaster = new();
             ThreadUpdActivated = new();
