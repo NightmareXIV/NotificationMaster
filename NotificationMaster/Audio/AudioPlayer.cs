@@ -43,7 +43,7 @@ internal class AudioPlayer : IDisposable
                     try
                     {
                         using(var audioFile = new AudioFileReader(audio.path))
-                        using(var outputDevice = new WaveOutEvent())
+                        using(var outputDevice = new WasapiOut())
                         {
                             audioFile.Volume = audio.volume;
                             outputDevice.Init(audioFile);
