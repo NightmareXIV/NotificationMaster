@@ -15,10 +15,7 @@ namespace NotificationMaster.Notificators
         private int memberCount = -1;
 
         private delegate void ShowLogMessageDelegate(RaptureLogModule* module, uint id);
-        [Signature(
-            "E8 ?? ?? ?? ?? 44 03 FB ?? ?? ?? ?? ?? ?? ?? ??",
-            DetourName = nameof(ShowLogMessageDetour)
-        )]
+        [Signature("48 89 5C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 55 48 8D AC 24 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 33 F6 8B DA", DetourName = nameof(ShowLogMessageDetour), Fallibility =Fallibility.Fallible)]
         private Hook<ShowLogMessageDelegate> ShowLogMessageHook { get; init; }
 
 
