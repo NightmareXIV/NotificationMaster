@@ -96,14 +96,14 @@ internal class MobPulled : IDisposable
                         {
                             PluginLog.Debug($"Detected pulled mob: {bnpc.Name} with id={o.EntityId}");
                             ignoreMobIds.Add(o.EntityId);
-                            if(p.cfg.mobPulled_AlwaysExecute || !p.ThreadUpdActivated.IsApplicationActivated)
+                            if(p.cfg.mobPulled_AlwaysExecute || !Utils.IsApplicationActivated)
                             {
-                                PluginLog.Debug($"Notifying; app activated = {p.ThreadUpdActivated.IsApplicationActivated}");
-                                if(p.cfg.mobPulled_FlashTrayIcon && !p.ThreadUpdActivated.IsApplicationActivated)
+                                PluginLog.Debug($"Notifying; app activated = {Utils.IsApplicationActivated}");
+                                if(p.cfg.mobPulled_FlashTrayIcon && !Utils.IsApplicationActivated)
                                 {
                                     Native.Impl.FlashWindow();
                                 }
-                                if(p.cfg.mobPulled_AutoActivateWindow && !p.ThreadUpdActivated.IsApplicationActivated) Native.Impl.Activate();
+                                if(p.cfg.mobPulled_AutoActivateWindow && !Utils.IsApplicationActivated) Native.Impl.Activate();
                                 if(p.cfg.mobPulled_ShowToastNotification)
                                 {
                                     TrayIconManager.ShowToast($"{bnpc.Name} has been pulled!", "");

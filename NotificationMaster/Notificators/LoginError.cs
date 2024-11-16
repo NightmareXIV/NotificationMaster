@@ -30,7 +30,7 @@ internal unsafe class LoginError : IDisposable
                 if(!seenErrorWindow)
                 {
                     seenErrorWindow = true;
-                    if(p.cfg.loginError_AlwaysExecute || !p.ThreadUpdActivated.IsApplicationActivated)
+                    if(p.cfg.loginError_AlwaysExecute || !Utils.IsApplicationActivated)
                     {
                         if(p.cfg.loginError_FlashTrayIcon)
                         {

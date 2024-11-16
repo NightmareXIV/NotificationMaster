@@ -47,6 +47,7 @@ internal class Configuration : IEzConfig
     public bool cfPop_FlashTrayIcon = true;
     public bool cfPop_AutoActivateWindow = false;
     public bool cfPop_NotifyIn30 = false;
+    public bool cfPop_NotifyOnlyIn30 = false;
     public bool cfPop_HttpRequestsEnable = false;
     public List<HttpRequestElement> cfPop_HttpRequests = [];
     public SoundSettings cfPop_SoundSettings = new();

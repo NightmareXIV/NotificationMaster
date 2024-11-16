@@ -83,7 +83,7 @@ internal class AudioPlayer : IDisposable
                             while(Playlist.Count == 0
                             && !StopAudio
                             && !P.IsDisposed
-                            && !(audio.stopOnFocus && P.ThreadUpdActivated.IsApplicationActivated))
+                            && !(audio.stopOnFocus && Utils.IsApplicationActivated))
                             {
                                 if(outputDevice.GetFoP<int>("PlaybackState") == 1)
                                 {

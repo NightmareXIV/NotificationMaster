@@ -40,7 +40,7 @@ internal unsafe class ApproachingMapFlag
     private bool DirectionY;
     private void ApproachingMapFlagWatcher(object _)
     {
-        if(p.PauseUntil > Environment.TickCount64 || p.ThreadUpdActivated.IsApplicationActivated || Svc.ClientState.LocalPlayer == null ||
+        if(p.PauseUntil > Environment.TickCount64 || Utils.IsApplicationActivated || Svc.ClientState.LocalPlayer == null ||
             Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
              isFlagSet == 0 || flagTerritory != Svc.ClientState.TerritoryType)
         {

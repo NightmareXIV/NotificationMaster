@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NotificationMaster;
-public static class Utils
+public unsafe static class Utils
 {
+    public static bool IsApplicationActivated => P.ThreadUpdActivated.IsApplicationActivated;
     public static Type GetTypeFromRuntimeAssembly(string assemblyName, string type)
     {
         try

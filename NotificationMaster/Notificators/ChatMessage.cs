@@ -33,7 +33,7 @@ internal class ChatMessage : IDisposable
         //else
         {
             if(p.PauseUntil > Environment.TickCount64) return;
-            if(!p.ThreadUpdActivated.IsApplicationActivated)
+            if(!Utils.IsApplicationActivated)
             {
                 var senderFullStr = sender.ToString();
                 var messageFullStr = message.ToString();

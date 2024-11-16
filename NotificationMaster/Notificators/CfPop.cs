@@ -30,7 +30,7 @@ internal class CfPop : IDisposable
     {
         PluginLog.Debug("Cf pop " + e.Name.ToString());
         if(p.PauseUntil > Environment.TickCount64) return;
-        if(!p.ThreadUpdActivated.IsApplicationActivated)
+        if(!Utils.IsApplicationActivated && !(p.cfg.cfPop_NotifyOnlyIn30 && p.cfg.cfPop_NotifyIn30))
         {
             DoNotify(e.Name.ToString());
         }
@@ -42,7 +42,7 @@ internal class CfPop : IDisposable
             }
             extraNotify = new TickScheduler(delegate
             {
-                if(!p.ThreadUpdActivated.IsApplicationActivated && Svc.Condition[ConditionFlag.WaitingForDutyFinder]
+                if(!Utils.IsApplicationActivated && Svc.Condition[ConditionFlag.WaitingForDutyFinder]
                  && !Svc.Condition[ConditionFlag.WaitingForDuty])
                 {
                     DoNotify(e.Name.ToString(), true);
