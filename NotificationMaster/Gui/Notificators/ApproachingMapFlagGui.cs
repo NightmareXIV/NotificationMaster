@@ -1,8 +1,4 @@
-﻿using Dalamud.Interface.Colors;
-using ImGuiNET;
-using System.Numerics;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 internal unsafe partial class ConfigGui
 {

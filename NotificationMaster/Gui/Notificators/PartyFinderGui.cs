@@ -1,5 +1,4 @@
-﻿using ImGuiNET;
-using NotificationMaster.Notificators;
+﻿using NotificationMaster.Notificators;
 
 namespace NotificationMaster;
 

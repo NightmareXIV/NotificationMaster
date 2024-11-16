@@ -1,6 +1,4 @@
-﻿using ImGuiNET;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 internal partial class ConfigGui
 {

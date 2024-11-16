@@ -1,9 +1,4 @@
-﻿using Dalamud.Interface;
-using ImGuiNET;
-using System;
-using System.Numerics;
-using System.Text;
-using System.Web;
+﻿using System.Web;
 
 namespace NotificationMaster;
 

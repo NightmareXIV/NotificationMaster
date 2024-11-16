@@ -1,10 +1,4 @@
 ﻿using Dalamud.Game.Text;
-using ECommons.ImGuiMethods;
-using ECommons.Logging;
-using ImGuiNET;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NotificationMaster;
 

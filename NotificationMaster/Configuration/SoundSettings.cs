@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 [Serializable]
 internal class SoundSettings

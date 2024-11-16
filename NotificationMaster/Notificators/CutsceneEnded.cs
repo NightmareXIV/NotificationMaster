@@ -1,9 +1,4 @@
-﻿using Dalamud.Game.ClientState.Conditions;
-using ECommons;
-using ECommons.Logging;
-using System;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 internal class CutsceneEnded : IDisposable
 {

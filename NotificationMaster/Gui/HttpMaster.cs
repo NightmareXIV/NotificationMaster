@@ -1,10 +1,4 @@
-﻿using ECommons.Logging;
-using ImGuiNET;
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 internal partial class ConfigGui
 {

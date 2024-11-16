@@ -1,9 +1,4 @@
 ﻿using Dalamud.Game.ClientState.Objects.Enums;
-using Dalamud.Interface.Colors;
-using ImGuiNET;
-using System;
-using System.Linq;
-using System.Numerics;
 
 namespace NotificationMaster;
 

@@ -1,10 +1,7 @@
-﻿using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Hooking;
+﻿using Dalamud.Hooking;
 using Dalamud.Utility.Signatures;
-using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
-using System;
 
 namespace NotificationMaster.Notificators;
 

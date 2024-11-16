@@ -1,14 +1,7 @@
-﻿using ECommons;
-using ECommons.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace NotificationMaster;
-public unsafe static class Utils
+public static unsafe class Utils
 {
     public static bool IsApplicationActivated => P.ThreadUpdActivated.IsApplicationActivated;
     public static Type GetTypeFromRuntimeAssembly(string assemblyName, string type)

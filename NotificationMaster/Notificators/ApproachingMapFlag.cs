@@ -1,9 +1,4 @@
-﻿using Dalamud.Game.ClientState.Conditions;
-using ECommons.Logging;
-using FFXIVClientStructs.FFXIV.Client.UI.Agent;
-using ImGuiNET;
-using System;
-using System.Numerics;
+﻿using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 
 namespace NotificationMaster;
 

@@ -1,9 +1,4 @@
-﻿using Dalamud.Interface.Colors;
-using ImGuiNET;
-using System;
-using System.Numerics;
-
-namespace NotificationMaster;
+﻿namespace NotificationMaster;
 
 internal partial class ConfigGui
 {

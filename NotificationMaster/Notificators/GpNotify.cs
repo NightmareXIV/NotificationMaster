@@ -1,9 +1,5 @@
 ﻿using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.Command;
-using ECommons.ImGuiMethods;
-using ECommons.Logging;
-using System;
-using System.Linq;
 
 namespace NotificationMaster;
 

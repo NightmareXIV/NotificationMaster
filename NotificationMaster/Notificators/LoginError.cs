@@ -1,6 +1,4 @@
-﻿using ECommons.Logging;
-using FFXIVClientStructs.FFXIV.Component.GUI;
-using System;
+﻿using FFXIVClientStructs.FFXIV.Component.GUI;
 
 namespace NotificationMaster;
 

@@ -1,15 +1,7 @@
-﻿using ECommons;
-using ECommons.ImGuiMethods;
-using ECommons.Logging;
-using ECommons.Reflection;
-using ECommons.Schedulers;
-using System;
+﻿using ECommons.Reflection;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace NotificationMaster;
 
@@ -31,7 +23,7 @@ internal class AudioPlayer : IDisposable
                 {
                     if(r.EndsWith(".dll"))
                     {
-                        var key = r[..^4].Split('.').Skip(2).Join("."); 
+                        var key = r[..^4].Split('.').Skip(2).Join(".");
                         using var stream = P.GetType().Assembly.GetManifestResourceStream(r);
                         NAudio[key] = context.LoadFromStream(stream);
                         PluginLog.Debug($"Loading {key}");

@@ -4,9 +4,6 @@
 
 // OpenFileDlg.cs
 
-using System;
-using System.Runtime.InteropServices;
-
 /*
 typedef struct tagOFN { 
   DWORD         lStructSize; 

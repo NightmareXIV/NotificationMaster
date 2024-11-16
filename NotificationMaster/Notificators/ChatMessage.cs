@@ -1,8 +1,5 @@
 ﻿using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
-using ECommons.Logging;
-using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace NotificationMaster;

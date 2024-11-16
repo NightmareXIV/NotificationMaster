@@ -1,11 +1,5 @@
-﻿using Dalamud.Interface.Colors;
-using Dalamud.Interface.Utility;
+﻿using Dalamud.Interface.Utility;
 using ECommons.Funding;
-using ECommons.ImGuiMethods;
-using ImGuiNET;
-using System;
-using System.Numerics;
-using System.Text;
 
 namespace NotificationMaster;
 
