@@ -1,50 +1,44 @@
-﻿using Dalamud.Game;
+﻿using Dalamud.Plugin.Services;
 using ECommons.Logging;
-using Dalamud.Plugin.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NotificationMaster
+namespace NotificationMaster;
+
+internal class TickScheduler : IDisposable
 {
-    class TickScheduler : IDisposable
+    private long executeAt;
+    private Action function;
+    private IFramework framework;
+    private bool disposed = false;
+
+    public TickScheduler(Action function, IFramework framework, long delayMS = 0)
     {
-        long executeAt;
-        Action function;
-        IFramework framework;
-        bool disposed = false;
+        executeAt = Environment.TickCount64 + delayMS;
+        this.function = function;
+        this.framework = framework;
+        framework.Update += Execute;
+    }
 
-        public TickScheduler(Action function, IFramework framework, long delayMS = 0)
+    public void Dispose()
+    {
+        if(!disposed)
         {
-            this.executeAt = Environment.TickCount64 + delayMS;
-            this.function = function;
-            this.framework = framework;
-            framework.Update += Execute;
+            framework.Update -= Execute;
         }
+        disposed = true;
+    }
 
-        public void Dispose()
+    private void Execute(object _)
+    {
+        if(Environment.TickCount64 < executeAt) return;
+        try
         {
-            if (!disposed)
-            {
-                framework.Update -= Execute;
-            }
-            disposed = true;
+            function();
         }
-
-        void Execute(object _)
+        catch(Exception e)
         {
-            if (Environment.TickCount64 < executeAt) return;
-            try
-            {
-                function();
-            }
-            catch (Exception e)
-            {
-                PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
-            }
-            this.Dispose();
+            PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
         }
+        Dispose();
     }
 }

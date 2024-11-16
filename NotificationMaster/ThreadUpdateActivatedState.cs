@@ -1,56 +1,51 @@
 ﻿using ECommons.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace NotificationMaster
+namespace NotificationMaster;
+
+public class ThreadUpdateActivatedState : IDisposable
 {
-    public class ThreadUpdateActivatedState : IDisposable
+    private volatile bool running = true;
+    public volatile bool IsApplicationActivated = false;
+    internal ThreadUpdateActivatedState()
     {
-        volatile bool running = true;
-        public volatile bool IsApplicationActivated = false;
-        internal ThreadUpdateActivatedState()
+        new Thread((ThreadStart)delegate
         {
-            new Thread((ThreadStart)delegate 
+            PluginLog.Debug("ThreadUpdateActivatedState started");
+            while(running)
             {
-                PluginLog.Debug("ThreadUpdateActivatedState started");
-                while (running)
+                try
                 {
-                    try
+                    if(Native.ApplicationIsActivated())
                     {
-                        if (Native.ApplicationIsActivated())
+                        if(!IsApplicationActivated)
                         {
-                            if (!IsApplicationActivated)
-                            {
-                                IsApplicationActivated = true;
-                                PluginLog.Verbose("ThreadUpdateActivatedState: application just got activated");
-                            }
-                        }
-                        else
-                        {
-                            if (IsApplicationActivated)
-                            {
-                                IsApplicationActivated = false;
-                                PluginLog.Verbose("ThreadUpdateActivatedState: application just got deactivated");
-                            }
+                            IsApplicationActivated = true;
+                            PluginLog.Verbose("ThreadUpdateActivatedState: application just got activated");
                         }
                     }
-                    catch(Exception e)
+                    else
                     {
-                        PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+                        if(IsApplicationActivated)
+                        {
+                            IsApplicationActivated = false;
+                            PluginLog.Verbose("ThreadUpdateActivatedState: application just got deactivated");
+                        }
                     }
-                    Thread.Sleep(100);
                 }
-                PluginLog.Debug("ThreadUpdateActivatedState finished");
-            }).Start();
-        }
+                catch(Exception e)
+                {
+                    PluginLog.Error(e.Message + "\n" + e.StackTrace ?? "");
+                }
+                Thread.Sleep(100);
+            }
+            PluginLog.Debug("ThreadUpdateActivatedState finished");
+        }).Start();
+    }
 
-        public void Dispose()
-        {
-            running = false;
-        }
+    public void Dispose()
+    {
+        running = false;
     }
 }
