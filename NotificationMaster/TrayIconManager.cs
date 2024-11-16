@@ -1,5 +1,6 @@
 ﻿using ECommons.Logging;
 using ECommons.Reflection;
+using ECommons.Schedulers;
 using System;
 using System.IO;
 
@@ -57,7 +58,7 @@ internal class TrayIconManager
         {
             PluginLog.Debug("HideIconTask: calling DestroyIcon");
             DestroyIcon();
-        }, Svc.Framework, 60000);
+        }, 60000);
         PluginLog.Debug($"Icon is visible: {Icon.GetFoP<bool>("Visible")}");
         var enumToolTipIconType = Utils.GetTypeFromRuntimeAssembly("System.Windows.Forms", "System.Windows.Forms.ToolTipIcon");
         var enumValue = Enum.ToObject(enumToolTipIconType, 1);

@@ -1,8 +1,13 @@
-﻿using ECommons.ImGuiMethods;
+﻿using ECommons;
+using ECommons.ImGuiMethods;
 using ECommons.Logging;
-using NAudio.Wave;
+using ECommons.Reflection;
+using ECommons.Schedulers;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,11 +18,36 @@ internal class AudioPlayer : IDisposable
     private BlockingCollection<(string path, bool stopOnFocus, float volume, bool repeat)> Playlist;
     private bool StopAudio = false;
     private bool threadStarted = false;
-    private NotificationMaster p;
+    private Dictionary<string, Assembly> NAudio = [];
     internal AudioPlayer(NotificationMaster plugin)
     {
+        try
+        {
+            if(DalamudReflector.TryGetLocalPlugin(out _, out var context, out _))
+            {
+                var resources = P.GetType().Assembly.GetManifestResourceNames();
+                //PluginLog.Debug($"Res: {resources.Print("\n")}");
+                foreach(var r in resources)
+                {
+                    if(r.EndsWith(".dll"))
+                    {
+                        var key = r[..^4].Split('.').Skip(2).Join("."); 
+                        using var stream = P.GetType().Assembly.GetManifestResourceStream(r);
+                        NAudio[key] = context.LoadFromStream(stream);
+                        PluginLog.Debug($"Loading {key}");
+                    }
+                }
+            }
+            else
+            {
+                PluginLog.Warning($"Could not find LocalPlugin");
+            }
+        }
+        catch(Exception e)
+        {
+            e.Log();
+        }
         Playlist = [];
-        p = plugin;
     }
 
     private void BeginThread()
@@ -42,18 +72,20 @@ internal class AudioPlayer : IDisposable
                     PluginLog.Debug($"Beginning playing {audio.path}");
                     try
                     {
-                        using(var audioFile = new AudioFileReader(audio.path))
-                        using(var outputDevice = new WasapiOut())
+                        var audioFileReaderType = NAudio["NAudio"].GetType("NAudio.Wave.AudioFileReader");
+                        var waveOutType = NAudio["NAudio.WinForms"].GetType("NAudio.Wave.WaveOut");
+                        var audioFile = Activator.CreateInstance(audioFileReaderType, [audio.path]);
+                        var outputDevice = Activator.CreateInstance(waveOutType);
                         {
-                            audioFile.Volume = audio.volume;
-                            outputDevice.Init(audioFile);
-                            outputDevice.Play();
+                            audioFile.SetFoP("Volume", audio.volume);
+                            outputDevice.Call("Init", [audioFile], true);
+                            outputDevice.Call("Play", [], true);
                             while(Playlist.Count == 0
                             && !StopAudio
-                            && !p.IsDisposed
-                            && !(audio.stopOnFocus && p.ThreadUpdActivated.IsApplicationActivated))
+                            && !P.IsDisposed
+                            && !(audio.stopOnFocus && P.ThreadUpdActivated.IsApplicationActivated))
                             {
-                                if(outputDevice.PlaybackState == PlaybackState.Playing)
+                                if(outputDevice.GetFoP<int>("PlaybackState") == 1)
                                 {
                                     Thread.Sleep(100);
                                 }
@@ -61,8 +93,8 @@ internal class AudioPlayer : IDisposable
                                 {
                                     if(audio.repeat)
                                     {
-                                        audioFile.Position = 0;
-                                        outputDevice.Play();
+                                        audioFile.SetFoP("Position", 0);
+                                        outputDevice.Call("Play", [], true);
                                         Thread.Sleep(100);
                                     }
                                     else
@@ -72,8 +104,10 @@ internal class AudioPlayer : IDisposable
                                 }
                             }
                             PluginLog.Debug($"Stopping device {audio.path}");
-                            outputDevice.Stop();
+                            outputDevice.Call("Stop", [], true);
                         }
+                        outputDevice.Call("Dispose", [], true);
+                        audioFile.Call("Dispose", [], true);
                     }
                     catch(Exception e)
                     {
@@ -82,7 +116,7 @@ internal class AudioPlayer : IDisposable
                         {
                             Notify.Error(
                                 $"Error during playing audio file:\n{e.Message}");
-                        }, Svc.Framework);
+                        });
                     }
                     PluginLog.Debug($"Stopping playing {audio.path}");
                 }

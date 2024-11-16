@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
 using ECommons.Logging;
+using ECommons.Schedulers;
 using Lumina.Excel.Sheets;
 using System;
 
@@ -46,7 +47,7 @@ internal class CfPop : IDisposable
                 {
                     DoNotify(e.Name.ToString(), true);
                 }
-            }, Svc.Framework, 30 * 1000);
+            }, 30 * 1000);
         }
     }
 

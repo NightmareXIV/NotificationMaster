@@ -29,8 +29,41 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="NAudioBin\NAudio.Asio.dll" />
+	  <None Remove="NAudioBin\NAudio.Core.dll" />
+	  <None Remove="NAudioBin\NAudio.dll" />
+	  <None Remove="NAudioBin\NAudio.Midi.dll" />
+	  <None Remove="NAudioBin\NAudio.Wasapi.dll" />
+	  <None Remove="NAudioBin\NAudio.WinForms.dll" />
+	  <None Remove="NAudioBin\NAudio.WinMM.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="NAudioBin\NAudio.Asio.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.Core.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.Midi.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.Wasapi.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.WinForms.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="NAudioBin\NAudio.WinMM.dll">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DalamudPackager" Version="11.0.0" />
-		<PackageReference Include="NAudio" Version="2.2.1" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<ProjectReference Include="..\NotificationMasterAPI\NotificationMasterAPI\NotificationMasterAPI.csproj" />
 		<Reference Include="Newtonsoft.Json">

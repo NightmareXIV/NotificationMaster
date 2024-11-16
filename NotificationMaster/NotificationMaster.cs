@@ -4,6 +4,7 @@ using Dalamud.Plugin;
 using ECommons;
 using ECommons.Configuration;
 using ECommons.ImGuiMethods;
+using ECommons.Schedulers;
 using NotificationMaster.Notificators;
 using NotificationMasterAPI;
 using System;
@@ -41,42 +42,45 @@ public class NotificationMaster : IDalamudPlugin
     public NotificationMaster(IDalamudPluginInterface pluginInterface)
     {
         P = this;
-        ECommonsMain.Init(pluginInterface, this);
+        ECommonsMain.Init(pluginInterface, this, Module.DalamudReflector);
         EzConfig.PluginConfigDirectoryOverride = "NotificationMaster";
-        EzConfig.Migrate<Configuration>();
-        cfg = EzConfig.Init<Configuration>();
-        cfg.Initialize(Svc.PluginInterface);
-        httpMaster = new();
-        ThreadUpdActivated = new();
-        audioPlayer = new(this);
-
-        configGui = new(this);
-        Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
-
-        if(cfg.gp_Enable) GpNotify.Setup(true, this);
-        if(cfg.cutscene_Enable) CutsceneEnded.Setup(true, this);
-        if(cfg.chatMessage_Enable) ChatMessage.Setup(true, this);
-        if(cfg.cfPop_Enable) CfPop.Setup(true, this);
-        if(cfg.loginError_Enable) LoginError.Setup(true, this);
-        if(cfg.mapFlag_Enable) ApproachingMapFlag.Setup(true, this);
-        if(cfg.mobPulled_Enable) MobPulled.Setup(true, this);
-        if(cfg.partyFinder_Enable) PartyFinder.Setup(true, this);
-
-        if(Svc.PluginInterface.Reason == PluginLoadReason.Installer)
+        new TickScheduler(() =>
         {
-            configGui.open = true;
-            Notify.Warning(
-                "You have installed NotificationMaster plugin. By default, it has no modules enabled. \n" +
-                "A settings window has been opened: please configure the plugin.");
-        }
-        Svc.Commands.AddHandler("/pnotify", new CommandInfo(OnCommand)
-        {
-            HelpMessage = "open/close configuration\n" +
-            "/pnotify shutup|s [time in minutes] - pause plugin for specified amount of minutes or until restart if time is not specified\n" +
-            "/pnotify resume|r - resume plugin operation"
+            EzConfig.Migrate<Configuration>();
+            cfg = EzConfig.Init<Configuration>();
+            cfg.Initialize(Svc.PluginInterface);
+            httpMaster = new();
+            ThreadUpdActivated = new();
+            audioPlayer = new(this);
+
+            configGui = new(this);
+            Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.open = true; };
+
+            if(cfg.gp_Enable) GpNotify.Setup(true, this);
+            if(cfg.cutscene_Enable) CutsceneEnded.Setup(true, this);
+            if(cfg.chatMessage_Enable) ChatMessage.Setup(true, this);
+            if(cfg.cfPop_Enable) CfPop.Setup(true, this);
+            if(cfg.loginError_Enable) LoginError.Setup(true, this);
+            if(cfg.mapFlag_Enable) ApproachingMapFlag.Setup(true, this);
+            if(cfg.mobPulled_Enable) MobPulled.Setup(true, this);
+            if(cfg.partyFinder_Enable) PartyFinder.Setup(true, this);
+
+            if(Svc.PluginInterface.Reason == PluginLoadReason.Installer)
+            {
+                configGui.open = true;
+                Notify.Warning(
+                    "You have installed NotificationMaster plugin. By default, it has no modules enabled. \n" +
+                    "A settings window has been opened: please configure the plugin.");
+            }
+            Svc.Commands.AddHandler("/pnotify", new CommandInfo(OnCommand)
+            {
+                HelpMessage = "open/close configuration\n" +
+                "/pnotify shutup|s [time in minutes] - pause plugin for specified amount of minutes or until restart if time is not specified\n" +
+                "/pnotify resume|r - resume plugin operation"
+            });
+            IPC = new();
+            NotificationMasterApi = new(Svc.PluginInterface);
         });
-        IPC = new();
-        NotificationMasterApi = new(Svc.PluginInterface);
     }
 
     private void OnCommand(string command, string arguments)

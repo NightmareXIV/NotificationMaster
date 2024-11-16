@@ -1,5 +1,6 @@
 ﻿using ECommons.ImGuiMethods;
 using ECommons.Logging;
+using ECommons.Schedulers;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -58,7 +59,7 @@ internal class AudioSelector
                         new TickScheduler(delegate
                         {
                             settings.SoundPath = ofn.file;
-                        }, Svc.Framework);
+                        });
                     }
                     PluginLog.Information("Dialog closed");
                 }
@@ -68,7 +69,7 @@ internal class AudioSelector
                     new TickScheduler(delegate
                     {
                         Notify.Error($"Error: {e.Message}");
-                    }, Svc.Framework);
+                    });
                 }
                 SelectorSemaphore.Release();
                 PluginLog.Information("Ending file selection");
