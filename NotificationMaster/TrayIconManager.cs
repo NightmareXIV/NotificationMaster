@@ -1,24 +1,28 @@
 ﻿using ECommons.Logging;
-using System.Drawing;
+using ECommons.Reflection;
+using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace NotificationMaster;
 
 internal class TrayIconManager
 {
-    private static NotifyIcon Icon = null;
+    private static object Icon = null;
     private static TickScheduler HideIconTask = null;
 
     private static void CreateIcon()
     {
         DestroyIcon();
-        Icon = new NotifyIcon
-        {
-            Icon = new Icon(Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName, "nmaster.ico")),
-            Text = "FFXIV - NotificationMaster",
-            Visible = true
-        };
+        var iconType = Utils.GetTypeFromRuntimeAssembly("System.Drawing.Common", "System.Drawing.Icon");
+        var iconImage = Activator.CreateInstance(iconType, [Path.Combine(Svc.PluginInterface.AssemblyLocation.DirectoryName, "nmaster.ico")]);
+
+        var notifyIconType = Utils.GetTypeFromRuntimeAssembly("System.Windows.Forms", "System.Windows.Forms.NotifyIcon");
+        var notifyIcon = Activator.CreateInstance(notifyIconType);
+        notifyIcon.SetFoP("Icon", iconImage);
+        notifyIcon.SetFoP("Text", "FFXIV - NotificationMaster");
+        notifyIcon.SetFoP("Visible", true);
+
+        Icon = notifyIcon;
     }
 
     public static void DestroyIcon()
@@ -30,8 +34,8 @@ internal class TrayIconManager
         }
         if(Icon != null)
         {
-            Icon.Visible = false;
-            Icon.Dispose();
+            Icon.SetFoP("Visible", false);
+            Icon.Call("Dispose", [], true);
             Icon = null;
         }
     }
@@ -44,7 +48,7 @@ internal class TrayIconManager
             PluginLog.Debug("Disposing old HideIconTask");
             HideIconTask.Dispose();
         }
-        if(Icon == null || !Icon.Visible)
+        if(Icon == null || !Icon.GetFoP<bool>("Visible"))
         {
             PluginLog.Debug("Creating new icon");
             CreateIcon();
@@ -54,7 +58,9 @@ internal class TrayIconManager
             PluginLog.Debug("HideIconTask: calling DestroyIcon");
             DestroyIcon();
         }, Svc.Framework, 60000);
-        PluginLog.Debug($"Icon is visible: {Icon.Visible}");
-        Icon.ShowBalloonTip(int.MaxValue, title, str, ToolTipIcon.Info);
+        PluginLog.Debug($"Icon is visible: {Icon.GetFoP<bool>("Visible")}");
+        var enumToolTipIconType = Utils.GetTypeFromRuntimeAssembly("System.Windows.Forms", "System.Windows.Forms.ToolTipIcon");
+        var enumValue = Enum.ToObject(enumToolTipIconType, 1);
+        Icon.Call("ShowBalloonTip", [int.MaxValue, title, str, enumValue], true);
     }
 }

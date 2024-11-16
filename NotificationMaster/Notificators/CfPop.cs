@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
 using ECommons.Logging;
+using Lumina.Excel.Sheets;
 using System;
 
 namespace NotificationMaster;

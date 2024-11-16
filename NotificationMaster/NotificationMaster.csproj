@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>NightmareXIV</Authors>
-		<Version>2.1.1.6</Version>
+		<Version>2.1.1.7</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -15,9 +15,8 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<NoWarn>CS1591</NoWarn>
-		<UseWindowsForms>true</UseWindowsForms>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+      <UseWindowsForms>false</UseWindowsForms>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Documentation">
@@ -30,7 +29,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.13" />
+		<PackageReference Include="DalamudPackager" Version="11.0.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<ProjectReference Include="..\NotificationMasterAPI\NotificationMasterAPI\NotificationMasterAPI.csproj" />

@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace NotificationMaster;
 
@@ -93,7 +92,7 @@ internal class AudioSelector
         return null;
     }
 
-    private class Win32Window : IWin32Window
+    private class Win32Window
     {
         public IntPtr Handle { get; set; }
     }

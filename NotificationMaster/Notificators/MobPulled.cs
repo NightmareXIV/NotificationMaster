@@ -2,6 +2,7 @@
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Text.SeStringHandling;
 using ECommons.Logging;
+using Lumina.Excel.Sheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ internal class MobPulled : IDisposable
         territories = [];
         foreach(var terr in Svc.Data.GetExcelSheet<TerritoryType>())
         {
-            territories.Add(terr.RowId, (terr.PlaceName.Value.Name, terr.Mount));
+            territories.Add(terr.RowId, (terr.PlaceName.Value.Name.ToString(), terr.Mount));
         }
         PluginLog.Debug($"Territories added: {territories.Count}, world zones={territories.Where(p => p.Value.isWorld).Count()}");
         if(p.cfg.mobPulled_Territories.Count == 0)
