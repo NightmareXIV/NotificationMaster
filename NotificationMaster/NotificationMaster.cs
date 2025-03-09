@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.Command;
 using ECommons.Configuration;
+using ECommons.EzIpcManager;
 using NotificationMaster.Notificators;
 using NotificationMasterAPI;
 
@@ -30,6 +31,8 @@ public class NotificationMaster : IDalamudPlugin
 
     internal IPC IPC;
     internal NotificationMasterApi NotificationMasterApi;
+
+    [EzIPC("AutoDuty.IsStopped")] internal Func<bool> AutoDutyIsStopped;
 
     public string Name => "NotificationMaster";
 
@@ -74,6 +77,7 @@ public class NotificationMaster : IDalamudPlugin
             });
             IPC = new();
             NotificationMasterApi = new(Svc.PluginInterface);
+            EzIPC.Init(this);
         });
     }
 

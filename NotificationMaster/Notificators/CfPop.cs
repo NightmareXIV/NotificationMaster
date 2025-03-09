@@ -25,6 +25,11 @@ internal class CfPop : IDisposable
     private void Pop(ContentFinderCondition e)
     {
         PluginLog.Debug("Cf pop " + e.Name.ToString());
+        if(Svc.PluginInterface.InstalledPlugins.Any(x => x.InternalName == "AutoDuty" && x.IsLoaded && !p.AutoDutyIsStopped()))
+        {
+            PluginLog.Debug($"Notification is being suppressed");
+            return;
+        }
         if(p.PauseUntil > Environment.TickCount64) return;
         if(!Utils.IsApplicationActivated && !(p.cfg.cfPop_NotifyOnlyIn30 && p.cfg.cfPop_NotifyIn30))
         {
