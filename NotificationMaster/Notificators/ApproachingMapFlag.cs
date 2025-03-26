@@ -8,7 +8,7 @@ internal unsafe class ApproachingMapFlag
     internal float flagX => AgentMap.Instance()->FlagMapMarker.XFloat;
     internal float flagY => AgentMap.Instance()->FlagMapMarker.YFloat;
     internal uint flagTerritory => AgentMap.Instance()->FlagMapMarker.TerritoryId;
-    internal byte isFlagSet => AgentMap.Instance()->IsFlagMarkerSet;
+    internal bool isFlagSet => AgentMap.Instance()->IsFlagMarkerSet;
 
     public void Dispose()
     {
@@ -37,7 +37,7 @@ internal unsafe class ApproachingMapFlag
     {
         if(p.PauseUntil > Environment.TickCount64 || Utils.IsApplicationActivated || Svc.ClientState.LocalPlayer == null ||
             Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
-             isFlagSet == 0 || flagTerritory != Svc.ClientState.TerritoryType)
+             isFlagSet == false || flagTerritory != Svc.ClientState.TerritoryType)
         {
             IsEnabled = false;
             HasTriggered = false;

@@ -50,7 +50,7 @@ internal unsafe partial class ConfigGui
             ImGui.SetNextItemWidth(100f);
             ImGui.DragInt("Distance to marker", ref p.cfg.mapFlag_TriggerDistance);
             ImGui.Text("Note: this is in-game coordinates distance, not map coordinates distance.");
-            if(p.mapFlag.isFlagSet != 0 && Svc.ClientState.TerritoryType == p.mapFlag.flagTerritory)
+            if(p.mapFlag.isFlagSet && Svc.ClientState.TerritoryType == p.mapFlag.flagTerritory)
             {
                 ImGui.Text($"You are currently {distance:0} yalms away from currently set marker.");
             }
