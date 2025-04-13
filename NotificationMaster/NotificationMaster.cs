@@ -32,7 +32,7 @@ public class NotificationMaster : IDalamudPlugin
     internal IPC IPC;
     internal NotificationMasterApi NotificationMasterApi;
 
-    [EzIPC("AutoDuty.IsStopped")] internal Func<bool> AutoDutyIsStopped;
+    [EzIPC("AutoDuty.IsStopped", false)] internal Func<bool> AutoDutyIsStopped;
 
     public string Name => "NotificationMaster";
 
