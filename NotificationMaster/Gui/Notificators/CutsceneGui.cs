@@ -14,6 +14,7 @@ internal partial class ConfigGui
             ImGui.Checkbox("Show tray notification", ref p.cfg.cutscene_ShowToastNotification);
             ImGui.Checkbox("Flash taskbar icon", ref p.cfg.cutscene_FlashTrayIcon);
             ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.cutscene_AutoActivateWindow);
+            ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.cutscene_AlwaysExecute);
             ForegroundWarning(p.cfg.cutscene_AutoActivateWindow);
             DrawSoundSettings(ref p.cfg.cutscene_SoundSettings);
             ImGui.Text("Zone locking:");

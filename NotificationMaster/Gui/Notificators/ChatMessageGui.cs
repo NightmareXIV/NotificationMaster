@@ -20,6 +20,7 @@ internal partial class ConfigGui
             ImGui.Checkbox("Show tray notification", ref p.cfg.chatMessage_ShowToastNotification);
             ImGui.Checkbox("Flash taskbar icon", ref p.cfg.chatMessage_FlashTrayIcon);
             ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.chatMessage_AutoActivateWindow);
+            ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.chatMessage_AlwaysExecute);
             ForegroundWarning(p.cfg.chatMessage_AutoActivateWindow);
             DrawSoundSettings(ref p.cfg.chatMessage_SoundSettings);
             DrawHttpMaster(p.cfg.chatMessage_HttpRequests, ref p.cfg.chatMessage_HttpRequestsEnable,

@@ -77,7 +77,7 @@ internal unsafe class GpNotify : IDisposable
             if(needNotification)
             {
                 needNotification = false;
-                if(!Utils.IsApplicationActivated
+                if((!Utils.IsApplicationActivated || p.cfg.gp_AlwaysExecute)
                     && (!p.cfg.gp_SuppressIfNoNodes || Svc.Objects.Any(x => x.ObjectKind == ObjectKind.GatheringPoint)))
                 {
                     if(p.cfg.gp_FlashTrayIcon)

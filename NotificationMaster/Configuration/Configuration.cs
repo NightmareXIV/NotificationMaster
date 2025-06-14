@@ -20,6 +20,7 @@ internal class Configuration : IEzConfig
     public bool gp_HttpRequestsEnable = false;
     public List<HttpRequestElement> gp_HttpRequests = [];
     public SoundSettings gp_SoundSettings = new();
+    public bool gp_AlwaysExecute = false;
 
     public bool cutscene_Enable = false;
     public bool cutscene_ShowToastNotification = true;
@@ -29,6 +30,7 @@ internal class Configuration : IEzConfig
     public bool cutscene_HttpRequestsEnable = false;
     public List<HttpRequestElement> cutscene_HttpRequests = [];
     public SoundSettings cutscene_SoundSettings = new();
+    public bool cutscene_AlwaysExecute = false;
 
     public bool chatMessage_Enable = false;
     public bool chatMessage_ShowToastNotification = true;
@@ -38,6 +40,7 @@ internal class Configuration : IEzConfig
     public bool chatMessage_HttpRequestsEnable = false;
     public List<HttpRequestElement> chatMessage_HttpRequests = [];
     public SoundSettings chatMessage_SoundSettings = new();
+    public bool chatMessage_AlwaysExecute = false;
 
     public bool cfPop_Enable = false;
     public bool cfPop_ShowToastNotification = true;
@@ -48,6 +51,7 @@ internal class Configuration : IEzConfig
     public bool cfPop_HttpRequestsEnable = false;
     public List<HttpRequestElement> cfPop_HttpRequests = [];
     public SoundSettings cfPop_SoundSettings = new();
+    public bool cfPop_AlwaysExecute = false;
 
     public bool loginError_Enable = false;
     public bool loginError_AlwaysExecute = true;
@@ -68,6 +72,7 @@ internal class Configuration : IEzConfig
     public int mapFlag_CrossDelta = 100;
     public List<HttpRequestElement> mapFlag_HttpRequests = [];
     public SoundSettings mapFlag_SoundSettings = new();
+    public bool mapFlag_AlwaysExecute = false;
 
     public bool mobPulled_Enable = false;
     public bool mobPulled_FlashTrayIcon = true;
@@ -89,6 +94,7 @@ internal class Configuration : IEzConfig
     public bool partyFinder_FlashTrayIcon = true;
     public bool partyFinder_AutoActivateWindow = false;
     public SoundSettings partyFinder_SoundSettings = new();
+    public bool partyFinder_AlwaysExecute = true;
 
     public void Initialize(IDalamudPluginInterface pluginInterface)
     {

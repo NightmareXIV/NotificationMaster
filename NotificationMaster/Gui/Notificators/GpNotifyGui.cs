@@ -39,6 +39,7 @@ internal unsafe partial class ConfigGui
             ImGui.Checkbox("Show tray notification", ref p.cfg.gp_ShowToastNotification);
             ImGui.Checkbox("Flash taskbar icon", ref p.cfg.gp_FlashTrayIcon);
             ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.gp_AutoActivateWindow);
+            ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.gp_AlwaysExecute);
             ForegroundWarning(p.cfg.gp_AutoActivateWindow);
             DrawSoundSettings(ref p.cfg.gp_SoundSettings);
             DrawHttpMaster(p.cfg.gp_HttpRequests, ref p.cfg.gp_HttpRequestsEnable,

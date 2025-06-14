@@ -31,7 +31,7 @@ internal class CfPop : IDisposable
             return;
         }
         if(p.PauseUntil > Environment.TickCount64) return;
-        if(!Utils.IsApplicationActivated && !(p.cfg.cfPop_NotifyOnlyIn30 && p.cfg.cfPop_NotifyIn30))
+        if((!Utils.IsApplicationActivated || p.cfg.cfPop_AlwaysExecute) && !(p.cfg.cfPop_NotifyOnlyIn30 && p.cfg.cfPop_NotifyIn30))
         {
             DoNotify(e.Name.ToString());
         }

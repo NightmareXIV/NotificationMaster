@@ -46,6 +46,7 @@ internal unsafe partial class ConfigGui
             ImGui.Checkbox("Show tray notification", ref p.cfg.mapFlag_ShowToastNotification);
             ImGui.Checkbox("Flash taskbar icon", ref p.cfg.mapFlag_FlashTrayIcon);
             ImGui.Checkbox("Bring FFXIV to foreground", ref p.cfg.mapFlag_AutoActivateWindow);
+            ImGui.Checkbox("Execute actions even if game is active", ref p.cfg.mapFlag_AlwaysExecute);
             ForegroundWarning(p.cfg.mapFlag_AutoActivateWindow);
             ImGui.SetNextItemWidth(100f);
             ImGui.DragInt("Distance to marker", ref p.cfg.mapFlag_TriggerDistance);
