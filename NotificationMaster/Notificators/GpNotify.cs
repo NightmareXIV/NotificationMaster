@@ -70,7 +70,7 @@ internal unsafe class GpNotify : IDisposable
         }
         var gp = Svc.ClientState.LocalPlayer.CurrentGp;
         //pi.Framework.Gui.Chat.Print(actMgr.GetCooldown(ActionManager.PotionCDGroup).IsCooldown + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownElapsed + "/" + actMgr.GetCooldown(ActionManager.PotionCDGroup).CooldownTotal);
-        if(FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetRecastGroupDetail(PotionCDGroup)->IsActive == 0) gp += (uint)p.cfg.gp_PotionCapacity;
+        if(FFXIVClientStructs.FFXIV.Client.Game.ActionManager.Instance()->GetRecastGroupDetail(PotionCDGroup)->IsActive == false) gp += (uint)p.cfg.gp_PotionCapacity;
         //pi.Framework.Gui.Chat.Print(DateTimeOffset.Now + ": " + gp);
         if(gp >= p.cfg.gp_GPTreshold)
         {

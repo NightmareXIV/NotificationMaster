@@ -1,14 +1,15 @@
-﻿using FFXIVClientStructs.FFXIV.Client.UI.Agent;
+﻿using ECommons.CSExtensions;
+using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 
 namespace NotificationMaster;
 
 internal unsafe class ApproachingMapFlag
 {
     private NotificationMaster p;
-    internal float flagX => AgentMap.Instance()->FlagMapMarker.XFloat;
-    internal float flagY => AgentMap.Instance()->FlagMapMarker.YFloat;
-    internal uint flagTerritory => AgentMap.Instance()->FlagMapMarker.TerritoryId;
-    internal bool isFlagSet => AgentMap.Instance()->IsFlagMarkerSet;
+    internal float flagX => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).XFloat;
+    internal float flagY => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).YFloat;
+    internal uint flagTerritory => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).TerritoryId;
+    internal bool isFlagSet => AgentMapExtensions.get_IsFlagMarkerSet(*AgentMap.Instance());
 
     public void Dispose()
     {

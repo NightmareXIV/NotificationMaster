@@ -23,7 +23,7 @@ internal unsafe class LoginError : IDisposable
         if(!Svc.ClientState.IsLoggedIn)
         {
             var addonPtr = Svc.GameGui.GetAddonByName("Dialogue", 1);
-            if(addonPtr != IntPtr.Zero && ((AtkUnitBase*)addonPtr)->IsVisible)
+            if(addonPtr != IntPtr.Zero && ((AtkUnitBase*)addonPtr.Address)->IsVisible)
             {
                 if(!seenErrorWindow)
                 {

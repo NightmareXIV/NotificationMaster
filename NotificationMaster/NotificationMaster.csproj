@@ -2,13 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>NightmareXIV</Authors>
-		<Version>2.1.1.10</Version>
+		<Version>2.1.1.11</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<TargetFramework>net9.0-windows7.0</TargetFramework>
 		<Platforms>x64</Platforms>
-		<LangVersion>preview</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -16,7 +16,6 @@
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<NoWarn>CS1591</NoWarn>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-      <UseWindowsForms>false</UseWindowsForms>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Documentation">
@@ -63,8 +62,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="12.0.0" />
-		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+		<PackageReference Include="DalamudPackager" Version="13.0.0" />
+		<PackageReference Include="ECommons" Version="3.0.0.18-api13" />
 		<ProjectReference Include="..\NotificationMasterAPI\NotificationMasterAPI\NotificationMasterAPI.csproj" />
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
@@ -74,10 +73,22 @@
 			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="ImGui.NET">
-			<HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+      <Reference Include="Dalamud.Bindings.ImGui">
+          <HintPath>$(DalamudLibPath)Dalamud.Bindings.ImGui.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
+      <Reference Include="Dalamud.Bindings.ImPlot">
+          <HintPath>$(DalamudLibPath)Dalamud.Bindings.ImPlot.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
+      <Reference Include="Dalamud.Bindings.ImGuizmo">
+          <HintPath>$(DalamudLibPath)Dalamud.Bindings.ImGuizmo.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
+      <Reference Include="TerraFX.Interop.Windows">
+          <HintPath>$(DalamudLibPath)TerraFX.Interop.Windows.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
 		<Reference Include="Lumina">
 			<HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
 			<Private>False</Private>
