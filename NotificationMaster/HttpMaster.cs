@@ -35,7 +35,9 @@ internal class HttpMaster : IDisposable
             if(RequestUri.UserInfo.Length != 0)
             {
                 var b64string = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(RequestUri.UserInfo));
+                #if DEBUG
                 PluginLog.Debug($"Authorization: Basic {b64string}");
+                #endif
                 request.Headers.Authorization = new AuthenticationHeaderValue("Basic", b64string);
             }
             request.Content.Headers.ContentType = new MediaTypeHeaderValue(type == 2 ? "application/json" : "application/x-www-form-urlencoded");
