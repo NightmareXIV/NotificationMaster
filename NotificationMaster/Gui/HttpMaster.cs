@@ -26,6 +26,16 @@ internal partial class ConfigGui
                 }
                 if(ImGui.IsItemHovered()) ImGui.SetTooltip("Hold CTRL + click to delete");
                 ImGui.SameLine();
+                if(ImGui.Button("Test##" + i))
+                {
+                    p.httpMaster.DoRequests(l,
+                        [
+                            ["$N", "The Aurum Vale"],
+                            ["$T", "45"]
+                        ]
+                    );
+                }
+                ImGui.SameLine();
                 ImGui.Text("URL:");
                 ImGui.SameLine();
                 ImGui.SetNextItemWidth(100f);
