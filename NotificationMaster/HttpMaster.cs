@@ -25,17 +25,26 @@ internal class HttpMaster : IDisposable
         try
         {
             PluginLog.Debug("Preparing http request");
+            var RequestUri = new Uri(uri);
             var request = new HttpRequestMessage()
             {
                 Method = type == 0 ? HttpMethod.Get : HttpMethod.Post,
-                RequestUri = new Uri(uri),
+                RequestUri = RequestUri,
                 Content = new StringContent(content)
             };
+            if(RequestUri.UserInfo.Length != 0)
+            {
+                var b64string = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(RequestUri.UserInfo));
+                PluginLog.Debug($"Authorization: Basic {b64string}");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic", b64string);
+            }
             request.Content.Headers.ContentType = new MediaTypeHeaderValue(type == 2 ? "application/json" : "application/x-www-form-urlencoded");
-            //PluginLog.Information("Requesting " + request.RequestUri + "\n" +
-            //    request.Content.ReadAsStringAsync().Result);
+            #if DEBUG
+            PluginLog.Debug("Requesting " + request.RequestUri + "\n" +
+                request.Content.ReadAsStringAsync().Result);
+            #endif
             PluginLog.Debug("Preparing to send http request");
-            client.SendAsync(request);
+            PluginLog.Debug(client.SendAsync(request).Result.ToString());
         }
         catch(Exception e)
         {
