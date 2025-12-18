@@ -74,7 +74,7 @@ internal class MobPulled : IDisposable
     private void MobPulledWatcher(object framework)
     {
         if(p.PauseUntil > Environment.TickCount64) return;
-        if(Svc.ClientState.LocalPlayer != null)
+        if(Svc.Objects.LocalPlayer != null)
         {
             foreach(var o in Svc.Objects)
             {

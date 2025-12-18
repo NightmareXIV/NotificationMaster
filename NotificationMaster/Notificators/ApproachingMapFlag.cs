@@ -6,10 +6,10 @@ namespace NotificationMaster;
 internal unsafe class ApproachingMapFlag
 {
     private NotificationMaster p;
-    internal float flagX => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).XFloat;
-    internal float flagY => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).YFloat;
-    internal uint flagTerritory => AgentMapExtensions.get_FlagMapMarker(*AgentMap.Instance()).TerritoryId;
-    internal bool isFlagSet => AgentMapExtensions.get_IsFlagMarkerSet(*AgentMap.Instance());
+    internal float flagX => AgentMap.Instance()->FlagMapMarker.XFloat;
+    internal float flagY => AgentMap.Instance()->FlagMapMarker.YFloat;
+    internal uint flagTerritory => AgentMap.Instance()->FlagMapMarker.TerritoryId;
+    internal bool isFlagSet => AgentMap.Instance()->IsFlagMarkerSet;
 
     public void Dispose()
     {
@@ -36,7 +36,7 @@ internal unsafe class ApproachingMapFlag
     private bool DirectionY;
     private void ApproachingMapFlagWatcher(object _)
     {
-        if(p.PauseUntil > Environment.TickCount64 || (Utils.IsApplicationActivated || p.cfg.mapFlag_AlwaysExecute) || Svc.ClientState.LocalPlayer == null ||
+        if(p.PauseUntil > Environment.TickCount64 || (Utils.IsApplicationActivated || p.cfg.mapFlag_AlwaysExecute) || Svc.Objects.LocalPlayer == null ||
             Svc.Condition[ConditionFlag.BetweenAreas] || Svc.Condition[ConditionFlag.BetweenAreas51] ||
              isFlagSet == false || flagTerritory != Svc.ClientState.TerritoryType)
         {
@@ -50,8 +50,8 @@ internal unsafe class ApproachingMapFlag
                 UpdateDirections();
             }
             if(Vector2.Distance(new Vector2(flagX, flagY),
-                new Vector2(Svc.ClientState.LocalPlayer.Position.X,
-                Svc.ClientState.LocalPlayer.Position.Z)) <= p.cfg.mapFlag_TriggerDistance)
+                new Vector2(Svc.Objects.LocalPlayer.Position.X,
+                Svc.Objects.LocalPlayer.Position.Z)) <= p.cfg.mapFlag_TriggerDistance)
             {
                 if(IsEnabled && !HasTriggered)
                 {
@@ -64,8 +64,8 @@ internal unsafe class ApproachingMapFlag
             {
                 HasTriggered = false;
             }
-            if((!DirectionX && flagX > Svc.ClientState.LocalPlayer.Position.X + p.cfg.mapFlag_CrossDelta)
-                || (DirectionX && flagX < Svc.ClientState.LocalPlayer.Position.X - p.cfg.mapFlag_CrossDelta))
+            if((!DirectionX && flagX > Svc.Objects.LocalPlayer.Position.X + p.cfg.mapFlag_CrossDelta)
+                || (DirectionX && flagX < Svc.Objects.LocalPlayer.Position.X - p.cfg.mapFlag_CrossDelta))
             {
                 if(IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                 {
@@ -74,8 +74,8 @@ internal unsafe class ApproachingMapFlag
                 }
                 UpdateDirections();
             }
-            if((!DirectionY && flagY > Svc.ClientState.LocalPlayer.Position.Z + p.cfg.mapFlag_CrossDelta)
-                || (DirectionY && flagY < Svc.ClientState.LocalPlayer.Position.Z - p.cfg.mapFlag_CrossDelta))
+            if((!DirectionY && flagY > Svc.Objects.LocalPlayer.Position.Z + p.cfg.mapFlag_CrossDelta)
+                || (DirectionY && flagY < Svc.Objects.LocalPlayer.Position.Z - p.cfg.mapFlag_CrossDelta))
             {
                 if(IsEnabled && !HasTriggered && p.cfg.mapFlag_TriggerOnCross)
                 {
@@ -115,8 +115,8 @@ internal unsafe class ApproachingMapFlag
 
     private void UpdateDirections()
     {
-        DirectionX = flagX > Svc.ClientState.LocalPlayer.Position.X;
-        DirectionY = flagY > Svc.ClientState.LocalPlayer.Position.Z;
+        DirectionX = flagX > Svc.Objects.LocalPlayer.Position.X;
+        DirectionY = flagY > Svc.Objects.LocalPlayer.Position.Z;
         //Svc.Chat.Print($"Directions: {DirectionX}, {DirectionY}");
     }
 
