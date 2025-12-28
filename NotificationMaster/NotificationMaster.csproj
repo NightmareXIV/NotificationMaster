@@ -112,4 +112,10 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Sounds\Info.wav" />
+	  <EmbeddedResource Include="Sounds\Alert.wav" />
+	  <EmbeddedResource Include="Sounds\Alarm.wav" />
+	</ItemGroup>
 </Project>
