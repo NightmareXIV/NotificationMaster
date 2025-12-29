@@ -96,6 +96,21 @@ internal class Configuration : IEzConfig
     public SoundSettings partyFinder_SoundSettings = new();
     public bool partyFinder_AlwaysExecute = true;
 
+    public bool fishBite_Enable = false;
+    public bool fishBite_ShowToastNotification = false;
+    public bool fishBite_FlashTrayIcon = true;
+    public bool fishBite_AutoActivateWindow = false;
+    public bool fishBite_ChatMessage = true;
+    public bool fishBite_AlwaysExecute = true;
+    public bool fishBite_LightEnabled = true;
+    public bool fishBite_MediumEnabled = true;
+    public bool fishBite_HeavyEnabled = true;
+    public SoundSettings fishBite_LightSoundSettings = new();
+    public SoundSettings fishBite_MediumSoundSettings = new();
+    public SoundSettings fishBite_HeavySoundSettings = new();
+    public bool fishBite_HttpRequestsEnable = false;
+    public List<HttpRequestElement> fishBite_HttpRequests = [];
+
     public void Initialize(IDalamudPluginInterface pluginInterface)
     {
         this.pluginInterface = pluginInterface;

@@ -64,6 +64,7 @@ internal partial class ConfigGui : IDisposable
                     DrawTab("Approaching map flag", DrawMapFlagConfig, p.cfg.mapFlag_Enable);
                     DrawTab("Mob pulled", DrawMobPulledConfig, p.cfg.mobPulled_Enable);
                     DrawTab("PartyFinder", DrawPartyFinderConfig, p.cfg.partyFinder_Enable);
+                    DrawTab("Fish Notify", DrawFishBiteConfig, p.cfg.fishBite_Enable);
                     PatreonBanner.RightTransparentTab();
                     ImGui.EndTabBar();
                 }
