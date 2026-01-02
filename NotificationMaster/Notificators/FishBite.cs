@@ -1,5 +1,6 @@
 using System.IO;
 using System.Reflection;
+using FFXIVClientStructs.FFXIV.Client.Game.Event;
 
 namespace NotificationMaster;
 
@@ -16,7 +17,7 @@ internal class FishBite : IDisposable
 {
     private NotificationMaster p;
     private IntPtr _tugTypeAddress = IntPtr.Zero;
-    private FishBiteType _lastBite = FishBiteType.None;
+    private FishingState _lastFishingState = FishingState.None;
 
     // Signature from AutoHook plugin
     private const string TugTypeSignature = "48 8D 35 ?? ?? ?? ?? 4C 8B CE";
@@ -37,6 +38,15 @@ internal class FishBite : IDisposable
         Svc.Framework.Update += OnFrameworkUpdate;
     }
 
+    private static unsafe FishingState GetFishingState()
+    {
+        var ef = EventFramework.Instance();
+        if (ef == null) return FishingState.None;
+        var handler = ef->EventHandlerModule.FishingEventHandler;
+        if (handler == null) return FishingState.None;
+        return handler->State;
+    }
+
     public void Dispose()
     {
         Svc.Framework.Update -= OnFrameworkUpdate;
@@ -47,18 +57,25 @@ internal class FishBite : IDisposable
         if (_tugTypeAddress == IntPtr.Zero)
             return;
 
-        var currentBite = *(FishBiteType*)_tugTypeAddress;
+        var currentFishingState = GetFishingState();
 
-        // Only trigger on state change to a valid bite
-        if (currentBite != _lastBite && currentBite != FishBiteType.None && currentBite != FishBiteType.Unknown)
+        // Log state changes
+        if (currentFishingState != _lastFishingState)
         {
-            _lastBite = currentBite;
-            OnBite(currentBite);
+            PluginLog.Debug($"FishBite: State changed from {_lastFishingState} to {currentFishingState}");
         }
-        else if (currentBite == FishBiteType.None || currentBite == FishBiteType.Unknown)
+
+        // Only trigger when state transitions TO FishingState.Bite
+        if (currentFishingState == FishingState.Bite && _lastFishingState != FishingState.Bite)
         {
-            _lastBite = currentBite;
+            var currentBite = *(FishBiteType*)_tugTypeAddress;
+            if (currentBite != FishBiteType.None && currentBite != FishBiteType.Unknown)
+            {
+                OnBite(currentBite);
+            }
         }
+
+        _lastFishingState = currentFishingState;
     }
 
     private void OnBite(FishBiteType bite)

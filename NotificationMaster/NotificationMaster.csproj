@@ -63,7 +63,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="DalamudPackager" Version="14.0.1" />
-		<PackageReference Include="ECommons" Version="3.1.0.10" />
+		<PackageReference Include="ECommons" Version="3.1.0.12" />
 		<ProjectReference Include="..\NotificationMasterAPI\NotificationMasterAPI\NotificationMasterAPI.csproj" />
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
