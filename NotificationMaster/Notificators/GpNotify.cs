@@ -1,5 +1,6 @@
 ﻿using Dalamud.Game.ClientState.Objects.Enums;
 using Dalamud.Game.Command;
+using ECommons.DalamudServices.Legacy;
 
 namespace NotificationMaster;
 
@@ -59,7 +60,7 @@ internal unsafe class GpNotify : IDisposable
     {
         if(Environment.TickCount < nextTick) return;
         nextTick = Environment.TickCount + 5000;
-        if(Svc.ClientState?.LocalPlayer == null) return;
+        if(Svc.ClientState.LocalPlayer == null) return;
         if((Svc.Objects.LocalPlayer.ClassJob.RowId != 16
             && Svc.Objects.LocalPlayer.ClassJob.RowId != 17
             && Svc.Objects.LocalPlayer.ClassJob.RowId != 18)

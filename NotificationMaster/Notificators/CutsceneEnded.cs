@@ -23,7 +23,7 @@ internal class CutsceneEnded : IDisposable
         var c = Svc.Condition[ConditionFlag.OccupiedInCutSceneEvent]
             || Svc.Condition[ConditionFlag.WatchingCutscene78];
         if(isInCutscene && !c && (!Utils.IsApplicationActivated || p.cfg.cutscene_AlwaysExecute) &&
-            (!p.cfg.cutscene_OnlyMSQ || Svc.ClientState.TerritoryType.EqualsAny<ushort>(1043, 1044, 1048)))
+            (!p.cfg.cutscene_OnlyMSQ || ((ushort)Svc.ClientState.TerritoryType).EqualsAny<ushort>(1043, 1044, 1048)))
         {
             if(p.cfg.cutscene_FlashTrayIcon)
             {

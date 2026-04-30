@@ -55,7 +55,7 @@ internal class MobPulled : IDisposable
         PluginLog.Debug("Cleared ignored mobs ids cache");
     }
 
-    internal void TerritoryChanged(ushort newTerritory)
+    internal void TerritoryChanged(uint newTerritory)
     {
         Svc.Framework.Update -= MobPulledWatcher;
         PluginLog.Debug("MobPulledWatcher unregistered.");
