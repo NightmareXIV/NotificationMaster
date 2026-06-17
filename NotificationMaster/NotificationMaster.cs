@@ -140,7 +140,6 @@ public class NotificationMaster : IDalamudPlugin
         cfg.Save();
         configGui.Dispose();
         Svc.Commands.RemoveHandler("/pnotify");
-        GenericHelpers.Safe(() => IPC.Dispose());
         IsDisposed = true;
         ECommonsMain.Dispose();
         P = null;

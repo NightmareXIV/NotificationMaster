@@ -1,4 +1,6 @@
-﻿using NotificationMasterAPI;
+﻿using ECommons.EzIpcManager;
+using NotificationMasterAPI;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NotificationMaster;
 
@@ -6,26 +8,13 @@ internal class IPC
 {
     internal IPC()
     {
-        Svc.PluginInterface.GetIpcProvider<string, string, string, bool>(NMAPINames.DisplayToastNotification).RegisterFunc(DisplayToastNotification);
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.FlashTaskbarIcon).RegisterFunc(FlashTaskbarIcon);
-        Svc.PluginInterface.GetIpcProvider<string, string, float, bool, bool, bool>(NMAPINames.PlaySound).RegisterFunc(PlaySound);
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.StopSound).RegisterFunc(StopSound);
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.BringGameForeground).RegisterFunc(BringGameForeground);
-        Svc.PluginInterface.GetIpcProvider<object>(NMAPINames.Active).RegisterAction(Active);
+        EzIPC.Init(this);
     }
 
-    public void Dispose()
-    {
-        Svc.PluginInterface.GetIpcProvider<string, string, string, bool>(NMAPINames.DisplayToastNotification).UnregisterFunc();
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.FlashTaskbarIcon).UnregisterFunc();
-        Svc.PluginInterface.GetIpcProvider<string, string, float, bool, bool, bool>(NMAPINames.PlaySound).UnregisterFunc();
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.StopSound).UnregisterFunc();
-        Svc.PluginInterface.GetIpcProvider<string, bool>(NMAPINames.BringGameForeground).UnregisterFunc();
-        Svc.PluginInterface.GetIpcProvider<string, object>(NMAPINames.Active).UnregisterAction();
-    }
-
+    [EzIPC(NMAPINames.Active, false)]
     private void Active() { }
 
+    [EzIPC(NMAPINames.BringGameForeground, false)]
     private bool BringGameForeground(string requesterPlugin)
     {
         PluginLog.Debug($"{requesterPlugin} requests to bring game foreground");
@@ -41,6 +30,7 @@ internal class IPC
         }
     }
 
+    [EzIPC(NMAPINames.StopSound, false)]
     private bool StopSound(string requesterPlugin)
     {
         PluginLog.Debug($"{requesterPlugin} requests to stop sound");
@@ -56,6 +46,7 @@ internal class IPC
         }
     }
 
+    [EzIPC(NMAPINames.PlaySound, false)]
     private bool PlaySound(string requesterPlugin, string path, float volume, bool repeat, bool stopOnceFocused)
     {
         PluginLog.Debug($"{requesterPlugin} requests to play {path} at vol={volume}, repeat={repeat}, stopOnceFocused={stopOnceFocused}");
@@ -78,6 +69,7 @@ internal class IPC
         }
     }
 
+    [EzIPC(NMAPINames.FlashTaskbarIcon, false)]
     private bool FlashTaskbarIcon(string requesterPlugin)
     {
         PluginLog.Debug($"{requesterPlugin} requests to flash taskbar icon");
@@ -93,6 +85,7 @@ internal class IPC
         }
     }
 
+    [EzIPC(NMAPINames.DisplayToastNotification, false)]
     private bool DisplayToastNotification(string requesterPlugin, string title, string text)
     {
         PluginLog.Debug($"{requesterPlugin} requests to display notification:\n{title}\n{text}");
@@ -104,6 +97,29 @@ internal class IPC
         catch(Exception ex)
         {
             ex.Log();
+            return false;
+        }
+    }
+
+    [EzIPC(NMAPINames.IsGameWindowActivated, false)]
+    private bool IsGameWindowActivated()
+    {
+        return P.ThreadUpdActivated.IsApplicationActivated;
+    }
+
+    [EzIPC(NMAPINames.SendHttpRequest, false)]
+    private bool SendHttpRequests(string requesterPlugin, List<HttpRequestElement> elements, string[][] replacements)
+    {
+        PluginLog.Debug($"{requesterPlugin} requests to send HTTP requests:\n{elements.Print("\n")}");
+        replacements ??= [];
+        try
+        {
+            P.httpMaster.DoRequests(elements, replacements);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.Log();
             return false;
         }
     }

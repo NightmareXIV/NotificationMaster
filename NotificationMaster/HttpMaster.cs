@@ -55,16 +55,11 @@ internal class HttpMaster : IDisposable
         }
     }
 
-    internal void DoRequests(object loginError_HttpRequests, string[][] vs)
-    {
-        throw new NotImplementedException();
-    }
-
     internal void DoRequests(List<HttpRequestElement> elements, string[][] replacements)
     {
         foreach(var e in elements)
         {
-            Request(e.URI.ReplaceAll(replacements, ReplaceType.URLEncode), e.Content.ReplaceAll(replacements, e.type == 2 ? ReplaceType.JSON : ReplaceType.Normal), e.type);
+            Request(e.URI.ReplaceAll(replacements, ReplaceType.URLEncode), e.Content.ReplaceAll(replacements, e.Type == 2 ? ReplaceType.JSON : ReplaceType.Normal), e.Type);
         }
     }
 }

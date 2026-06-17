@@ -39,7 +39,7 @@ internal partial class ConfigGui
                 ImGui.Text("URL:");
                 ImGui.SameLine();
                 ImGui.SetNextItemWidth(100f);
-                ImGui.Combo("##type" + i, ref e.type, HttpTypes, HttpTypes.Length);
+                ImGui.Combo("##type" + i, ref e.Type, HttpTypes, HttpTypes.Length);
                 ImGui.SameLine();
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
                 ImGui.InputText("##url" + i, ref e.URI, 100000);
